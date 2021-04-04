@@ -1,0 +1,74 @@
+﻿<fw:AcrylicWindow x:Class="Registrant.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Registrant"
+        xmlns:ui="http://schemas.modernwpf.com/2019"
+        xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
+        mc:Ignorable="d"
+        ExtendViewIntoTitleBar="True"
+        Title="Регистрант" Height="720" Width="1280" MinHeight="720" MinWidth="1280">
+    <Grid Background="White">
+        <ui:NavigationView
+        IsSettingsVisible="False"
+        IsBackButtonVisible="Auto"
+        PaneTitle="РЕГИСТРАНТ"
+        
+        PaneDisplayMode="Left">
+            <ui:NavigationView.MenuItems>
+                <ui:NavigationViewItem Visibility="Collapsed" x:Name="nav_jurnalkpp" MouseDown="nav_jurnalkpp_MouseDown" Icon="Library" Content="Журнал для КПП"  />
+                <ui:NavigationViewItem Visibility="Collapsed" x:Name="nav_contragents" MouseDown="nav_contragents_MouseDown" Icon="Tag" Content="Управление контрагентами" />
+                <ui:NavigationViewItem Visibility="Collapsed" x:Name="nav_drivers" MouseDown="nav_drivers_MouseDown" Icon="ContactInfo" Content="Водители" />
+                <ui:NavigationViewItem Visibility="Collapsed" x:Name="nav_jurnalshipment" MouseDown="nav_jurnalshipment_MouseDown" Icon="Library" Content="Журнал отгрузок" />
+                <ui:NavigationViewItem Visibility="Collapsed" x:Name="nav_jurnalsklad" MouseDown="nav_jurnalsklad_MouseDown" Icon="Library" Content="Журнал склада" />
+                <ui:NavigationViewItem Visibility="Collapsed" x:Name="nav_admin" MouseDown="nav_admin_MouseDown" Icon="Setting" Content="Администрирование" />
+                <ui:NavigationViewItem Icon="World" Content="О программе" />
+            </ui:NavigationView.MenuItems>
+            <Frame x:Name="FrameContent" Content="Authorization required. Please log in" NavigationUIVisibility="Hidden" >
+            </Frame>
+        </ui:NavigationView>
+        <ui:ContentDialog Visibility="Hidden" x:Name="ContentAuth">
+            <Grid>
+                <StackPanel >
+                    <TextBlock Text="Авторизация" Style="{StaticResource SubheaderTextBlockStyle}"/>
+                    <TextBlock Text="И снова здравствуйте, давайте знакомится" Style="{StaticResource BodyTextBlockStyle}" Padding="0 0 0 25"/>
+                    <TextBlock Text="Логин" Style="{StaticResource BodyTextBlockStyle}"/>
+                    <TextBox x:Name="tb_login"></TextBox>
+                    <TextBlock Text="Пароль" Style="{StaticResource BodyTextBlockStyle}"/>
+                    <PasswordBox x:Name="tb_password" Margin="0 0 0 25"></PasswordBox>
+                    <Button x:Name="btn_enter" Click="btn_enter_Click" Content="Войти"></Button>
+                </StackPanel>
+            </Grid>
+        </ui:ContentDialog>
+        <ui:ContentDialog Visibility="Hidden" x:Name="ContentWait">
+            <Grid>
+                <StackPanel >
+                    <TextBlock Text="Ожидание подключения к серверу" Style="{StaticResource SubheaderTextBlockStyle}"/>
+                    <TextBlock Text="Это может занять некоторое время" Style="{StaticResource BodyTextBlockStyle}" Padding="0 5 0 25"/>
+                    <ProgressBar IsIndeterminate="True" ></ProgressBar>
+                </StackPanel>
+            </Grid>
+        </ui:ContentDialog>
+        <ui:ContentDialog Visibility="Hidden" x:Name="ContentError">
+            <Grid>
+                <StackPanel >
+                    <TextBlock Text="Похоже, что хомячки выпали из колес" Style="{StaticResource SubheaderTextBlockStyle}"/>
+                    <StackPanel>
+                        <TextBlock Text="Не удалось подключится к базе данных расположенному на сервере." Style="{StaticResource BodyTextBlockStyle}" />
+                        <TextBlock Text="Это могло произойти по следующим причинам:" Style="{StaticResource BodyTextBlockStyle}" Padding="0 15 0 0"/>
+                        <TextBlock Text="• Сервер и (или) служба SQL Server на удаленном сервере выключен или не запущена" Style="{StaticResource BodyTextBlockStyle}"/>
+                        <TextBlock Text="• Неверная строка подключения и (или её данные)" Style="{StaticResource BodyTextBlockStyle}"/>
+                        <TextBlock Text="• Структура базы данных изменилась, и ваше ПО необходимо обновить" Style="{StaticResource BodyTextBlockStyle}" Padding="0 0 0 25"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" >
+                        <Button x:Name="btn_tryconnect" Click="btn_tryconnect_Click" Margin="0 0 15 0">Попытка не пытка, повторить попытку</Button>
+                        <Button Click="btn_opensettings_Click"  x:Name="btn_opensettings">Настройки подключения</Button>
+                        <Button  x:Name="btn_debug" Click="btn_debug_Click" Margin="5 0 0 0">▼</Button>
+                    </StackPanel>
+                    <TextBlock Visibility="Collapsed" x:Name="text_error" Text="Дебаг режим подробнее об ошибке"></TextBlock>
+                </StackPanel>
+            </Grid>
+        </ui:ContentDialog>
+    </Grid>
+</fw:AcrylicWindow>

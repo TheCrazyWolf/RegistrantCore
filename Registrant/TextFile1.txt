@@ -1,0 +1,12 @@
+﻿// optionsBuilder.UseSqlServer("Server=DESKTOP-ALEX\\SQLExpress;Database=RegistrantCore;User ID=admon;Password=admon;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=" + Settings.Connection.Default.IP + "," + Settings.Connection.Default.Port + ";" +  "Database=" + Settings.Connection.Defaul
+                t.Database +";User ID=" + Settings.Connection.Default.Login + ";" + "Password=" + Settings.Connection.Default.Password + ";Trusted_Connection=True;");
+
+
+                              
+                              
+                              
+                              optionsBuilder.UseLazyLoadingProxies().UseSqlServer("Server=" + Settings.Connection.Default.IP + "," + Settings.Connection.Default.Port + ";" + "Database=" + Settings.Connection.Default.Database + ";User ID=" + Settings.Connection.Default.Login + ";" + "Password=" + Settings.Connection.Default.Password + ";Trusted_Connection=True;MultipleActiveResultSets=True;");
+
+
+                              optionsBuilder.UseLazyLoadingProxies().UseSqlServer("Server=" + Settings.Connection.Default.IP + "," + Settings.Connection.Default.Port + ";" + "Database=" + Settings.Connection.Default.Database + ";User ID=" + Settings.Connection.Default.Login + ";" + "Password=" + Settings.Connection.Default.Password + ";Trusted_Connection=True;MultipleActiveResultSets=True;");

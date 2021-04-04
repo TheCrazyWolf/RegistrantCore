@@ -1,0 +1,112 @@
+﻿<Page x:Class="Registrant.Pages.PageKPP"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Registrant.Pages"
+      mc:Ignorable="d" d:DesignWidth="800"
+      xmlns:ui="http://schemas.modernwpf.com/2019"
+      xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
+      Title="PageKPP" >
+
+    <Grid Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="30"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="30" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="45"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="10"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Column="1" Grid.Row="1" Background="White">
+            <TextBlock Text="Журнал водителей" Style="{StaticResource SubheaderTextBlockStyle}"/>
+            <StackPanel>
+                <StackPanel Margin="0 10 0 0" Orientation="Horizontal">
+                    <DatePicker x:Name="DatePicker" Margin="0 0 8 0" SelectedDateChanged="DatePicker_SelectedDateChanged"/>
+                    <Button x:Name="btn_refresh" Click="btn_refresh_Click" Margin="0 0 5 0" Content="Обновить"></Button>
+                    <Button x:Name="btn_adddriver" Click="btn_adddriver_Click" Content="Новый водитель (внеплан)"></Button>
+                </StackPanel>
+                <TextBlock Text="Запланированные" Margin="0 25 0 0" Style="{StaticResource SubtitleTextBlockStyle}"/>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Grid.Row="3">
+            <TextBlock Margin="0 10 0 0" Style="{StaticResource SubtitleTextBlockStyle}"><Run Language="ru-ru" Text="Зарегистрированные"/></TextBlock>
+        </StackPanel>
+
+        <Grid Grid.Column="1" Grid.Row="2">
+            <DataGrid x:Name="DataGrid_Plan" Padding="0 10 0 0" AutoGenerateColumns="False" IsReadOnly="True" VerticalScrollBarVisibility="Auto" >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="idDriver" Visibility="Collapsed" Binding="{Binding idShipment}"/>
+                    <DataGridTextColumn Header="ФИО" Binding="{Binding FIO}"/>
+                    <DataGridTextColumn Header="Номер телефона" Binding="{Binding Phone}"/>
+                    <DataGridTextColumn Header="Плановое время" Binding="{Binding PlanDateTimeString}"/>
+                    <DataGridTemplateColumn Header="Действия">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button x:Name="btn_registration" Content="Зарегистрировать" Margin="8" Click="btn_registration_Click"></Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+
+            </DataGrid>
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="4">
+            <DataGrid x:Name="DataGrid_Drivers" Padding="0 10 0 0" AutoGenerateColumns="False" IsReadOnly="True"  VerticalScrollBarVisibility="Auto" >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="idShipment" Visibility="Collapsed" Binding="{Binding IdShipment}"/>
+                    <DataGridTextColumn Header="ФИО" Binding="{Binding FIO}"/>
+                    <DataGridTextColumn Header="Номер телефона" Binding="{Binding Phone}"/>
+                    <DataGridTextColumn Header="Факт. регистрация" Binding="{Binding PlanDateFactString}"/>
+                    <DataGridTextColumn Header="Текущий статус" Binding="{Binding TextStatus}"/>
+                    <DataGridTemplateColumn Header="Действия">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button x:Name="btn_arrive" Content="Заехал" Margin="8" Visibility="{Binding btn_arrive}" Click="btn_arrive_Click"></Button>
+                                    <Button x:Name="btn_left" Content="Покинул" Margin="8" Visibility="{Binding btn_left}" Click="btn_left_Click"></Button>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+
+            </DataGrid>
+        </Grid>
+        <ui:ContentDialog Visibility="Hidden" x:Name="ContentAdd" >
+            <Grid >
+                <StackPanel>
+                    <TextBlock Text="Внеплановая регистрация" Style="{StaticResource SubheaderTextBlockStyle}"/>
+                    <StackPanel>
+                        <TextBlock Text="Используйте регистрацию, если подъехал водитель вне запланированных списков" Style="{StaticResource BodyTextBlockStyle}" />
+                        <TextBlock Text="Фамилия" Style="{StaticResource BodyTextBlockStyle}"  Padding="0 12 0 0"/>
+                        <TextBox x:Name="tb_family" Text="{Binding Test}" ></TextBox>
+                        <TextBlock Text="Имя" Style="{StaticResource BodyTextBlockStyle}" Padding="0 12 0 0"/>
+                        <TextBox x:Name="tb_name" Text="{Binding Test}"></TextBox>
+                        <TextBlock Text="Отчество" Style="{StaticResource BodyTextBlockStyle}" Padding="0 12 0 0"/>
+                        <TextBox x:Name="tb_patronymic" Text="{Binding Test}"></TextBox>
+                        <TextBlock Text="Контактный номер (в формате 7ХХХХХХХХХХ)" Style="{StaticResource BodyTextBlockStyle}" Padding="0 12 0 0"/>
+                        <TextBox x:Name="tb_phone" Text="{Binding Test}"></TextBox>
+                        <TextBlock Text="Номер т/с" Style="{StaticResource BodyTextBlockStyle}" Padding="0 12 0 0"/>
+                        <TextBox x:Name="tb_autonum" Text="{Binding Test}"></TextBox>
+                        <TextBlock Text="Документ удостоверяющий личность" Style="{StaticResource BodyTextBlockStyle}" Padding="0 12 0 0"/>
+                        <TextBox x:Name="tb_passport" Text="{Binding Test}"></TextBox>
+                        <TextBlock Text="Дополнительно" Style="{StaticResource BodyTextBlockStyle}" Padding="0 12 0 0"/>
+                        <TextBox x:Name="tb_info" Text="{Binding Test}"></TextBox>
+                    </StackPanel>
+                    <TextBlock Visibility="Collapsed" x:Name="text_error" Text="Дебаг режим подробнее об ошибке"></TextBlock>
+                    <StackPanel Orientation="Horizontal">
+                        <Button x:Name="btn_add_add"  Click="btn_add_add_Click" Margin="0 10 10 0" Content="Добавить и зарегистрировать водителя"/>
+                        <Button x:Name="btn_add_close" Click="btn_add_close_Click" Margin="0 10 0 0" Content="Закрыть"/>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </ui:ContentDialog>
+        
+    </Grid>
+</Page>
