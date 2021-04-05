@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SourceChord.FluentWPF;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -38,7 +39,16 @@ namespace Registrant.Pages
             if (tb_search.Text == "")
             {
                 DataGrid_Drivers.ItemsSource = null;
-                DataGrid_Drivers.ItemsSource = controller.GetDrivers();
+
+                //Подгрузка данных в зависимости от ролей
+                if (App.ActiveUser == "reader" || App.ActiveUser == "admin")
+                {
+                    DataGrid_Drivers.ItemsSource = controller.GetDriversAll();
+                }
+                else
+                {
+                    DataGrid_Drivers.ItemsSource = controller.GetDrivers();
+                }
             }
         }
 
@@ -49,10 +59,9 @@ namespace Registrant.Pages
         /// <param name="e"></param>
         private void btn_close_Click(object sender, RoutedEventArgs e)
         {
+            ContentAddEdit.Hide();
             btn_edit.Visibility = Visibility.Collapsed;
             btn_add.Visibility = Visibility.Collapsed;
-            ContentAddEdit.Hide();
-            btn_refresh_Click(sender, e);
         }
 
         /// <summary>
@@ -136,7 +145,6 @@ namespace Registrant.Pages
                     
                     tb_info.Text = driver.Info;
                     
-                    //driver.ServiceInfo = DateTime.Now + " " + App.ActiveUser + " добавил водителя";
                 }
             }
             catch (Exception)
@@ -225,7 +233,8 @@ namespace Registrant.Pages
         {
             if (tb_contragent.SelectedItem == null)
             {
-                MessageBox.Show("Выбери контрагента");
+               // SourceChord.FluentWPF.AcrylicMessageBox.Show(this, "asdf", "", MessageBoxButton.OK);
+                //AcrylicMessageBox.Show("Выбери контрагента");
             }
             else
             {

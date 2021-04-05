@@ -137,6 +137,8 @@ namespace Registrant.DB
 
                 entity.Property(e => e.StoreKeeper).HasMaxLength(150);
 
+                entity.Property(e => e.TochkaLoad).HasMaxLength(150);
+
                 entity.Property(e => e.TypeLoad)
                     .HasMaxLength(10)
                     .IsFixedLength(true);
