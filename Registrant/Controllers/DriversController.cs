@@ -37,5 +37,30 @@ namespace Registrant.Controllers
             }
             return Driver;
         }
+
+        public List<Models.Drivers> GetDriversAll()
+        {
+            Driver.Clear();
+            try
+            {
+                using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
+                {
+                    var temp = ef.Drivers.OrderByDescending(x => x.IdDriver);
+
+                    foreach (var item in temp)
+                    {
+                        Models.Drivers driver = new Models.Drivers(item);
+                        Driver.Add(driver);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return Driver;
+        }
+
     }
 }

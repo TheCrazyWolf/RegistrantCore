@@ -5,9 +5,9 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Registrant.Pages"
       xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
-      mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="PageDrivers" Height="auto" >
+      xmlns:ui="http://schemas.modernwpf.com/2019"
+      mc:Ignorable="d"
+      Title="PageDrivers" >
 
     <Grid Background="White">
         <Grid.ColumnDefinitions>
@@ -24,9 +24,9 @@
         <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical">
             <TextBlock Text="Водители" Style="{StaticResource SubheaderTextBlockStyle}"/>
             <StackPanel Margin="0 10 0 0" Orientation="Horizontal">
-                <TextBox Width="183" Margin="0 0 8 0" ></TextBox>
+                <TextBox x:Name="tb_search" Width="183" Margin="0 0 8 0" TextChanged="tb_search_TextChanged" ></TextBox>
                 <Button x:Name="btn_refresh" Click="btn_refresh_Click" Margin="0 0 5 0" Content="Обновить"></Button>
-                <Button x:Name="btn_addcontragent"  Content="Новый водитель"></Button>
+                <Button x:Name="btn_add_driver" Click="btn_add_driver_Click" Content="Новый водитель"></Button>
                 <CheckBox x:Name="check_showdelete" Content="Show removed" Margin="5 0 0 0"/>
             </StackPanel>
             <TextBlock Text="Действующие водители в системе" Margin="0 10 0 0" Style="{StaticResource SubtitleTextBlockStyle}"/>
@@ -43,9 +43,8 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <Button x:Name="btn_edit" Content="Редактировать" Margin="5 5 0 5" ></Button>
-                                    <Button x:Name="btn_delete" Content="Удалить" Margin="5 5 5 5" ></Button>
-                                    <Button x:Name="btn_info" Content="Инфо" Margin="0 5 5 5" ></Button>
+                                    <Button x:Name="btn_edit" Click="btn_edit_Click" Content="Редактировать" Margin="5 5 5 5" ></Button>
+                                    <Button x:Name="btn_info" Click="btn_info_Click" Content="Инфо" Margin="0 5 5 5" ></Button>
                                 </StackPanel>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
@@ -53,5 +52,122 @@
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
+
+
+        <ui:ContentDialog Grid.RowSpan="4" Grid.Column="1" Visibility="Hidden" x:Name="ContentAddEdit" >
+            <Grid >
+                <StackPanel>
+                    <TextBlock x:Name="text_namedriver" Text="Новый водитель" Style="{StaticResource SubheaderTextBlockStyle}"/>
+                    <StackPanel>
+                        <TextBlock x:Name="text_infocontragent" Text="Добавление или изменение данных" Margin="0 5 0 0" Style="{StaticResource BodyTextBlockStyle}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel Width="200">
+                            <TextBlock  Text="Индентификатор" Margin="0 5 0 0" Style="{StaticResource BodyTextBlockStyle}" />
+                            <TextBox x:Name="tb_id" IsEnabled="False"/>
+                            <TextBlock  Text="Фамилия" Margin="0 5 0 0" Style="{StaticResource BodyTextBlockStyle}" />
+                            <TextBox x:Name="tb_Family" />
+                            <TextBlock  Text="Имя" Margin="0 5 0 0" Style="{StaticResource BodyTextBlockStyle}" />
+                            <TextBox x:Name="tb_name" />
+                            <TextBlock  Text="Отчество" Margin="0 5 0 0" Style="{StaticResource BodyTextBlockStyle}" />
+                            <TextBox x:Name="tb_patronomyc" />
+                            <TextBlock  Text="Телефон" Margin="0 5 0 0" Style="{StaticResource BodyTextBlockStyle}" />
+                            <TextBox x:Name="tb_phone" />
+                            <TextBlock  Text="Контрагент" Margin="0 5 0 0" Style="{StaticResource BodyTextBlockStyle}" />
+                            <ComboBox x:Name="tb_contragent">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <TextBlock Text="{Binding IdContragent}" Visibility="Collapsed"/>
+                                            <TextBlock Text="{Binding Name}" Style="{StaticResource BodyTextBlockStyle}"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </StackPanel>
+                        <StackPanel Width="200" Margin="15 0 0 0">
+                            <TextBlock  Text="Доверенность" Margin="0 5 0 0" Style="{StaticResource BodyTextBlockStyle}" />
+                            <TextBox x:Name="tb_attorney" />
+                            <TextBlock  Text="Марка т/с" Margin="0 5 0 0" Style="{StaticResource BodyTextBlockStyle}" />
+                            <TextBox x:Name="tb_auto" />
+                            <TextBlock  Text="Номер т/с" Margin="0 5 0 0" Style="{StaticResource BodyTextBlockStyle}" />
+                            <TextBox x:Name="tb_autonum" />
+                            <TextBlock  Text="Документ удост. личность" Margin="0 5 0 0" Style="{StaticResource BodyTextBlockStyle}" />
+                            <TextBox x:Name="tb_passport" />
+                            <TextBlock  Text="Дополнительно" Margin="0 5 0 0" Style="{StaticResource BodyTextBlockStyle}" />
+                            <TextBox x:Name="tb_info" />
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel  Margin="0 10 0 0" Orientation="Horizontal">
+                        <Button Visibility="Collapsed" x:Name="btn_add" Click="btn_add_Click" Margin="0 0 5 0" Content="Добавить"/>
+                        <Button  Visibility="Collapsed" x:Name="btn_edit" Click="btn_edit_Click1" Margin="0 0 5 0" Content="Сохранить"/>
+                        <Button Visibility="Collapsed" x:Name="btn_delete" Click="btn_delete_Click" Margin="0 0 5 0" Content="Удалить"/>
+                        <Button x:Name="btn_close" Click="btn_close_Click"  Margin="0 0 0 0" Content="Закрыть"/>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </ui:ContentDialog>
+        <ui:ContentDialog Grid.RowSpan="4" Grid.Column="1" Visibility="Hidden" x:Name="ContentInfo" >
+            <Grid x:Name="ContentInfoGrid" >
+                <StackPanel>
+                    <TextBlock x:Name="text_info_namedriver" Text="Новый водитель" Style="{StaticResource SubheaderTextBlockStyle}"/>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Идентификатор в БД:" Margin="0 5 0 0" Style="{StaticResource BodyTextBlockStyle}" />
+                        <TextBlock Text="{Binding IdDriver}" Margin="10 5 0 0" Style="{StaticResource BodyTextBlockStyle}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Фамилия:"  Style="{StaticResource BodyTextBlockStyle}" />
+                        <TextBlock Text="{Binding Family}"  Margin="10 0 0 0" Style="{StaticResource BodyTextBlockStyle}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Имя:"  Style="{StaticResource BodyTextBlockStyle}" />
+                        <TextBlock Text="{Binding Name}" Margin="10 0 0 0" Style="{StaticResource BodyTextBlockStyle}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Отчество:"  Style="{StaticResource BodyTextBlockStyle}" />
+                        <TextBlock Text="{Binding Patronymic}" Margin="10 0 0 0" Style="{StaticResource BodyTextBlockStyle}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Телефон:"  Style="{StaticResource BodyTextBlockStyle}" />
+                        <TextBlock Text="{Binding Phone}" Margin="10 0 0 0" Style="{StaticResource BodyTextBlockStyle}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Контрагент:"  Style="{StaticResource BodyTextBlockStyle}" />
+                        <TextBlock Text="{Binding IdContragentNavigation?.Name}" Margin="10 0 0 0"  Style="{StaticResource BodyTextBlockStyle}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Доверенность:"  Style="{StaticResource BodyTextBlockStyle}" />
+                        <TextBlock Text="{Binding Attorney}" Margin="10 0 0 0" Style="{StaticResource BodyTextBlockStyle}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Авто:"  Style="{StaticResource BodyTextBlockStyle}" />
+                        <TextBlock Text="{Binding Auto}" Margin="10 0 0 0" Style="{StaticResource BodyTextBlockStyle}" />
+                        <TextBlock Text=" "  Style="{StaticResource BodyTextBlockStyle}" />
+                        <TextBlock Text="{Binding AutoNumber}" Margin="10 0 0 0"  Style="{StaticResource BodyTextBlockStyle}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Документ удост. личность:"  Style="{StaticResource BodyTextBlockStyle}" />
+                        <TextBlock Text="{Binding Passport}" Margin="10 0 0 0" Style="{StaticResource BodyTextBlockStyle}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Дополнительно:"  Style="{StaticResource BodyTextBlockStyle}" />
+                        <TextBlock Text="{Binding Info}" Margin="10 0 0 0" Style="{StaticResource BodyTextBlockStyle}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel Width="200">
+                            <TextBlock  Text="Сервисная информация:" Margin="0 5 0 0" Style="{StaticResource BodyTextBlockStyle}"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Активен:"  Style="{StaticResource BodyTextBlockStyle}" />
+                        <TextBlock Text="{Binding Active}" Margin="10 0 0 0"  Style="{StaticResource BodyTextBlockStyle}" />
+                    </StackPanel>
+                    <TextBlock Text="{Binding ServiceInfo}"  Style="{StaticResource BodyTextBlockStyle}" />
+                    <StackPanel  Margin="0 10 0 0" Orientation="Horizontal">
+                        <Button x:Name="btn_info_close" Click="btn_info_close_Click"  Margin="0 0 0 0" Content="Закрыть"/>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </ui:ContentDialog>
     </Grid>
 </Page>

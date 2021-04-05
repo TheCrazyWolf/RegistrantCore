@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -18,20 +19,327 @@ namespace Registrant.Pages
     /// </summary>
     public partial class PageDrivers : Page
     {
+        Controllers.DriversController controller;
+
         public PageDrivers()
         {
             InitializeComponent();
-        }
-
-        private void btn_refresh_Click(object sender, RoutedEventArgs e)
-        {
-            Controllers.DriversController controller = new Controllers.DriversController();
+            controller = new Controllers.DriversController();
             DataGrid_Drivers.ItemsSource = controller.GetDrivers();
         }
 
-        private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
+        /// <summary>
+        /// Кнопка обновить
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btn_refresh_Click(object sender, RoutedEventArgs e)
         {
-           // DataGrid_Drivers.MaxHeight = base.Height - 50;
+            if (tb_search.Text == "")
+            {
+                DataGrid_Drivers.ItemsSource = null;
+                DataGrid_Drivers.ItemsSource = controller.GetDrivers();
+            }
+        }
+
+        /// <summary>
+        /// Кнопка закрытия диалогового окна с редактированием
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btn_close_Click(object sender, RoutedEventArgs e)
+        {
+            btn_edit.Visibility = Visibility.Collapsed;
+            btn_add.Visibility = Visibility.Collapsed;
+            ContentAddEdit.Hide();
+            btn_refresh_Click(sender, e);
+        }
+
+        /// <summary>
+        /// Кнопка добавления водителя
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btn_add_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
+                {
+                    DB.Driver driver = new DB.Driver();
+                    driver.Family = tb_Family.Text;
+                    driver.Name = tb_name.Text;
+                    driver.Patronymic = tb_patronomyc.Text;
+                    driver.Phone = tb_phone.Text;
+                    
+                    var test = tb_contragent as ComboBox;
+                    var current = test.SelectedItem as DB.Contragent;
+                    driver.IdContragent = current.IdContragent;
+                    driver.Attorney = tb_attorney.Text;
+                    driver.Auto = tb_auto.Text;
+                    driver.AutoNumber = tb_autonum.Text;
+                    driver.Passport = tb_passport.Text;
+                    driver.Info = tb_info.Text;
+                    driver.Active = "1";
+                    driver.ServiceInfo = DateTime.Now + " " + App.ActiveUser + " добавил водителя";
+                    ef.Add(driver);
+                    ef.SaveChanges();
+                    btn_close_Click(sender, e);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Кнопка открыть окно редактирования
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btn_edit_Click(object sender, RoutedEventArgs e)
+        {
+            ContentAddEdit.ShowAsync();
+            ClearTextbox();
+
+            var bt = e.OriginalSource as Button;
+            var current = bt.DataContext as Models.Drivers;
+
+            btn_edit.Visibility = Visibility.Visible;
+            btn_add.Visibility = Visibility.Collapsed;
+            btn_delete.Visibility = Visibility.Visible;
+
+            try
+            {
+                using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
+                {
+                    var driver = ef.Drivers.FirstOrDefault(x => x.IdDriver == current.IdDriver);
+
+                    text_namedriver.Text = driver.Family + " " + driver.Name + " " + driver.Patronymic;
+
+                    tb_id.Text = driver.IdDriver.ToString();
+                    tb_Family.Text = driver.Family;
+                    tb_name.Text = driver.Name;
+                    tb_patronomyc.Text = driver.Patronymic;
+                    tb_phone.Text = driver.Phone;
+
+                    tb_contragent.ItemsSource = ef.Contragents.Where(x => x.Active != "0").ToList();
+
+                    tb_contragent.SelectedItem = ef.Contragents.FirstOrDefault(x => x.IdContragent == driver.IdContragent) ;
+
+                    tb_attorney.Text = driver.Attorney;
+                    tb_auto.Text = driver.Auto;
+                    tb_autonum.Text = driver.AutoNumber;
+                    tb_passport.Text = driver.Passport;
+                    
+                    tb_info.Text = driver.Info;
+                    
+                    //driver.ServiceInfo = DateTime.Now + " " + App.ActiveUser + " добавил водителя";
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Кнлпка удалить
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btn_delete_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
+                {
+                    var driver = ef.Drivers.FirstOrDefault(x => x.IdDriver == Convert.ToInt64(tb_id.Text));
+                    driver.Active = "0";
+                    driver.ServiceInfo = driver.ServiceInfo + "\n" + DateTime.Now + " " + App.ActiveUser + " удалил водителя";
+                    ef.SaveChanges();
+                    ContentAddEdit.Hide();
+                    btn_refresh_Click(sender, e);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Кнопка добавить водителя
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btn_add_driver_Click(object sender, RoutedEventArgs e)
+        {
+            ContentAddEdit.ShowAsync();
+            ClearTextbox();
+            text_namedriver.Text = "Добавить нового водителя";
+
+            try
+            {
+                using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
+                {
+                    tb_contragent.ItemsSource = ef.Contragents.Where(x => x.Active != "0").ToList();
+                    btn_add.Visibility = Visibility.Visible;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+
+        /// <summary>
+        /// Очистка
+        /// </summary>
+        void ClearTextbox()
+        {
+            tb_id.Text = null;
+            tb_Family.Text = null;
+            tb_name.Text = null;
+            tb_patronomyc.Text = null;
+            tb_phone.Text = null;
+            tb_contragent.ItemsSource = null;
+            tb_attorney.Text = null;
+            tb_auto.Text = null;
+            tb_autonum.Text = null;
+            tb_passport.Text = null;
+            tb_info.Text = null;
+        }
+
+        /// <summary>
+        /// Непосредственное редактирование
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btn_edit_Click1(object sender, RoutedEventArgs e)
+        {
+            if (tb_contragent.SelectedItem == null)
+            {
+                MessageBox.Show("Выбери контрагента");
+            }
+            else
+            {
+                try
+                {
+                    using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
+                    {
+                        var driver = ef.Drivers.FirstOrDefault(x => x.IdDriver == Convert.ToInt64(tb_id.Text));
+                        driver.Family = tb_Family.Text;
+                        driver.Name = tb_name.Text;
+                        driver.Patronymic = tb_patronomyc.Text;
+                        driver.Phone = tb_phone.Text;
+
+                        var test = tb_contragent as ComboBox;
+                        var current = test.SelectedItem as DB.Contragent;
+                        driver.IdContragent = current.IdContragent;
+                        driver.Attorney = tb_attorney.Text;
+                        driver.Auto = tb_auto.Text;
+                        driver.AutoNumber = tb_autonum.Text;
+                        driver.Passport = tb_passport.Text;
+                        driver.Info = tb_info.Text;
+                        driver.ServiceInfo = driver.ServiceInfo + "\n" + DateTime.Now + " " + App.ActiveUser + " внес изменения";
+                        ef.SaveChanges();
+                        btn_close_Click(sender, e);
+                        ContentAddEdit.Hide();
+                        btn_refresh_Click(sender, e);
+                    }
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+            }
+
+            
+        }
+
+        /// <summary>
+        /// Закрытия окна с информацией
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btn_info_close_Click(object sender, RoutedEventArgs e)
+        {
+            ContentInfo.Hide();
+            btn_refresh_Click(sender, e);
+        }
+
+        /// <summary>
+        /// Открыть окно с расширенной информацией
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btn_info_Click(object sender, RoutedEventArgs e)
+        {
+
+            var bt = e.OriginalSource as Button;
+            var current = bt.DataContext as Models.Drivers;
+
+            try
+            {
+                using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
+                {
+                    ContentInfo.ShowAsync();
+                    ContentInfoGrid.DataContext = ef.Drivers.FirstOrDefault(x => x.IdDriver == current.IdDriver);
+                    text_info_namedriver.Text = current.FIO;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+
+        private void tb_search_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (tb_search.Text == "")
+            {
+                btn_refresh_Click(sender, e);
+            }
+            else
+            {
+                try
+                {
+                    DataGrid_Drivers.ItemsSource = null;
+
+                    var temp = controller.GetDriversAll();
+
+                    var data = temp.Where(t => t.FIO.ToUpper().StartsWith(tb_search.Text.ToUpper())).ToList();
+                    var sDOP = temp.Where(t => t.FIO.ToUpper().Contains(tb_search.Text.ToUpper())).ToList();
+                    data.AddRange(sDOP);
+                    var noDupes = data.Distinct().ToList();
+                    DataGrid_Drivers.ItemsSource = noDupes;
+
+                    if (noDupes.Count == 0)
+                    {
+                        //Ничекго не нашел
+                    }
+                    else
+                    {
+                        // Нашел
+                    }
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+            }
+
         }
     }
 }

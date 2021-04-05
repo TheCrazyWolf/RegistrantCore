@@ -144,7 +144,6 @@ namespace Registrant.DB
                 entity.HasOne(d => d.IdDriverNavigation)
                     .WithMany(p => p.Shipments)
                     .HasForeignKey(d => d.IdDriver)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Shipment_Drivers");
 
                 entity.HasOne(d => d.IdTimeNavigation)
