@@ -7,7 +7,7 @@
       xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
       xmlns:ui="http://schemas.modernwpf.com/2019"
       mc:Ignorable="d"
-      Title="PageDrivers" >
+      Title="PageDrivers"  >
 
     <Grid Background="White">
         <Grid.ColumnDefinitions>
@@ -43,7 +43,7 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <Button x:Name="btn_edit" Click="btn_edit_Click" Content="Редактировать" Margin="5 5 5 5" ></Button>
+                                    <Button x:Name="btn_edit" Click="btn_edit_Click" Visibility="{Binding BtnEditVis}" Content="Редактировать" Margin="5 5 5 5" ></Button>
                                     <Button x:Name="btn_info" Click="btn_info_Click" Content="Инфо" Margin="0 5 5 5" ></Button>
                                 </StackPanel>
                             </DataTemplate>
@@ -54,7 +54,7 @@
         </Grid>
 
 
-        <ui:ContentDialog Grid.RowSpan="4" Grid.Column="1" Visibility="Hidden" x:Name="ContentAddEdit" >
+        <ui:ContentDialog  Visibility="Hidden" x:Name="ContentAddEdit" >
             <Grid >
                 <StackPanel>
                     <TextBlock x:Name="text_namedriver" Text="Новый водитель" Style="{StaticResource SubheaderTextBlockStyle}"/>
@@ -107,7 +107,7 @@
                 </StackPanel>
             </Grid>
         </ui:ContentDialog>
-        <ui:ContentDialog Grid.RowSpan="4" Grid.Column="1" Visibility="Hidden" x:Name="ContentInfo" >
+        <ui:ContentDialog  Visibility="Hidden" x:Name="ContentInfo" >
             <Grid x:Name="ContentInfoGrid" >
                 <StackPanel>
                     <TextBlock x:Name="text_info_namedriver" Text="Новый водитель" Style="{StaticResource SubheaderTextBlockStyle}"/>

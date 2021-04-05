@@ -197,6 +197,7 @@ namespace Registrant.Pages
                 {
                     tb_contragent.ItemsSource = ef.Contragents.Where(x => x.Active != "0").ToList();
                     btn_add.Visibility = Visibility.Visible;
+                    btn_delete.Visibility = Visibility.Collapsed;
                 }
             }
             catch (Exception)
@@ -281,7 +282,6 @@ namespace Registrant.Pages
         private void btn_info_close_Click(object sender, RoutedEventArgs e)
         {
             ContentInfo.Hide();
-            btn_refresh_Click(sender, e);
         }
 
         /// <summary>

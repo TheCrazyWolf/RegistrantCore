@@ -12,6 +12,8 @@ namespace Registrant.Models
         public string Contragent { get; set; }
         public string Attorney { get; set; }
 
+        public string BtnEditVis { get; set; }
+
         public Drivers(DB.Driver driver)
         {
             IdDriver = driver.IdDriver;
@@ -19,6 +21,15 @@ namespace Registrant.Models
             Phone = driver.Phone;
             Contragent = driver.IdContragentNavigation?.Name;
             Attorney = driver.Attorney;
+
+            if (App.LevelAccess == "shipment" || App.LevelAccess == "admin")
+            {
+                BtnEditVis = "Visible";
+            }
+            else
+            {
+                BtnEditVis = "Collapsed";
+            }
         }
     }
 }
