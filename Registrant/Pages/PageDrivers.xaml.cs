@@ -80,10 +80,14 @@ namespace Registrant.Pages
                     driver.Name = tb_name.Text;
                     driver.Patronymic = tb_patronomyc.Text;
                     driver.Phone = tb_phone.Text;
+
+                    if (tb_contragent.SelectedItem != null)
+                    {
+                        var test = tb_contragent as ComboBox;
+                        var current = test.SelectedItem as DB.Contragent;
+                        driver.IdContragent = current.IdContragent;
+                    }
                     
-                    var test = tb_contragent as ComboBox;
-                    var current = test.SelectedItem as DB.Contragent;
-                    driver.IdContragent = current.IdContragent;
                     driver.Attorney = tb_attorney.Text;
                     driver.Auto = tb_auto.Text;
                     driver.AutoNumber = tb_autonum.Text;
@@ -232,13 +236,7 @@ namespace Registrant.Pages
         /// <param name="e"></param>
         private void btn_edit_Click1(object sender, RoutedEventArgs e)
         {
-            if (tb_contragent.SelectedItem == null)
-            {
-               // SourceChord.FluentWPF.AcrylicMessageBox.Show(this, "asdf", "", MessageBoxButton.OK);
-                //AcrylicMessageBox.Show("Выбери контрагента");
-            }
-            else
-            {
+            
                 try
                 {
                     using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
@@ -249,9 +247,13 @@ namespace Registrant.Pages
                         driver.Patronymic = tb_patronomyc.Text;
                         driver.Phone = tb_phone.Text;
 
-                        var test = tb_contragent as ComboBox;
-                        var current = test.SelectedItem as DB.Contragent;
-                        driver.IdContragent = current.IdContragent;
+                        if (tb_contragent.SelectedItem != null)
+                        {
+                            var test = tb_contragent as ComboBox;
+                            var current = test.SelectedItem as DB.Contragent;
+                            driver.IdContragent = current.IdContragent;
+                        }
+                        
                         driver.Attorney = tb_attorney.Text;
                         driver.Auto = tb_auto.Text;
                         driver.AutoNumber = tb_autonum.Text;
@@ -269,7 +271,7 @@ namespace Registrant.Pages
 
                     throw;
                 }
-            }
+            
 
             
         }
@@ -349,6 +351,35 @@ namespace Registrant.Pages
                 }
             }
 
+        }
+
+        private void btn_delete_30day_Click(object sender, RoutedEventArgs e)
+        {
+            Content30days.ShowAsync();
+        }
+
+        private void btn_30d_close_Click(object sender, RoutedEventArgs e)
+        {
+            Content30days.Hide();
+        }
+
+        private void btn_30d_delete_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
+                {
+                    DateTime last30 = DateTime.Now.Date;
+                    last30.AddDays(-30);
+                    DateTime currentMonth = last30.AddDays(30);
+                   // var temp = ef.Shipments.Where(x => (x.IdTimeNavigation.DateTimeLeft > last30) && x.IdDriverNavigation.Active != "0" && x.IdTimeNavigation.DateTimeFactRegist == currentMonth.GetDateTimeFormats.);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
     }
 }

@@ -27,7 +27,7 @@
                 <TextBox x:Name="tb_search" Width="183" Margin="0 0 8 0" TextChanged="tb_search_TextChanged" ></TextBox>
                 <Button x:Name="btn_refresh" Click="btn_refresh_Click" Margin="0 0 5 0" Content="Обновить"></Button>
                 <Button x:Name="btn_add_driver" Click="btn_add_driver_Click" Content="Новый водитель"></Button>
-                <CheckBox x:Name="check_showdelete" Content="Show removed" Margin="5 0 0 0"/>
+                <Button x:Name="btn_delete_30day" Click="btn_delete_30day_Click" Margin="5 0 0 0" Content="Удаление водителей (>30дн)"></Button>
             </StackPanel>
             <TextBlock Text="Действующие водители в системе" Margin="0 10 0 0" Style="{StaticResource SubtitleTextBlockStyle}"/>
         </StackPanel>
@@ -165,6 +165,23 @@
                     <TextBlock Text="{Binding ServiceInfo}"  Style="{StaticResource BodyTextBlockStyle}" />
                     <StackPanel  Margin="0 10 0 0" Orientation="Horizontal">
                         <Button x:Name="btn_info_close" Click="btn_info_close_Click"  Margin="0 0 0 0" Content="Закрыть"/>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </ui:ContentDialog>
+
+        <ui:ContentDialog Grid.ColumnSpan="3" Grid.RowSpan="3"  Visibility="Visible" x:Name="Content30days" >
+            <Grid >
+                <StackPanel>
+                    <TextBlock Text="Массовое удаление элементов" Style="{StaticResource SubheaderTextBlockStyle}" Foreground="Black"/>
+                    <TextBlock   Style="{StaticResource BodyTextBlockStyle}" Foreground="Red">
+                        Внимание! Будет удалены следующие элементы из базы данных: <LineBreak/>
+                        непостоянные водители, которые не приезжали за последние 30дн
+                    </TextBlock>
+                    
+                    <StackPanel  Margin="0 10 0 0" Orientation="Horizontal">
+                        <Button x:Name="btn_30d_delete" Click="btn_30d_delete_Click"  Margin="0 0 5 0" Content="Да, удалить"/>
+                        <Button x:Name="btn_30d_close" Click="btn_30d_close_Click"  Margin="0 0 0 0" Content="Закрыть"/>
                     </StackPanel>
                 </StackPanel>
             </Grid>

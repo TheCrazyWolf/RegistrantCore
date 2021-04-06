@@ -22,6 +22,25 @@ namespace Registrant.Pages
         public PageContragents()
         {
             InitializeComponent();
+
+            FirstLoad();
+        }
+
+        void FirstLoad()
+        {
+            try
+            {
+                using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
+                {
+                    var temp = ef.Contragents.Where(x => x.Active != "0").OrderByDescending(x => x.IdContragent).ToList();
+                    DataGrid_Contragents.ItemsSource = temp;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         private void btn_add_close_Click(object sender, RoutedEventArgs e)

@@ -24,6 +24,7 @@ namespace Registrant
         Pages.PageContragents pageContragents;
         Pages.PageKPP pageKPP;
         Pages.PageDrivers pageDrivers;
+        Pages.PageShipments pageShipments;
         public MainWindow()
         {
             InitializeComponent();
@@ -125,6 +126,7 @@ namespace Registrant
                 pageKPP = new Pages.PageKPP();
                 pageContragents = new Pages.PageContragents();
                 pageDrivers = new Pages.PageDrivers();
+                pageShipments = new Pages.PageShipments();
 
             }
             else if (App.LevelAccess == "reader")
@@ -170,7 +172,7 @@ namespace Registrant
 
         private void nav_jurnalshipment_MouseDown(object sender, MouseButtonEventArgs e)
         {
-
+            FrameContent.Content = pageShipments;
         }
 
         private void nav_jurnalsklad_MouseDown(object sender, MouseButtonEventArgs e)
