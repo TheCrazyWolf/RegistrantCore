@@ -25,35 +25,37 @@
         <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical">
             <TextBlock Text="Управление отгрузками" Style="{StaticResource SubheaderTextBlockStyle}"/>
             <StackPanel Margin="0 10 0 0" Orientation="Horizontal">
-                <DatePicker Margin="0 0 5 0" Width="182"/>
-                <TextBox  Width="143" Margin="0 0 8 0"  ></TextBox>
-                <ComboBox x:Name="cb_sort" Margin="0 0 8 0">
+                <DatePicker x:Name="DatePicker" SelectedDateChanged="DatePicker_SelectedDateChanged" Margin="0 0 5 0"  Width="182"/>
+                <TextBox x:Name="tb_search" TextChanged="tb_search_TextChanged" Width="143" Margin="0 0 8 0"  ></TextBox>
+                <ComboBox SelectionChanged="cb_sort_SelectionChanged" SelectedIndex="0" x:Name="cb_sort" Margin="0 0 8 0">
                     <ComboBoxItem >Все</ComboBoxItem>
                     <ComboBoxItem>Зарегистрированные</ComboBoxItem>
                     <ComboBoxItem>На территории склада</ComboBoxItem>
                     <ComboBoxItem>Покинули</ComboBoxItem>
                 </ComboBox>
-                <Button Margin="0 0 5 0" Content="Обновить"></Button>
+                <Button x:Name="btn_refresh" Click="btn_refresh_Click" Margin="0 0 5 0" Content="Обновить"></Button>
                 <Button  Margin="0 0 5 0" Content="Новая отгрузка"></Button>
                 <Button  Content="Открыть в табл"></Button>
             </StackPanel>
-            <TextBlock Text="Реестр за 01.01.1970" Margin="0 10 0 0" Style="{StaticResource SubtitleTextBlockStyle}"/>
+            <TextBlock x:Name="Text_date" Text="Реестр за 01.01.1970" Margin="0 10 0 0" Style="{StaticResource SubtitleTextBlockStyle}"/>
         </StackPanel>
         <Grid Grid.Row="2" Grid.Column="1" >
-            <DataGrid x:Name="DataGrid_Drivers" Padding="0 10 0 0" AutoGenerateColumns="False" IsReadOnly="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" >
+            <DataGrid x:Name="DataGrid_Shipments" Padding="0 10 0 0" AutoGenerateColumns="False" IsReadOnly="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" >
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="№" Binding="{Binding IdDriver}"/>
-                    <DataGridTextColumn Header="Плановое время" Binding="{Binding FIO}"/>
+                    <DataGridTextColumn Header="№" Binding="{Binding IdShipment}"/>
+                    <DataGridTextColumn Header="Плановое время" Binding="{Binding DateTimePlanRegist}"/>
                     <DataGridTextColumn Header="Контрагент" Binding="{Binding Contragent}"/>
-                    <DataGridTextColumn Header="ФИО водителя" Binding="{Binding Attorney}"/>
-                    <DataGridTextColumn Header="Номер" Binding="{Binding Attorney}"/>
-                    <DataGridTextColumn Header="Статус" Binding="{Binding Attorney}"/>
+                    <DataGridTextColumn Header="ФИО водителя" Binding="{Binding FIO}"/>
+                    <DataGridTextColumn Header="Номер" Binding="{Binding Phone}"/>
+                    <DataGridTextColumn Header="Статус" Binding="{Binding TextStatus}"/>
                     <DataGridTemplateColumn Header="Действия">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <Button  Visibility="{Binding BtnEditVis}" Content="Редактировать" Margin="5 5 5 5" ></Button>
-                                    <Button Content="Инфо" Margin="0 5 5 5" ></Button>
+                                    <Button x:Name="btn_load"  Visibility="{Binding btn_load}" Content="Начать отгрузку" Margin="5 5 5 5" ></Button>
+                                    <Button x:Name="btn_endload"  Visibility="{Binding btn_endload}" Content="Закончить отгрузку" Margin="5 5 5 5" ></Button>
+                                    <Button x:Name="btn_edit" Visibility="{Binding BtnEditVis}" Content="Редактировать" Margin="5 5 5 5" ></Button>
+                                    <Button x:Name="btn_info" Content="Инфо" Margin="0 5 5 5" ></Button>
                                 </StackPanel>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
