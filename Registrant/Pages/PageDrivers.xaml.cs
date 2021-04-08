@@ -145,7 +145,6 @@ namespace Registrant.Pages
                     tb_auto.Text = driver.Auto;
                     tb_autonum.Text = driver.AutoNumber;
                     tb_passport.Text = driver.Passport;
-                    
                     tb_info.Text = driver.Info;
                     
                 }

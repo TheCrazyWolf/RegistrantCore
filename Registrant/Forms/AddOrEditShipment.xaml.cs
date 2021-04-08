@@ -78,6 +78,7 @@ namespace Registrant.Forms
             LoadDriversBox();
             btn_add.Visibility = Visibility.Collapsed;
             text_title.Text = "Отгрузка №" + id;
+            idcont.Text = id.ToString();
 
             if (App.LevelAccess == "shipment")
             {
@@ -150,14 +151,284 @@ namespace Registrant.Forms
         {
             if (App.LevelAccess == "shipment")
             {
+                try
+                {
+                    using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
+                    {
+                        var shipment = ef.Shipments.FirstOrDefault(x => x.IdShipment == Convert.ToInt64(idcont.Text));
 
+                        if (cb_drivers.SelectedItem != null)
+                        {
+                            var test = cb_drivers as ComboBox;
+                            var current = test.SelectedItem as DB.Driver;
+                            shipment.IdDriver = current.IdDriver;
+                        }
+
+                        if (dt_plan.Value != null)
+                        {
+                            shipment.IdTimeNavigation.DateTimePlanRegist = dt_plan.Value;
+                        }
+                        if (dt_fact.Value != null)
+                        {
+                            shipment.IdTimeNavigation.DateTimeFactRegist = dt_fact.Value;
+                        }
+                        if (dt_arrive.Value != null)
+                        {
+                            shipment.IdTimeNavigation.DateTimeArrive = dt_arrive.Value;
+                        }
+                        if (dt_load.Value != null)
+                        {
+                            shipment.IdTimeNavigation.DateTimeLoad = dt_load.Value;
+                        }
+                        if (dt_endload.Value != null)
+                        {
+                            shipment.IdTimeNavigation.DateTimeEndLoad = dt_endload.Value;
+                        }
+                        if (dt_left.Value != null)
+                        {
+                            shipment.IdTimeNavigation.DateTimeLeft = dt_left.Value;
+                        }
+
+                        if (tb_numrealese.Text != null)
+                        {
+                            shipment.NumRealese = tb_numrealese.Text;
+                        }
+                        if (tb_packetdoc.Text != null)
+                        {
+                            shipment.PacketDocuments = tb_packetdoc.Text;
+                        }
+                        if (tb_typeload.Text != null)
+                        {
+                            shipment.TochkaLoad = tb_typeload.Text;
+                        }
+                        if (tb_CountPodons.Text != null)
+                        {
+                            shipment.CountPodons = tb_CountPodons.Text;
+                        }
+                        if (tb_nomencluture.Text != null)
+                        {
+                            shipment.Nomenclature = tb_nomencluture.Text;
+                        }
+                        if (tb_size.Text != null)
+                        {
+                            shipment.Size = tb_size.Text;
+                        }
+                        if (tb_Destination.Text != null)
+                        {
+                            shipment.Destination = tb_Destination.Text;
+                        }
+                        if (tb_typeload.Text != null)
+                        {
+                            shipment.TypeLoad = tb_typeload.Text;
+                        }
+                        if (tb_descript.Text != null)
+                        {
+                            shipment.Description = tb_descript.Text;
+                        }
+                        if (tb_storekeeper.Text != null)
+                        {
+                            shipment.StoreKeeper = tb_storekeeper.Text;
+                        }
+
+                        shipment.Active = "1";
+                        shipment.ServiceInfo = shipment.ServiceInfo + "\n" + DateTime.Now + " " + App.ActiveUser + " внес изменения в отгрузку";
+                        ef.SaveChanges();
+                        Close();
+
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                    MessageBox.Show(ex.ToString());
+                }
             }
             else if (App.LevelAccess == "warehouse")
             {
+                                try
+                {
+                    using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
+                    {
+                        var shipment = ef.Shipments.FirstOrDefault(x => x.IdShipment == Convert.ToInt64(idcont.Text));
 
+                        if (cb_drivers.SelectedItem != null)
+                        {
+                            var test = cb_drivers as ComboBox;
+                            var current = test.SelectedItem as DB.Driver;
+                            shipment.IdDriver = current.IdDriver;
+                        }
+
+                        if (dt_plan.Value != null)
+                        {
+                            shipment.IdTimeNavigation.DateTimePlanRegist = dt_plan.Value;
+                        }
+                        if (dt_fact.Value != null)
+                        {
+                            shipment.IdTimeNavigation.DateTimeFactRegist = dt_fact.Value;
+                        }
+                        if (dt_arrive.Value != null)
+                        {
+                            shipment.IdTimeNavigation.DateTimeArrive = dt_arrive.Value;
+                        }
+                        if (dt_load.Value != null)
+                        {
+                            shipment.IdTimeNavigation.DateTimeLoad = dt_load.Value;
+                        }
+                        if (dt_endload.Value != null)
+                        {
+                            shipment.IdTimeNavigation.DateTimeEndLoad = dt_endload.Value;
+                        }
+                        if (dt_left.Value != null)
+                        {
+                            shipment.IdTimeNavigation.DateTimeLeft = dt_left.Value;
+                        }
+
+                        if (tb_numrealese.Text != null)
+                        {
+                            shipment.NumRealese = tb_numrealese.Text;
+                        }
+                        if (tb_packetdoc.Text != null)
+                        {
+                            shipment.PacketDocuments = tb_packetdoc.Text;
+                        }
+                        if (tb_typeload.Text != null)
+                        {
+                            shipment.TochkaLoad = tb_typeload.Text;
+                        }
+                        if (tb_CountPodons.Text != null)
+                        {
+                            shipment.CountPodons = tb_CountPodons.Text;
+                        }
+                        if (tb_nomencluture.Text != null)
+                        {
+                            shipment.Nomenclature = tb_nomencluture.Text;
+                        }
+                        if (tb_size.Text != null)
+                        {
+                            shipment.Size = tb_size.Text;
+                        }
+                        if (tb_Destination.Text != null)
+                        {
+                            shipment.Destination = tb_Destination.Text;
+                        }
+                        if (tb_typeload.Text != null)
+                        {
+                            shipment.TypeLoad = tb_typeload.Text;
+                        }
+                        if (tb_descript.Text != null)
+                        {
+                            shipment.Description = tb_descript.Text;
+                        }
+                        if (tb_storekeeper.Text != null)
+                        {
+                            shipment.StoreKeeper = tb_storekeeper.Text;
+                        }
+
+                        shipment.ServiceInfo = shipment.ServiceInfo + "\n" + DateTime.Now + " " + App.ActiveUser + " внес изменения в отгрузку";
+                        ef.SaveChanges();
+                        Close();
+
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                    MessageBox.Show(ex.ToString());
+                }
             }
             else if (App.LevelAccess == "admin")
             {
+                try
+                {
+                    using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
+                    {
+                        var shipment = ef.Shipments.FirstOrDefault(x => x.IdShipment == Convert.ToInt64(idcont.Text));
+
+                        if (cb_drivers.SelectedItem != null)
+                        {
+                            var test = cb_drivers as ComboBox;
+                            var current = test.SelectedItem as DB.Driver;
+                            shipment.IdDriver = current.IdDriver;
+                        }
+
+                        if (dt_plan.Value != null)
+                        {
+                            shipment.IdTimeNavigation.DateTimePlanRegist = dt_plan.Value;
+                        }
+                        if (dt_fact.Value != null)
+                        {
+                            shipment.IdTimeNavigation.DateTimeFactRegist = dt_fact.Value;
+                        }
+                        if (dt_arrive.Value != null)
+                        {
+                            shipment.IdTimeNavigation.DateTimeArrive = dt_arrive.Value;
+                        }
+                        if (dt_load.Value != null)
+                        {
+                            shipment.IdTimeNavigation.DateTimeLoad = dt_load.Value;
+                        }
+                        if (dt_endload.Value != null)
+                        {
+                            shipment.IdTimeNavigation.DateTimeEndLoad = dt_endload.Value;
+                        }
+                        if (dt_left.Value != null)
+                        {
+                            shipment.IdTimeNavigation.DateTimeLeft = dt_left.Value;
+                        }
+
+                        if (tb_numrealese.Text != null)
+                        {
+                            shipment.NumRealese = tb_numrealese.Text;
+                        }
+                        if (tb_packetdoc.Text != null)
+                        {
+                            shipment.PacketDocuments = tb_packetdoc.Text;
+                        }
+                        if (tb_typeload.Text != null)
+                        {
+                            shipment.TochkaLoad = tb_typeload.Text;
+                        }
+                        if (tb_CountPodons.Text != null)
+                        {
+                            shipment.CountPodons = tb_CountPodons.Text;
+                        }
+                        if (tb_nomencluture.Text != null)
+                        {
+                            shipment.Nomenclature = tb_nomencluture.Text;
+                        }
+                        if (tb_size.Text != null)
+                        {
+                            shipment.Size = tb_size.Text;
+                        }
+                        if (tb_Destination.Text != null)
+                        {
+                            shipment.Destination = tb_Destination.Text;
+                        }
+                        if (tb_typeload.Text != null)
+                        {
+                            shipment.TypeLoad = tb_typeload.Text;
+                        }
+                        if (tb_descript.Text != null)
+                        {
+                            shipment.Description = tb_descript.Text;
+                        }
+                        if (tb_storekeeper.Text != null)
+                        {
+                            shipment.StoreKeeper = tb_storekeeper.Text;
+                        }
+
+                        shipment.Active = "1";
+                        shipment.ServiceInfo = shipment.ServiceInfo + "\n" + DateTime.Now + " " + App.ActiveUser + " внес изменения в отгрузку";
+                        ef.SaveChanges();
+                        Close();
+
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                    MessageBox.Show(ex.ToString());
+                }
             }
         }
 
