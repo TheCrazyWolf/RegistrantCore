@@ -18,17 +18,25 @@
         </Grid.RowDefinitions>
 
         <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0 15 0 0" >
-            <DatePicker Margin="5 5 0 5 "/>
-            <Button Margin="5 5 0 5" Content="Показать за месяц"/>
-            <Button Margin="5 5 0 5" Content="Печать"/>
-            <Button Margin="5 5 0 5" Content="Сохранить в Excel"/>
+            <DatePicker x:Name="DatePicker" SelectedDateChanged="DatePicker_SelectedDateChanged" Margin="5 5 0 5 "/>
+            <Button x:Name="btn_month" Click="btn_month_Click" Margin="5 5 0 5" Content="Показать за месяц"/>
+            <Button x:Name="btn_print" Click="btn_print_Click" Margin="5 5 0 5" Content="Печать"/>
+            <Button x:Name="btn_saveExcel" Click="btn_saveExcel_Click" Margin="5 5 0 5" Content="Сохранить в Excel"/>
         </StackPanel>
-        <DataGrid Margin="7" Grid.Row="1">
+        <DataGrid x:Name="grid_shipments" Margin="7" Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="№" />
-                <DataGridTextColumn Header="Дата" />
-                <DataGridTextColumn Header="Время" />
-                <DataGridTextColumn Header="Контрагент" />
+                <DataGridTextColumn Header="№" Binding="{Binding IdShipment}" />
+                <DataGridTextColumn Header="Дата" Binding="{Binding PlanDate}" />
+                <DataGridTextColumn Header="Время" Binding="{Binding PlanTime}" />
+                <DataGridTextColumn Header="Контрагент" Binding="{Binding Contragent}"/>
+                <DataGridTextColumn Header="Склад" Binding="{Binding Sklad}"/>
+                <DataGridTextColumn Header="ФИО" Binding="{Binding FIOTelephone}"/>
+                <DataGridTextColumn Header="Доверенность" Binding="{Binding Attorney}"/>
+                <DataGridTextColumn Header="Марка т/c" Binding="{Binding Auto}"/>
+                <DataGridTextColumn Header="№ реализации" Binding="{Binding NumRealese}"/>
+                <DataGridTextColumn Header="Пакет документов" Binding="{Binding PacketDocuments}"/>
+                <DataGridTextColumn Header="Факт. регистрация" Binding="{Binding DateFact}"/>
+                <DataGridTextColumn Header="Убытие со склада" Binding="{Binding DateLeft}"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
