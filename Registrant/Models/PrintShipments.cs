@@ -38,6 +38,9 @@ namespace Registrant.Models
             DateFact = shipment.IdTimeNavigation?.DateTimeFactRegist.ToString();
             DateLeft = shipment.IdTimeNavigation?.DateTimeLeft.ToString();
             Sklad = "МВП";
+
+            NumRealese = shipment.NumRealese;
+            PacketDocuments = shipment.PacketDocuments;
         }
 
 
