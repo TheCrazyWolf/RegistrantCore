@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -112,6 +113,48 @@ namespace Registrant.Pages
                 }
             }
 
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            ContentAddEdit.ShowAsync();
+            Pages.PageAddOrEditShipment page = new PageAddOrEditShipment();
+            Thread.Sleep(2000);
+            frame_edit.Content = page;
+
+            Forms.AddOrEditShipment addOrEditShipment = new Forms.AddOrEditShipment();
+            addOrEditShipment.ShowDialog();
+            ContentAddEdit.Hide();
+
+        }
+
+        private void ContentAddEdit_Closing(ModernWpf.Controls.ContentDialog sender, ModernWpf.Controls.ContentDialogClosingEventArgs args)
+        {
+
+        }
+
+        private void btn_load_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btn_endload_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btn_edit_Click(object sender, RoutedEventArgs e)
+        {
+            var bt = e.OriginalSource as Button;
+            var current = bt.DataContext as Models.Shipments;
+
+            Forms.AddOrEditShipment addOr = new Forms.AddOrEditShipment(current.IdShipment);
+            addOr.ShowDialog();
+        }
+
+        private void btn_info_Click(object sender, RoutedEventArgs e)
+        {
 
         }
     }

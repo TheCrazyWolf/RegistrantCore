@@ -139,7 +139,6 @@ namespace Registrant.Pages
                     tb_phone.Text = driver.Phone;
 
                     tb_contragent.ItemsSource = ef.Contragents.Where(x => x.Active != "0").ToList();
-
                     tb_contragent.SelectedItem = ef.Contragents.FirstOrDefault(x => x.IdContragent == driver.IdContragent) ;
 
                     tb_attorney.Text = driver.Attorney;

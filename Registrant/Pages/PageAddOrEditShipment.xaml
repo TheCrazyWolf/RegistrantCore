@@ -1,39 +1,34 @@
-﻿<Window x:Class="Registrant.Forms.AddOrEditShipment"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Registrant.Forms"
-        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+﻿<Page x:Class="Registrant.Pages.PageAddOrEditShipment"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Registrant.Pages"
+              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:ui="http://schemas.modernwpf.com/2019"
         xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
-        mc:Ignorable="d"
-        Title="AddOrEditShipment" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" >
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="30"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="30" />
-        </Grid.ColumnDefinitions>
+      mc:Ignorable="d" 
+      d:DesignHeight="450"
+      Title="PageAddOrEditShipment" >
+
+    <Grid Background="White">
         <Grid.RowDefinitions>
-            <RowDefinition Height="45"/>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="10"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical">
-            <TextBlock x:Name="text_title" Text="Отгрузка №10 от 01.01.1970" Style="{StaticResource SubheaderTextBlockStyle}"/>
             <TextBlock x:Name="Text_date" Text="Сведения о водителе и контрагенте" Margin="0 10 0 0" Style="{StaticResource SubtitleTextBlockStyle}"/>
             <StackPanel Orientation="Horizontal">
                 <StackPanel >
                     <TextBlock Text="Водитель" Style="{StaticResource BodyTextBlockStyle}"  Padding="0 0 0 0"/>
-                    <ComboBox x:Name="cb_drivers" SelectionChanged="cb_drivers_SelectionChanged" Width="200">
+                    <ComboBox x:Name="cb_drivers" Width="200">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="{Binding Family}"/>
-                                    <TextBlock Text=" "/>
-                                    <TextBlock Text="{Binding Name}"/>
+                                    <TextBlock Text="{Binding IdDriver}" Visibility="Collapsed" Style="{StaticResource BodyTextBlockStyle}"/>
+                                    <TextBlock Text="{Binding Family}" Margin="0 0 5 0" Style="{StaticResource BodyTextBlockStyle}"/>
+                                    <TextBlock Text="{Binding Name}" Style="{StaticResource BodyTextBlockStyle}"/>
                                 </StackPanel>
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
@@ -41,17 +36,13 @@
                 </StackPanel>
                 <StackPanel Margin="10 0 0 0">
                     <TextBlock Text="Контрагент" Style="{StaticResource BodyTextBlockStyle}"  Padding="0 0 0 0"/>
-                    <TextBox x:Name="tb_contragent"  IsReadOnly="True"  Width="200" />
-                </StackPanel>
-                <StackPanel Margin="10 0 0 0">
-                    <TextBlock Text="Телефон" Style="{StaticResource BodyTextBlockStyle}"  Padding="0 0 0 0"/>
-                    <TextBox x:Name="tb_phone"  IsReadOnly="True"  Width="200" />
+                    <TextBox Width="200" />
                 </StackPanel>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <StackPanel >
-                    <TextBlock Text="Номер т/с" Style="{StaticResource BodyTextBlockStyle}"  Padding="0 0 0 0"/>
-                    <TextBox x:Name="tb_autonum"  IsReadOnly="True" Width="200"/>
+                <StackPanel Margin="0 0 0 0">
+                    <TextBlock Text="Телефон" Style="{StaticResource BodyTextBlockStyle}"  Padding="0 0 0 0"/>
+                    <TextBox Width="200" />
                 </StackPanel>
 
             </StackPanel>
@@ -60,29 +51,29 @@
                 <StackPanel Orientation="Horizontal">
                     <StackPanel >
                         <TextBlock Text="Плановая регистрация" Style="{StaticResource BodyTextBlockStyle}"  Padding="0 0 0 0"/>
-                        <xctk:DateTimePicker x:Name="dt_plan" CultureInfo="ru" Height="32" Width="200"/>
+                        <xctk:DateTimePicker CultureInfo="ru" Height="32" Width="200"/>
                     </StackPanel>
                     <StackPanel Margin="10 0 0 0">
                         <TextBlock Text="Фактическая регистрация" Style="{StaticResource BodyTextBlockStyle}"  Padding="0 0 0 0"/>
-                        <xctk:DateTimePicker x:Name="dt_fact" CultureInfo="ru"  Height="32" Width="200"/>
+                        <xctk:DateTimePicker CultureInfo="ru"  Height="32" Width="200"/>
                     </StackPanel>
                     <StackPanel Margin="10 0 0 0">
                         <TextBlock Text="Время прибытия" Style="{StaticResource BodyTextBlockStyle}"  Padding="0 0 0 0"/>
-                        <xctk:DateTimePicker x:Name="dt_arrive" CultureInfo="ru"  Height="32" Width="200"/>
+                        <xctk:DateTimePicker CultureInfo="ru"  Height="32" Width="200"/>
                     </StackPanel>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <StackPanel >
                         <TextBlock Text="Начало отгрузки" Style="{StaticResource BodyTextBlockStyle}"  Padding="0 0 0 0"/>
-                        <xctk:DateTimePicker x:Name="dt_load" CultureInfo="ru"  Height="32" Width="200"/>
+                        <xctk:DateTimePicker CultureInfo="ru"  Height="32" Width="200"/>
                     </StackPanel>
                     <StackPanel Margin="10 0 0 0">
                         <TextBlock Text="Конец отгрузки" Style="{StaticResource BodyTextBlockStyle}"  Padding="0 0 0 0"/>
-                        <xctk:DateTimePicker x:Name="dt_endload" CultureInfo="ru"  Height="32" Width="200"/>
+                        <xctk:DateTimePicker CultureInfo="ru"  Height="32" Width="200"/>
                     </StackPanel>
                     <StackPanel Margin="10 0 0 0">
                         <TextBlock Text="Время убытия" Style="{StaticResource BodyTextBlockStyle}"  Padding="0 0 0 0"/>
-                        <xctk:DateTimePicker x:Name="dt_left" CultureInfo="ru"  Height="32" Width="200"/>
+                        <xctk:DateTimePicker CultureInfo="ru"  Height="32" Width="200"/>
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
@@ -91,15 +82,15 @@
                 <StackPanel Orientation="Horizontal">
                     <StackPanel >
                         <TextBlock Text="Номер реализации" Style="{StaticResource BodyTextBlockStyle}"  Padding="0 0 0 0"/>
-                        <TextBox x:Name="tb_numrealese" Width="200" />
+                        <TextBox Width="200" />
                     </StackPanel>
                     <StackPanel Margin="10 0 0 0">
                         <TextBlock Text="Пакет документов" Style="{StaticResource BodyTextBlockStyle}"  Padding="0 0 0 0"/>
-                        <TextBox x:Name="tb_packetdoc" Width="200" />
+                        <TextBox Width="200" />
                     </StackPanel>
                     <StackPanel Margin="10 0 0 0">
                         <TextBlock Text="Точка загрузки" Style="{StaticResource BodyTextBlockStyle}"  Padding="0 0 0 0"/>
-                        <TextBox x:Name="tb_tochkaload" Width="200" />
+                        <TextBox Width="200" />
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
@@ -108,45 +99,36 @@
                 <StackPanel Orientation="Horizontal">
                     <StackPanel >
                         <TextBlock Text="Кол-во подоннов/плотность" Style="{StaticResource BodyTextBlockStyle}"  Padding="0 0 0 0"/>
-                        <TextBox x:Name="tb_CountPodons" Width="200" />
+                        <TextBox Width="200" />
                     </StackPanel>
                     <StackPanel Margin="10 0 0 0">
                         <TextBlock Text="Номерклатура" Style="{StaticResource BodyTextBlockStyle}"  Padding="0 0 0 0"/>
-                        <TextBox x:Name="tb_nomencluture" Width="200" />
+                        <TextBox Width="200" />
                     </StackPanel>
                     <StackPanel Margin="10 0 0 0">
                         <TextBlock Text="Объем" Style="{StaticResource BodyTextBlockStyle}"  Padding="0 0 0 0"/>
-                        <TextBox x:Name="tb_size" Width="200" />
+                        <TextBox Width="200" />
                     </StackPanel>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <StackPanel >
                         <TextBlock Text="Получатель" Style="{StaticResource BodyTextBlockStyle}"  Padding="0 0 0 0"/>
-                        <TextBox x:Name="tb_Destination" Width="200" />
+                        <TextBox Width="200" />
                     </StackPanel>
                     <StackPanel Margin="10 0 0 0">
-                        <TextBlock Text="Тип погрузки" Style="{StaticResource BodyTextBlockStyle}"  Padding="0 0 0 0"/>
-                        <TextBox x:Name="tb_typeload" Width="200" />
+                        <TextBlock Text="Номерклатура" Style="{StaticResource BodyTextBlockStyle}"  Padding="0 0 0 0"/>
+                        <TextBox Width="200" />
                     </StackPanel>
                     <StackPanel Margin="10 0 0 0">
-                        <TextBlock Text="Примечание" Style="{StaticResource BodyTextBlockStyle}"  Padding="0 0 0 0"/>
-                        <TextBox x:Name="tb_descript" Width="200" />
-                    </StackPanel>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <StackPanel >
                         <TextBlock Text="Кладовщик" Style="{StaticResource BodyTextBlockStyle}"  Padding="0 0 0 0"/>
-                        <TextBox x:Name="tb_storekeeper" IsEnabled="False" Width="200" />
+                        <TextBox Width="200" />
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
-                <Button x:Name="btn_edit" Content="Сохранить"/>
-                <Button x:Name="btn_add" Click="btn_add_Click" Margin="10 0 0 0" Content="Добавить"/>
-                <Button x:Name="btn_close" Margin="10 0 0 0" Content="Закрыть"/>
+                <Button Content="Сохранить"/>
+                <Button Margin="10 0 0 0" Content="Закрыть"/>
             </StackPanel>
         </StackPanel>
-        <Grid Grid.Row="2" Grid.Column="1" />
-
     </Grid>
-</Window>
+</Page>
