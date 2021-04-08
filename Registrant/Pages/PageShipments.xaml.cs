@@ -28,6 +28,11 @@ namespace Registrant.Pages
             //Environment.Exit(0);
             controller = new Controllers.ShipmentController();
             DatePicker.SelectedDate = DateTime.Now;
+
+            if (App.LevelAccess == "admin" || App.LevelAccess == "shipment")
+            {
+                btn_new.Visibility = Visibility.Visible;
+            }
         }
 
         private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
@@ -119,10 +124,6 @@ namespace Registrant.Pages
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             ContentAddEdit.ShowAsync();
-            Pages.PageAddOrEditShipment page = new PageAddOrEditShipment();
-            Thread.Sleep(2000);
-            frame_edit.Content = page;
-
             Forms.AddOrEditShipment addOrEditShipment = new Forms.AddOrEditShipment();
             addOrEditShipment.ShowDialog();
             ContentAddEdit.Hide();
@@ -136,12 +137,48 @@ namespace Registrant.Pages
 
         private void btn_load_Click(object sender, RoutedEventArgs e)
         {
+            var bt = e.OriginalSource as Button;
+            var current = bt.DataContext as Models.Shipments;
 
+            try
+            {
+                using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
+                {
+                    var temp = ef.Shipments.FirstOrDefault(x => x.IdShipment == current.IdShipment);
+                    temp.IdTimeNavigation.DateTimeLoad = DateTime.Now;
+                    ef.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            btn_refresh_Click(sender, e);
         }
 
         private void btn_endload_Click(object sender, RoutedEventArgs e)
         {
+            var bt = e.OriginalSource as Button;
+            var current = bt.DataContext as Models.Shipments;
 
+            try
+            {
+                using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
+                {
+                    var temp = ef.Shipments.FirstOrDefault(x => x.IdShipment == current.IdShipment);
+                    temp.IdTimeNavigation.DateTimeEndLoad = DateTime.Now;
+                    ef.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            btn_refresh_Click(sender, e);
         }
 
         private void btn_edit_Click(object sender, RoutedEventArgs e)
@@ -151,11 +188,22 @@ namespace Registrant.Pages
 
             Forms.AddOrEditShipment addOr = new Forms.AddOrEditShipment(current.IdShipment);
             addOr.ShowDialog();
+            btn_refresh_Click(sender, e);
         }
 
-        private void btn_info_Click(object sender, RoutedEventArgs e)
-        {
 
+
+        private void btn_print_Click(object sender, RoutedEventArgs e)
+        {
+            if (App.LevelAccess == "shipment")
+            {
+                Forms.PrintShipments print = new Forms.PrintShipments();
+                print.ShowDialog();
+            }
+            else if (App.LevelAccess == "warehouse")
+            {
+
+            }
         }
     }
 }

@@ -91,11 +91,21 @@ namespace Registrant.Models
                     btn_endload = "Collapsed";
                     btn_load = "Collapsed";
                 }
+                else
+                {
+                    btn_endload = "Collapsed";
+                    btn_load = "Collapsed";
+                }
             }
             else if (shipment.IdTimeNavigation?.DateTimeLeft == null && shipment.IdTimeNavigation?.DateTimeEndLoad != null)
             {
                 TextStatus = "Отгрузка завершена (" + DateTimeEndLoad.ToString() + ")";
                 if (App.LevelAccess == "admin" || App.LevelAccess == "warehouse")
+                {
+                    btn_endload = "Collapsed";
+                    btn_load = "Collapsed";
+                }
+                else
                 {
                     btn_endload = "Collapsed";
                     btn_load = "Collapsed";
@@ -109,6 +119,11 @@ namespace Registrant.Models
                     btn_endload = "Visible";
                     btn_load = "Collapsed";
                 }
+                else
+                {
+                    btn_endload = "Collapsed";
+                    btn_load = "Collapsed";
+                }
             }
             else if (shipment.IdTimeNavigation?.DateTimeLoad == null && shipment.IdTimeNavigation?.DateTimeArrive != null)
             {
@@ -118,11 +133,21 @@ namespace Registrant.Models
                     btn_endload = "Collapsed";
                     btn_load = "Visible";
                 }
+                else
+                {
+                    btn_endload = "Collapsed";
+                    btn_load = "Collapsed";
+                }
             }
             else if (shipment.IdTimeNavigation?.DateTimeArrive == null && shipment.IdTimeNavigation?.DateTimeFactRegist != null)
             {
                 TextStatus = "Зарегистрирован (" + DateTimeFactRegist.ToString() + ")";
                 if (App.LevelAccess == "admin" || App.LevelAccess == "warehouse")
+                {
+                    btn_endload = "Collapsed";
+                    btn_load = "Collapsed";
+                }
+                else
                 {
                     btn_endload = "Collapsed";
                     btn_load = "Collapsed";

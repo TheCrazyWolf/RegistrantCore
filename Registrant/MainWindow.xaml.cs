@@ -120,7 +120,6 @@ namespace Registrant
                 nav_drivers.Visibility = Visibility.Visible;
                 nav_jurnalkpp.Visibility = Visibility.Visible;
                 nav_jurnalshipment.Visibility = Visibility.Visible;
-                nav_jurnalsklad.Visibility = Visibility.Visible;
 
                 //
                 pageKPP = new Pages.PageKPP();
@@ -134,24 +133,31 @@ namespace Registrant
                 nav_contragents.Visibility = Visibility.Visible;
                 nav_drivers.Visibility = Visibility.Visible;
                 nav_jurnalshipment.Visibility = Visibility.Visible;
-                nav_jurnalsklad.Visibility = Visibility.Visible;
             }
             else if (App.LevelAccess == "warehouse")
             {
                 nav_drivers.Visibility = Visibility.Visible;
                 nav_jurnalshipment.Visibility = Visibility.Visible;
-                nav_jurnalsklad.Visibility = Visibility.Visible;
+
+                pageContragents = new Pages.PageContragents();
+                pageDrivers = new Pages.PageDrivers();
+                pageShipments = new Pages.PageShipments();
+
             }
             else if (App.LevelAccess == "shipment")
             {
                 nav_jurnalshipment.Visibility = Visibility.Visible;
-                nav_jurnalsklad.Visibility = Visibility.Visible;
                 nav_contragents.Visibility = Visibility.Visible;
                 nav_drivers.Visibility = Visibility.Visible;
+
+                pageContragents = new Pages.PageContragents();
+                pageDrivers = new Pages.PageDrivers();
+                pageShipments = new Pages.PageShipments();
             }
             else if (App.LevelAccess == "kpp")
             {
                 nav_jurnalkpp.Visibility = Visibility.Visible;
+                pageKPP = new Pages.PageKPP();
             }
         }
 

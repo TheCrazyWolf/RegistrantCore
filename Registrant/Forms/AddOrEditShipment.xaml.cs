@@ -16,8 +16,11 @@ namespace Registrant.Forms
     /// <summary>
     /// Логика взаимодействия для AddOrEditShipment.xaml
     /// </summary>
-    public partial class AddOrEditShipment : Window
+    public partial class AddOrEditShipment
     {
+        /// <summary>
+        /// Новая отгрузка
+        /// </summary>
         public AddOrEditShipment()
         {
             InitializeComponent();
@@ -28,6 +31,11 @@ namespace Registrant.Forms
 
         }
 
+        /// <summary>
+        /// Выбор водителя
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cb_drivers_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             try
@@ -41,11 +49,7 @@ namespace Registrant.Forms
 
                     tb_contragent.Text = temp.IdContragentNavigation?.Name;
                     tb_phone.Text = temp.Phone;
-                    tb_autonum.Text = temp.AutoNumber;
-
-
-                    //cb_drivers.ItemsSource = ef.Drivers.Where(x => x.Active != "0").OrderBy(x => x.Family).ToList();
-                    //tb_contragent.SelectedItem = ef.Contragents.FirstOrDefault(x => x.IdContragent == driver.IdContragent);
+                    tb_autonum.Text = temp.AutoNumber;;
                 }
             }
             catch (Exception)
@@ -55,6 +59,10 @@ namespace Registrant.Forms
             }
             
         }
+
+        /// <summary>
+        /// Подгрузка водителей
+        /// </summary>
         void LoadDriversBox()
         {
             try
@@ -71,13 +79,15 @@ namespace Registrant.Forms
                 throw;
             }
         }
-
+        /// <summary>
+        /// Редактирование отгрузок
+        /// </summary>
+        /// <param name="id"></param>
         public AddOrEditShipment(int id)
         {
             InitializeComponent();
-            LoadDriversBox();
+            //LoadDriversBox();
             btn_add.Visibility = Visibility.Collapsed;
-            text_title.Text = "Отгрузка №" + id;
             idcont.Text = id.ToString();
 
             if (App.LevelAccess == "shipment")
@@ -100,11 +110,10 @@ namespace Registrant.Forms
 
                 tb_numrealese.IsEnabled = false;
                 tb_packetdoc.IsEnabled = false;
-                tb_typeload.IsEnabled = false;
+                tb_tochkaload.IsEnabled = false;
             }
             else if (App.LevelAccess == "admin")
             {
-
             }
           
             try
@@ -119,7 +128,7 @@ namespace Registrant.Forms
                     dt_plan.Value = temp.IdTimeNavigation?.DateTimePlanRegist;
                     dt_fact.Value = temp.IdTimeNavigation?.DateTimeFactRegist;
                     dt_arrive.Value = temp.IdTimeNavigation?.DateTimeArrive;
-                    dt_load.Value = temp.IdTimeNavigation?.DateTimeEndLoad;
+                    dt_load.Value = temp.IdTimeNavigation?.DateTimeLoad;
                     dt_endload.Value = temp.IdTimeNavigation?.DateTimeEndLoad;
                     dt_left.Value = temp.IdTimeNavigation?.DateTimeLeft;
 
@@ -142,8 +151,22 @@ namespace Registrant.Forms
 
                 throw;
             }
+
+            if (dt_plan.Value != null)
+            {
+                text_title.Text = "Отгрузка №" + id + " от " + dt_plan.Value;
+            }
+            else
+            {
+                text_title.Text = "Отгрузка №" + id;
+            }
         }
 
+        /// <summary>
+        /// Кнопка редактировать
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_edit_Click(object sender, RoutedEventArgs e)
         {
             if (App.LevelAccess == "shipment")
@@ -189,9 +212,13 @@ namespace Registrant.Forms
                         }
                         if (tb_typeload.Text != null)
                         {
-                            shipment.TochkaLoad = tb_typeload.Text;
+                            shipment.TypeLoad = tb_typeload.Text;
                         }
-                       
+                        if (tb_tochkaload.Text != null)
+                        {
+                            shipment.TochkaLoad = tb_tochkaload.Text;
+                        }
+
                         shipment.ServiceInfo = shipment.ServiceInfo + "\n" + DateTime.Now + " " + App.ActiveUser + " внес изменения в отгрузку";
                         ef.SaveChanges();
                         Close();
@@ -360,6 +387,11 @@ namespace Registrant.Forms
             }
         }
 
+        /// <summary>
+        /// Добавить соответственно
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_add_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -374,9 +406,7 @@ namespace Registrant.Forms
                         var current = test.SelectedItem as DB.Driver;
                         shipment.IdDriver = current.IdDriver;
                     }
-
                     DB.Time time = new DB.Time();
-
                     shipment.IdTimeNavigation = time;
 
                     if (dt_plan.Value != null)
@@ -412,9 +442,9 @@ namespace Registrant.Forms
                     {
                         shipment.PacketDocuments = tb_packetdoc.Text;
                     }
-                    if (tb_typeload.Text != null)
+                    if (tb_tochkaload.Text != null)
                     {
-                        shipment.TochkaLoad = tb_typeload.Text;
+                        shipment.TochkaLoad = tb_tochkaload.Text;
                     }
                     if (tb_CountPodons.Text != null)
                     {
@@ -460,6 +490,11 @@ namespace Registrant.Forms
 
                 MessageBox.Show(ex.ToString());
             }
+        }
+
+        private void btn_close_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

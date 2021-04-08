@@ -139,9 +139,7 @@ namespace Registrant.DB
 
                 entity.Property(e => e.TochkaLoad).HasMaxLength(150);
 
-                entity.Property(e => e.TypeLoad)
-                    .HasMaxLength(10)
-                    .IsFixedLength(true);
+                entity.Property(e => e.TypeLoad).HasMaxLength(150);
 
                 entity.HasOne(d => d.IdDriverNavigation)
                     .WithMany(p => p.Shipments)

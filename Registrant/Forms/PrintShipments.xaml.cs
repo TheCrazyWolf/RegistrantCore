@@ -8,17 +8,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Registrant.Pages
+namespace Registrant.Forms
 {
     /// <summary>
-    /// Логика взаимодействия для PageAddOrEditShipment.xaml
+    /// Логика взаимодействия для PrintShipments.xaml
     /// </summary>
-    public partial class PageAddOrEditShipment : Page
+    public partial class PrintShipments 
     {
-        public PageAddOrEditShipment()
+        public PrintShipments()
         {
             InitializeComponent();
         }
