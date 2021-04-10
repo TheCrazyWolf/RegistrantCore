@@ -203,7 +203,8 @@ namespace Registrant.Pages
             }
             else if (App.LevelAccess == "warehouse")
             {
-
+                Forms.PrintWarehouse print = new Forms.PrintWarehouse();
+                print.ShowDialog();
             }
         }
 

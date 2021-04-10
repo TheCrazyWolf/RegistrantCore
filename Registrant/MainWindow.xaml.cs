@@ -25,25 +25,38 @@ namespace Registrant
         Pages.PageKPP pageKPP;
         Pages.PageDrivers pageDrivers;
         Pages.PageShipments pageShipments;
+
         public MainWindow()
         {
             InitializeComponent();
 
+           //Подгрузка данных из настроек
             tb_login.Text = Settings.User.Default.login;
+            //В проде убрать нижнее
             tb_password.Password = Settings.User.Default.password;
 
-
+            //Поток наа 1 старт чтобы при старте не тормозилось
             Thread thread = new Thread(TestConnect);
             thread.Start();
 
         }
 
 
+        /// <summary>
+        /// Открытие дебага
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_debug_Click(object sender, RoutedEventArgs e)
         {
             text_error.Visibility = Visibility.Visible;
         }
 
+        /// <summary>
+        /// Кнопка повторить попытку соединения
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_tryconnect_Click(object sender, RoutedEventArgs e)
         {
             btn_tryconnect.Visibility = Visibility.Collapsed;
@@ -53,8 +66,12 @@ namespace Registrant
         }
 
 
-        void  TestConnect()
+        /// <summary>
+        /// Проверка существует ли вообще подключение к серверу
+        /// </summary>
+        void TestConnect()
         {
+            Thread.Sleep(2000);
             Dispatcher.Invoke(() => ContentWait.ShowAsync());
 
             try
@@ -72,18 +89,29 @@ namespace Registrant
                 Dispatcher.Invoke(() => ContentError.ShowAsync());
                 Dispatcher.Invoke(() => text_error.Text = ex.ToString());
             }
-
         }
 
+        /// <summary>
+        /// Кнопка с редактированием настроек подключения
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_opensettings_Click(object sender, RoutedEventArgs e)
         {
             Forms.EditConnect edit = new Forms.EditConnect();
             edit.ShowDialog();
         }
 
+        /// <summary>
+        /// Действие на нажатие на кнопку Войти
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_enter_Click(object sender, RoutedEventArgs e)
         {
             Settings.User.Default.login = tb_login.Text;
+
+            //В проде убрать! --- сохранение паролей
             Settings.User.Default.password = tb_password.Password;
             Settings.User.Default.Save();
 
@@ -96,8 +124,9 @@ namespace Registrant
 
                     if (user != null)
                     {
-                        App.SetActiveUser(user.Login);
+                        App.SetActiveUser(user.Name);
                         App.SetLevelAccess(user.LevelAccess);
+                        NavUI.PaneTitle = "РЕГИСТРАНТ (" + user.Name + ")";
                         ContentAuth.Hide();
                         Verify();
                     }
@@ -111,6 +140,9 @@ namespace Registrant
             }
         }
 
+        /// <summary>
+        /// Проверяем кто он по масти
+        /// </summary>
         void Verify()
         {
             if (App.LevelAccess == "admin")
@@ -181,14 +213,14 @@ namespace Registrant
             FrameContent.Content = pageShipments;
         }
 
-        private void nav_jurnalsklad_MouseDown(object sender, MouseButtonEventArgs e)
+        private void nav_admin_MouseDown(object sender, MouseButtonEventArgs e)
         {
 
         }
 
-        private void nav_admin_MouseDown(object sender, MouseButtonEventArgs e)
+        private void AcrylicWindow_Closed(object sender, EventArgs e)
         {
-
+            Environment.Exit(0);
         }
     }
 }

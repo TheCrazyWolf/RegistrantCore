@@ -17,10 +17,16 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Office.Interop.Excel" Version="15.0.4795.1000" />
+    <PackageReference Include="ModernWpf.MessageBox" Version="0.5.1" />
     <PackageReference Include="ModernWpfUI" Version="0.9.4" />
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Settings\App.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>App.settings</DependentUpon>
+    </Compile>
     <Compile Update="Settings\Connection.Designer.cs">
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <AutoGen>True</AutoGen>
@@ -34,6 +40,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Settings\App.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>App.Designer.cs</LastGenOutput>
+    </None>
     <None Update="Settings\Connection.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Connection.Designer.cs</LastGenOutput>

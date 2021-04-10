@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,20 +9,16 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using Windows.UI.Xaml.Printing;
-using Excel = Microsoft.Office.Interop.Excel;
-using Microsoft.Office.Interop.Excel;
-using System.Windows.Xps;
 
 namespace Registrant.Forms
 {
     /// <summary>
-    /// Логика взаимодействия для PrintShipments.xaml
+    /// Логика взаимодействия для PrintWarehouse.xaml
     /// </summary>
-    public partial class PrintShipments 
+    public partial class PrintWarehouse 
     {
         Controllers.PrintShipmentController controller;
-        public PrintShipments()
+        public PrintWarehouse()
         {
             InitializeComponent();
             controller = new Controllers.PrintShipmentController();
@@ -75,6 +69,5 @@ namespace Registrant.Forms
                 file.Close();
             }
         }
-
     }
 }

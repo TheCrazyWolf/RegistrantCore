@@ -8,14 +8,13 @@
         xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
         mc:Ignorable="d"
         ExtendViewIntoTitleBar="True"
-        Title="Регистрант" Height="720" Width="1280" MinHeight="720" MinWidth="1280">
+        Title="Регистрант" Height="720" Width="1280" Closed="AcrylicWindow_Closed" >
     <Grid Background="White">
-        <ui:NavigationView
+        <ui:NavigationView x:Name="NavUI" 
         IsSettingsVisible="False"
         IsBackButtonVisible="Auto"
         PaneTitle="РЕГИСТРАНТ"
-        
-        PaneDisplayMode="Left">
+        PaneDisplayMode="Auto">
             <ui:NavigationView.MenuItems>
                 <ui:NavigationViewItem Visibility="Collapsed" x:Name="nav_jurnalkpp" MouseDown="nav_jurnalkpp_MouseDown" Icon="Library" Content="Журнал для КПП"  />
                 <ui:NavigationViewItem Visibility="Collapsed" x:Name="nav_contragents" MouseDown="nav_contragents_MouseDown" Icon="Tag" Content="Управление контрагентами" />
@@ -27,6 +26,7 @@
             <Frame x:Name="FrameContent" Content="Authorization required. Please log in" NavigationUIVisibility="Hidden" >
             </Frame>
         </ui:NavigationView>
+        
         <ui:ContentDialog Visibility="Hidden" x:Name="ContentAuth">
             <Grid>
                 <StackPanel >
@@ -40,6 +40,7 @@
                 </StackPanel>
             </Grid>
         </ui:ContentDialog>
+        
         <ui:ContentDialog Visibility="Hidden" x:Name="ContentWait">
             <Grid>
                 <StackPanel >
@@ -49,6 +50,7 @@
                 </StackPanel>
             </Grid>
         </ui:ContentDialog>
+        
         <ui:ContentDialog Visibility="Hidden" x:Name="ContentError">
             <Grid>
                 <StackPanel >
@@ -66,6 +68,22 @@
                         <Button  x:Name="btn_debug" Click="btn_debug_Click" Margin="5 0 0 0">▼</Button>
                     </StackPanel>
                     <TextBlock Visibility="Collapsed" x:Name="text_error" Text="Дебаг режим подробнее об ошибке"></TextBlock>
+                </StackPanel>
+            </Grid>
+        </ui:ContentDialog>
+
+        <ui:ContentDialog Visibility="Visible" x:Name="ContentAppVer">
+            <Grid>
+                <StackPanel >
+                    <TextBlock Text="О программе" Style="{StaticResource SubheaderTextBlockStyle}"/>
+                    <TextBlock Text="Registrant Core" Margin="0 5 0 0" Style="{StaticResource SubtitleTextBlockStyle}"/>
+                    <StackPanel>
+                        <TextBlock Margin="0 10 0 0" Text="Разработка говнокода Алексей Кулагин (TheCrazyWolf)" Style="{StaticResource BodyTextBlockStyle}" />
+                        <TextBlock Text="Это могло произойти по следующим причинам:" Style="{StaticResource BodyTextBlockStyle}" Padding="0 15 0 0"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" >
+                        <Button Click="btn_opensettings_Click" >Настройки подключения</Button>
+                    </StackPanel>
                 </StackPanel>
             </Grid>
         </ui:ContentDialog>

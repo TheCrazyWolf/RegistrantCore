@@ -28,7 +28,7 @@
             <StackPanel>
                 <StackPanel Margin="0 10 0 0" Orientation="Horizontal">
                     <DatePicker x:Name="DatePicker" Margin="0 0 8 0" SelectedDateChanged="DatePicker_SelectedDateChanged"/>
-                    <Button x:Name="btn_refresh" Click="btn_refresh_Click" Margin="0 0 5 0" Content="Обновить"></Button>
+                    <Button Visibility="Collapsed" x:Name="btn_refresh" Click="btn_refresh_Click" Margin="0 0 5 0" Content="Обновить"></Button>
                     <Button x:Name="btn_adddriver" Click="btn_adddriver_Click" Content="Новый водитель (внеплан)"></Button>
                 </StackPanel>
                 <TextBlock Text="Запланированные" Margin="0 25 0 0" Style="{StaticResource SubtitleTextBlockStyle}"/>

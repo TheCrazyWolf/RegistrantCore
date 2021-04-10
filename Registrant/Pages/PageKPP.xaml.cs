@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -30,8 +31,23 @@ namespace Registrant.Pages
             plan = new Controllers.PlanShipmentController();
 
             DatePicker.SelectedDate = DateTime.Now;
+
+            Thread thread = new Thread(new ThreadStart(RefreshThread));
+            thread.Start();
         }
 
+        void RefreshThread()
+        {
+            while (true)
+            {
+                Thread.Sleep(Settings.App.Default.RefreshContent);
+                Dispatcher.Invoke(() => DataGrid_Plan.ItemsSource = null);
+                Dispatcher.Invoke(() => DataGrid_Drivers.ItemsSource = null);
+
+                Dispatcher.Invoke(() => DataGrid_Plan.ItemsSource = plan.GetPlanShipments(Dispatcher.Invoke(() => DatePicker.SelectedDate.Value)));
+                Dispatcher.Invoke(() => DataGrid_Drivers.ItemsSource = kPP.GetShipments(Dispatcher.Invoke(() => DatePicker.SelectedDate.Value)));
+            }
+        }
 
         private void btn_close_Click(object sender, RoutedEventArgs e)
         {
@@ -41,11 +57,11 @@ namespace Registrant.Pages
 
         private void btn_refresh_Click(object sender, RoutedEventArgs e)
         {
-            DataGrid_Plan.ItemsSource = null;
-            DataGrid_Drivers.ItemsSource = null;
+            Dispatcher.Invoke(() => DataGrid_Plan.ItemsSource = null);
+            Dispatcher.Invoke(() => DataGrid_Drivers.ItemsSource = null);
 
-            DataGrid_Plan.ItemsSource = plan.GetPlanShipments(DatePicker.SelectedDate.Value);
-            DataGrid_Drivers.ItemsSource = kPP.GetShipments(DatePicker.SelectedDate.Value);
+            Dispatcher.Invoke(() => DataGrid_Plan.ItemsSource = plan.GetPlanShipments(Dispatcher.Invoke(() => DatePicker.SelectedDate.Value)));
+            Dispatcher.Invoke(() => DataGrid_Drivers.ItemsSource = kPP.GetShipments(Dispatcher.Invoke(() => DatePicker.SelectedDate.Value)));
         }
 
         private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
