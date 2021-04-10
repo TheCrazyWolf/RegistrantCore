@@ -20,6 +20,7 @@ namespace Registrant.Models
 
         public string Attorney { get; set; }
         public string Auto { get; set; }
+        public string TochkaLoad { get; set; }
 
         public PrintShipments(DB.Shipment shipment)
         {
@@ -41,6 +42,7 @@ namespace Registrant.Models
 
             NumRealese = shipment.NumRealese;
             PacketDocuments = shipment.PacketDocuments;
+            TochkaLoad = shipment.TochkaLoad;
         }
 
 

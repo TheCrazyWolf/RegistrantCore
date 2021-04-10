@@ -11,6 +11,10 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Windows.UI.Xaml.Printing;
+using Excel = Microsoft.Office.Interop.Excel;
+using Microsoft.Office.Interop.Excel;
+using System.Windows.Xps;
 
 namespace Registrant.Forms
 {
@@ -25,7 +29,8 @@ namespace Registrant.Forms
             InitializeComponent();
             controller = new Controllers.PrintShipmentController();
             DatePicker.SelectedDate = DateTime.Now;
-
+            
+            
         }
 
         private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
@@ -42,15 +47,37 @@ namespace Registrant.Forms
 
         private void btn_print_Click(object sender, RoutedEventArgs e)
         {
-            var pd = new PrintDialog();
-            var result = pd.ShowDialog();
-            if (result.HasValue && result.Value)
-                pd.PrintVisual(grid_shipments, "My WPF printing a DataGrid");
+
         }
 
         private void btn_saveExcel_Click(object sender, RoutedEventArgs e)
         {
-            
+
+            Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
+            dlg.FileName = "Реестр"; // Default file name
+            dlg.DefaultExt = ".xls"; // Default file extension
+            dlg.Filter = "Говнофайлы (.xls)|*.xls"; // Filter files by extension
+
+            // Show save file dialog box
+            Nullable<bool> result1 = dlg.ShowDialog();
+
+            // Process save file dialog box results
+            if (result1 == true)
+            {
+                // Save document
+                string filename = dlg.FileName;
+                grid_shipments.SelectAllCells();
+                grid_shipments.ClipboardCopyMode = DataGridClipboardCopyMode.IncludeHeader;
+                ApplicationCommands.Copy.Execute(null, grid_shipments);
+                String resultat = (string)Clipboard.GetData(DataFormats.CommaSeparatedValue);
+                String result = (string)Clipboard.GetData(DataFormats.Text);
+                grid_shipments.UnselectAllCells();
+                System.IO.StreamWriter file = new System.IO.StreamWriter(filename, false, Encoding.Unicode);
+                file.WriteLine(result.Replace(",", " "));
+                file.Close();
+            }
+
+
         }
 
 
@@ -59,6 +86,7 @@ namespace Registrant.Forms
         {
            
         }
+
 
 
     }

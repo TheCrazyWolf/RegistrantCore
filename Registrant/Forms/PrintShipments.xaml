@@ -23,10 +23,13 @@
             <Button x:Name="btn_print" Click="btn_print_Click" Margin="5 5 0 5" Content="Печать"/>
             <Button x:Name="btn_saveExcel" Click="btn_saveExcel_Click" Margin="5 5 0 5" Content="Сохранить в Excel"/>
         </StackPanel>
-        <DataGrid x:Name="grid_shipments" Margin="7" Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True">
+
+
+        <DataGrid x:Name="grid_shipments" Grid.Row="1"  Margin="7"  AutoGenerateColumns="False" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="№" Binding="{Binding IdShipment}" />
                 <DataGridTextColumn Header="Дата" Binding="{Binding PlanDate}" />
+                <DataGridTextColumn Header="№То" Binding="{Binding TochkaLoad}" />
                 <DataGridTextColumn Header="Время" Binding="{Binding PlanTime}" />
                 <DataGridTextColumn Header="Контрагент" Binding="{Binding Contragent}"/>
                 <DataGridTextColumn Header="Склад" Binding="{Binding Sklad}"/>
@@ -39,5 +42,6 @@
                 <DataGridTextColumn Header="Убытие со склада" Binding="{Binding DateLeft}"/>
             </DataGrid.Columns>
         </DataGrid>
+
     </Grid>
 </fw:AcrylicWindow>
