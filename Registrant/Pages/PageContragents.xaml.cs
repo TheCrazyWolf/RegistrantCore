@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -11,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+
+
 
 namespace Registrant.Pages
 {
@@ -22,10 +25,39 @@ namespace Registrant.Pages
         public PageContragents()
         {
             InitializeComponent();
-
             FirstLoad();
+
+            Thread thread = new Thread(new ThreadStart(RefreshThread));
+            thread.Start();
         }
 
+        /// <summary>
+        /// Обновление в потоке
+        /// </summary>
+        void RefreshThread()
+        {
+            while (true)
+            {
+                Thread.Sleep(Settings.App.Default.RefreshContent);
+                try
+                {
+                    using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
+                    {
+                        var temp = ef.Contragents.Where(x => x.Active != "0").OrderByDescending(x => x.IdContragent).ToList();
+                        Dispatcher.Invoke(() => DataGrid_Contragents.ItemsSource = temp);
+                        Dispatcher.Invoke(() => DataGrid_Contragents.Items.Refresh());
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Упс.. Что-то пошло не так\n\nВозможно произошел разрыв соединения с сервером\n\nОтладочная информация\n" + ex.ToString(), "Ошибка при выполнении кода", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Первый старт, подгрузка данных
+        /// </summary>
         void FirstLoad()
         {
             try
@@ -36,24 +68,33 @@ namespace Registrant.Pages
                     DataGrid_Contragents.ItemsSource = temp;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                MessageBox.Show("Упс.. Что-то пошло не так\n\nВозможно произошел разрыв соединения с сервером\n\nОтладочная информация\n"+ ex.ToString(), "Ошибка при выполнении кода", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
+        /// <summary>
+        /// Кнопка закрыть из диалг окна добавления
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_add_close_Click(object sender, RoutedEventArgs e)
         {
             ContentAdd.Hide();
         }
 
+        /// <summary>
+        /// Кнопка редактиировать из таблицы
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_edit_Click(object sender, RoutedEventArgs e)
         {
             ContentEdit.ShowAsync();
             var bt = e.OriginalSource as Button;
             var current = bt.DataContext as DB.Contragent;
-            text_editnamecontragent.Text = "Каскадное редактирование элемента " + current.Name;
+            text_editnamecontragent.Text = "Редактирование элемента " + current.Name;
             try
             {
                 using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
@@ -70,6 +111,7 @@ namespace Registrant.Pages
             }
         }
 
+        //Кнопка удалить
         private void btn_delete_Click(object sender, RoutedEventArgs e)
         {
             var bt = e.OriginalSource as Button;
@@ -94,25 +136,26 @@ namespace Registrant.Pages
             }
         }
 
+        //Обновить
         private void btn_refresh_Click(object sender, RoutedEventArgs e)
         {
-            DataGrid_Contragents.ItemsSource = null;
             try
             {
                 using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
                 {
                     var temp = ef.Contragents.Where(x => x.Active != "0").OrderByDescending(x => x.IdContragent).ToList();
+                    DataGrid_Contragents.ItemsSource = null;
                     DataGrid_Contragents.ItemsSource = temp;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                MessageBox.Show("Упс.. Что-то пошло не так\n\nВозможно произошел разрыв соединения с сервером\n\nОтладочная информация\n" + ex.ToString(), "Ошибка при выполнении кода", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
         }
 
+        //Добавить контрагента, диалог окно
         private void btn_addcontragent_Click(object sender, RoutedEventArgs e)
         {
             ContentAdd.ShowAsync();
@@ -120,6 +163,11 @@ namespace Registrant.Pages
 
         }
 
+        /// <summary>
+        /// Кнопка добавление, реального добавления
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_add_add_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -143,11 +191,21 @@ namespace Registrant.Pages
             }
         }
 
+        /// <summary>
+        /// Кнопка закрытия в добавление окна
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_add_close_Click_1(object sender, RoutedEventArgs e)
         {
             ContentAdd.Hide();
         }
 
+        /// <summary>
+        /// Кнопка сохранить изменения
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_save_edit_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -169,16 +227,23 @@ namespace Registrant.Pages
             }
         }
 
+        //Кнопка закрыть окна редактирования
         private void btn_edit_close_Click(object sender, RoutedEventArgs e)
         {
             ContentEdit.Hide();
         }
 
+        //Закрыть инф окно
         private void btn_info_close_Click(object sender, RoutedEventArgs e)
         {
             ContentInfo.Hide();
         }
 
+        /// <summary>
+        /// Показать инфу о контр агенте
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_info_Click(object sender, RoutedEventArgs e)
         {
             ContentInfo.ShowAsync();

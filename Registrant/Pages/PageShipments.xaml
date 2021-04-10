@@ -35,8 +35,8 @@
                     <ComboBoxItem>Покинули</ComboBoxItem>
                 </ComboBox>
                 <Button x:Name="btn_refresh" Click="btn_refresh_Click" Margin="0 0 5 0" Content="Обновить"></Button>
-                <Button Click="Button_Click" Visibility="Collapsed" x:Name="btn_new" Margin="0 0 5 0" Content="Новая отгрузка"></Button>
-                <Button x:Name="btn_print" Click="btn_print_Click" Content="Открыть в табл"></Button>
+                <Button Click="ButtonAdd_Click" Visibility="Collapsed" x:Name="btn_new" Margin="0 0 5 0" Content="Новая отгрузка"></Button>
+                <Button x:Name="btn_print" Click="btn_print_Click" Content="Выгрузка данных из БД"></Button>
             </StackPanel>
             <TextBlock x:Name="Text_date" Text="Реестр за 01.01.1970" Margin="0 10 0 0" Style="{StaticResource SubtitleTextBlockStyle}"/>
         </StackPanel>
@@ -45,6 +45,7 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="№" Binding="{Binding IdShipment}"/>
                     <DataGridTextColumn Header="Плановое время" Binding="{Binding DateTimePlanRegist}"/>
+                    <DataGridTextColumn Header="№ То" Binding="{Binding TochkaLoad}"/>
                     <DataGridTextColumn Header="Контрагент" Binding="{Binding Contragent}"/>
                     <DataGridTextColumn Header="ФИО водителя" Binding="{Binding FIO}"/>
                     <DataGridTextColumn Header="Номер" Binding="{Binding Phone}"/>
@@ -65,15 +66,15 @@
         </Grid>
 
 
-        <ui:ContentDialog Closing="ContentAddEdit_Closing" Grid.ColumnSpan="3" Grid.RowSpan="4" Visibility="Visible" x:Name="ContentAddEdit" >
+        <ui:ContentDialog  Grid.ColumnSpan="3" Grid.RowSpan="4" Visibility="Collapsed" x:Name="ContentAddEdit" >
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" Text="Отгрузка №{Binding Id.Shipment} от {Binding Id.DateTimePlanRegist}" Style="{StaticResource SubheaderTextBlockStyle}"/>
+                <TextBlock Grid.Row="0" Text="Отгрузка №" Style="{StaticResource SubheaderTextBlockStyle}"/>
                 <ScrollViewer Grid.Row="1">
-                    <Frame Width="auto" x:Name="frame_edit" Content="Ожидание открытия фрейма"/>
+                    <Frame Width="auto" x:Name="frame_edit" Content="Следуйте инструкциям на экране в открывшемся диалоговом окне"/>
                 </ScrollViewer>
             </Grid>
         </ui:ContentDialog>

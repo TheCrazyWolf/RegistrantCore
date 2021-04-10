@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -27,6 +28,22 @@ namespace Registrant.Pages
             InitializeComponent();
             controller = new Controllers.DriversController();
             DataGrid_Drivers.ItemsSource = controller.GetDrivers();
+
+            Thread thread = new Thread(new ThreadStart(RefreshThread));
+            thread.Start();
+        }
+
+        void RefreshThread()
+        {
+            while (true)
+            {
+                Thread.Sleep(Settings.App.Default.RefreshContent);
+                if (Dispatcher.Invoke(() => tb_search.Text == ""))
+                {
+                    Dispatcher.Invoke(() => DataGrid_Drivers.ItemsSource = controller.GetDrivers());
+                    Dispatcher.Invoke(() => DataGrid_Drivers.Items.Refresh());
+                }
+            }
         }
 
         /// <summary>
@@ -38,17 +55,9 @@ namespace Registrant.Pages
         {
             if (tb_search.Text == "")
             {
-                DataGrid_Drivers.ItemsSource = null;
-
-                //Подгрузка данных в зависимости от ролей
-                if (App.ActiveUser == "reader" || App.ActiveUser == "admin")
-                {
-                    DataGrid_Drivers.ItemsSource = controller.GetDriversAll();
-                }
-                else
-                {
-                    DataGrid_Drivers.ItemsSource = controller.GetDrivers();
-                }
+                //DataGrid_Drivers.ItemsSource = null;
+                DataGrid_Drivers.ItemsSource = controller.GetDrivers();
+                DataGrid_Drivers.Items.Refresh();
             }
         }
 

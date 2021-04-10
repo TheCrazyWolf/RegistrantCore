@@ -26,15 +26,57 @@ namespace Registrant.Pages
         public PageShipments()
         {
             InitializeComponent();
-            //Environment.Exit(0);
             controller = new Controllers.ShipmentController();
             DatePicker.SelectedDate = DateTime.Now;
+
+            Thread thread = new Thread(new ThreadStart(RefreshThread));
+            thread.Start();
 
             if (App.LevelAccess == "admin" || App.LevelAccess == "shipment")
             {
                 btn_new.Visibility = Visibility.Visible;
             }
+
         }
+
+        /// <summary>
+        /// Потоко
+        /// </summary>
+        void RefreshThread()
+        {
+            while (true)
+            {
+                
+                if (Dispatcher.Invoke(() => string.IsNullOrWhiteSpace(tb_search.Text)))
+                {
+                    if (Dispatcher.Invoke(() => DatePicker.SelectedDate != null))
+                    {
+                        if (Dispatcher.Invoke(() => cb_sort.SelectedIndex == 0))
+                        {
+                            Dispatcher.Invoke(() => DataGrid_Shipments.ItemsSource = controller.GetShipments(DatePicker.SelectedDate.Value));
+                            Dispatcher.Invoke(() => DataGrid_Shipments.Items.Refresh());
+                        }
+                        else if (Dispatcher.Invoke(() => cb_sort.SelectedIndex == 1))
+                        {
+                            Dispatcher.Invoke(() => DataGrid_Shipments.ItemsSource = controller.GetShipmentsFactReg(DatePicker.SelectedDate.Value));
+                            Dispatcher.Invoke(() => DataGrid_Shipments.Items.Refresh());
+                        }
+                        else if(Dispatcher.Invoke(() => cb_sort.SelectedIndex == 2))
+                        {
+                            Dispatcher.Invoke(() => DataGrid_Shipments.ItemsSource = controller.GetShipmentsArrive(DatePicker.SelectedDate.Value));
+                            Dispatcher.Invoke(() => DataGrid_Shipments.Items.Refresh());
+                        }
+                        else if(Dispatcher.Invoke(() => cb_sort.SelectedIndex == 3))
+                        {
+                            Dispatcher.Invoke(() => DataGrid_Shipments.ItemsSource = controller.GetShipmentsLeft(DatePicker.SelectedDate.Value));
+                            Dispatcher.Invoke(() => DataGrid_Shipments.Items.Refresh());
+                        }
+                    }
+                }
+                Thread.Sleep(Settings.App.Default.RefreshContent);
+            }
+        }
+
 
         private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -74,8 +116,6 @@ namespace Registrant.Pages
                     }
                 }
             }
-
-
         }
 
         private void cb_sort_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -96,7 +136,6 @@ namespace Registrant.Pages
                     DataGrid_Shipments.ItemsSource = null;
 
                     var temp = controller.GetShipmentsAll();
-
                     var data = temp.Where(t => t.FIO.ToUpper().StartsWith(tb_search.Text.ToUpper())).ToList();
                     var sDOP = temp.Where(t => t.FIO.ToUpper().Contains(tb_search.Text.ToUpper())).ToList();
                     data.AddRange(sDOP);
@@ -122,19 +161,16 @@ namespace Registrant.Pages
 
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+
+        private void ButtonAdd_Click(object sender, RoutedEventArgs e)
         {
             ContentAddEdit.ShowAsync();
             Forms.AddOrEditShipment addOrEditShipment = new Forms.AddOrEditShipment();
             addOrEditShipment.ShowDialog();
             ContentAddEdit.Hide();
-
+            btn_refresh_Click(sender, e);
         }
 
-        private void ContentAddEdit_Closing(ModernWpf.Controls.ContentDialog sender, ModernWpf.Controls.ContentDialogClosingEventArgs args)
-        {
-
-        }
 
         private void btn_load_Click(object sender, RoutedEventArgs e)
         {
