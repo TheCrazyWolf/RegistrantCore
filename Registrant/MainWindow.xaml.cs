@@ -162,9 +162,10 @@ namespace Registrant
             }
             else if (App.LevelAccess == "reader")
             {
-                nav_contragents.Visibility = Visibility.Visible;
                 nav_drivers.Visibility = Visibility.Visible;
                 nav_jurnalshipment.Visibility = Visibility.Visible;
+                pageDrivers = new Pages.PageDrivers();
+                pageShipments = new Pages.PageShipments();
             }
             else if (App.LevelAccess == "warehouse")
             {

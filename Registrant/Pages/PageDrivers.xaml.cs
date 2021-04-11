@@ -29,6 +29,13 @@ namespace Registrant.Pages
             controller = new Controllers.DriversController();
             DataGrid_Drivers.ItemsSource = controller.GetDrivers();
 
+
+            if (App.LevelAccess == "reader")
+            {
+                btn_add_driver.Visibility = Visibility.Collapsed;
+                btn_delete_30day.Visibility = Visibility.Collapsed;
+            }
+
             Thread thread = new Thread(new ThreadStart(RefreshThread));
             thread.Start();
         }

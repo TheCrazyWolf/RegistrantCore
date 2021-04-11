@@ -38,24 +38,33 @@ namespace Registrant.Forms
         /// <param name="e"></param>
         private void cb_drivers_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            try
+            var test = cb_drivers as ComboBox;
+            var current = test.SelectedItem as DB.Driver;
+
+            if (current != null)
             {
-                using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
+                try
                 {
-                    var test = cb_drivers as ComboBox;
-                    var current = test.SelectedItem as DB.Driver;
+                    using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
+                    {
+                        var temp = ef.Drivers.FirstOrDefault(x => x.IdDriver == current.IdDriver);
 
-                    var temp = ef.Drivers.FirstOrDefault(x => x.IdDriver == current.IdDriver );
+                        tb_contragent.Text = temp.IdContragentNavigation?.Name;
+                        tb_phone.Text = temp.Phone;
+                        tb_autonum.Text = temp.AutoNumber; 
+                    }
+                }
+                catch (Exception)
+                {
 
-                    tb_contragent.Text = temp.IdContragentNavigation?.Name;
-                    tb_phone.Text = temp.Phone;
-                    tb_autonum.Text = temp.AutoNumber;;
+                    throw;
                 }
             }
-            catch (Exception)
+            else
             {
-
-                throw;
+                tb_contragent.Text = null;
+                tb_phone.Text = null;
+                tb_autonum.Text = null;
             }
             
         }
@@ -115,15 +124,20 @@ namespace Registrant.Forms
             else if (App.LevelAccess == "admin")
             {
             }
-          
+
             try
             {
                 using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
                 {
                     var temp = ef.Shipments.FirstOrDefault(x => x.IdShipment == id);
-
-                    cb_drivers.ItemsSource = ef.Drivers.Where(x => x.Active != "0").OrderBy(x => x.Family).ToList();
+                    
+                    cb_drivers.ItemsSource = ef.Drivers.Where(x => x.Active != "0" | x.IdDriver == temp.IdDriver).OrderByDescending(x => x.Family).ToList();
                     cb_drivers.SelectedItem = ef.Drivers.FirstOrDefault(x => x.IdDriver == temp.IdDriver);
+
+                    if (temp.IdTimeNavigation.DateTimeLoad != null)
+                    {
+                        cb_drivers.IsEnabled = false;
+                    }
 
                     dt_plan.Value = temp.IdTimeNavigation?.DateTimePlanRegist;
                     dt_fact.Value = temp.IdTimeNavigation?.DateTimeFactRegist;
@@ -160,6 +174,8 @@ namespace Registrant.Forms
             {
                 text_title.Text = "Отгрузка №" + id;
             }
+
+
         }
 
         /// <summary>

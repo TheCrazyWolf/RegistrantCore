@@ -223,8 +223,15 @@ namespace Registrant.Pages
             var bt = e.OriginalSource as Button;
             var current = bt.DataContext as Models.Shipments;
 
-            Forms.AddOrEditShipment addOr = new Forms.AddOrEditShipment(current.IdShipment);
-            addOr.ShowDialog();
+            try
+            {
+                Forms.AddOrEditShipment addOr = new Forms.AddOrEditShipment(current.IdShipment);
+                addOr.ShowDialog();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
             btn_refresh_Click(sender, e);
         }
 
@@ -241,6 +248,20 @@ namespace Registrant.Pages
             {
                 Forms.PrintWarehouse print = new Forms.PrintWarehouse();
                 print.ShowDialog();
+            }
+            else
+            {
+                MessageBoxResult result = (MessageBoxResult)ModernWpf.MessageBox.Show("Вам открыть окно вид для сбыта?", "Внимание", MessageBoxButton.YesNo, MessageBoxImage.Asterisk);
+                if (result == MessageBoxResult.Yes)
+                {
+                    Forms.PrintShipments print = new Forms.PrintShipments();
+                    print.ShowDialog();
+                }
+                else
+                {
+                    Forms.PrintWarehouse print = new Forms.PrintWarehouse();
+                    print.ShowDialog();
+                }
             }
         }
 

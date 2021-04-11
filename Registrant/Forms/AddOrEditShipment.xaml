@@ -29,7 +29,7 @@
             <StackPanel Orientation="Horizontal">
                 <StackPanel >
                     <TextBlock Text="Водитель" Style="{StaticResource BodyTextBlockStyle}"  Padding="0 0 0 0"/>
-                    <ComboBox  x:Name="cb_drivers" SelectionChanged="cb_drivers_SelectionChanged" Width="200">
+                    <ComboBox IsTextSearchEnabled="True" IsEditable="True" TextSearch.TextPath="Family"  x:Name="cb_drivers" SelectionChanged="cb_drivers_SelectionChanged" Width="200">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">

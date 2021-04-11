@@ -34,7 +34,7 @@
                     <ComboBoxItem>На территории склада</ComboBoxItem>
                     <ComboBoxItem>Покинули</ComboBoxItem>
                 </ComboBox>
-                <Button x:Name="btn_refresh" Click="btn_refresh_Click" Margin="0 0 5 0" Content="Обновить"></Button>
+                <Button Visibility="Collapsed" x:Name="btn_refresh" Click="btn_refresh_Click" Margin="0 0 5 0" Content="Обновить"></Button>
                 <Button Click="ButtonAdd_Click" Visibility="Collapsed" x:Name="btn_new" Margin="0 0 5 0" Content="Новая отгрузка"></Button>
                 <Button x:Name="btn_print" Click="btn_print_Click" Content="Выгрузка данных из БД"></Button>
             </StackPanel>
