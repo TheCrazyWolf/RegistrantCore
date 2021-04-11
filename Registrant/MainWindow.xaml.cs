@@ -32,15 +32,13 @@ namespace Registrant
         {
             InitializeComponent();
 
-           //Подгрузка данных из настроек
+            //Подгрузка данных из настроек
             tb_login.Text = Settings.User.Default.login;
-            //В проде убрать нижнее
-            tb_password.Password = Settings.User.Default.password;
+            text_verson.Text = Settings.App.Default.AppVersion;
 
             //Поток наа 1 старт чтобы при старте не тормозилось
             Thread thread = new Thread(TestConnect);
             thread.Start();
-
         }
 
 
@@ -112,9 +110,6 @@ namespace Registrant
         private void btn_enter_Click(object sender, RoutedEventArgs e)
         {
             Settings.User.Default.login = tb_login.Text;
-
-            //В проде убрать! --- сохранение паролей
-            Settings.User.Default.password = tb_password.Password;
             Settings.User.Default.Save();
 
             try
@@ -137,9 +132,8 @@ namespace Registrant
 
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
                 throw;
             }
         }
@@ -165,6 +159,7 @@ namespace Registrant
                 pageShipments = new Pages.PageShipments();
                 pageAdmin = new Pages.PageAdmin();
 
+                FrameContent.Content = pageShipments;
             }
             else if (App.LevelAccess == "reader")
             {
@@ -175,6 +170,7 @@ namespace Registrant
                 pageDrivers = new Pages.PageDrivers();
                 pageShipments = new Pages.PageShipments();
 
+                FrameContent.Content = pageShipments;
             }
             else if (App.LevelAccess == "warehouse")
             {
@@ -185,6 +181,8 @@ namespace Registrant
                 pageContragents = new Pages.PageContragents();
                 pageDrivers = new Pages.PageDrivers();
                 pageShipments = new Pages.PageShipments();
+
+                FrameContent.Content = pageShipments;
 
             }
             else if (App.LevelAccess == "shipment")
@@ -197,12 +195,16 @@ namespace Registrant
                 pageContragents = new Pages.PageContragents();
                 pageDrivers = new Pages.PageDrivers();
                 pageShipments = new Pages.PageShipments();
+
+                FrameContent.Content = pageShipments;
             }
             else if (App.LevelAccess == "kpp")
             {
                 nav_jurnalkpp.Visibility = Visibility.Visible;
                 nav_userset.Visibility = Visibility.Visible;
                 pageKPP = new Pages.PageKPP();
+
+                FrameContent.Content = pageKPP;
             }
         }
 
@@ -239,6 +241,16 @@ namespace Registrant
         private void nav_userset_MouseDown(object sender, MouseButtonEventArgs e)
         {
             FrameContent.Content = pageUser;
+        }
+
+        private void btn_about_close_Click(object sender, RoutedEventArgs e)
+        {
+            ContentAppVer.Hide();
+        }
+
+        private void nav_aboutpo_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            ContentAppVer.ShowAsync();
         }
     }
 }

@@ -8,7 +8,7 @@
         xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
         mc:Ignorable="d"
         ExtendViewIntoTitleBar="True"
-        Title="Регистрант" Height="720" Width="1280" Closed="AcrylicWindow_Closed" >
+        Title="Регистрант" Height="720" Width="1280" Closed="AcrylicWindow_Closed" WindowStartupLocation="CenterScreen" WindowState="Maximized" >
     <Grid Background="White">
         <ui:NavigationView x:Name="NavUI" 
         IsSettingsVisible="False"
@@ -22,20 +22,19 @@
                 <ui:NavigationViewItem Visibility="Collapsed" x:Name="nav_jurnalshipment" MouseDown="nav_jurnalshipment_MouseDown" Icon="Library" Content="Отгрузки" />
                 <ui:NavigationViewItem Visibility="Collapsed" x:Name="nav_userset" MouseDown="nav_userset_MouseDown" Icon="Contact" Content="Пользователь" />
                 <ui:NavigationViewItem Visibility="Collapsed" x:Name="nav_admin" MouseDown="nav_admin_MouseDown" Icon="Setting" Content="Администрирование" />
-                <ui:NavigationViewItem Icon="World" Content="О программе" />
+                <ui:NavigationViewItem x:Name="nav_aboutpo" MouseDown="nav_aboutpo_MouseDown" Icon="World" Content="О программе" />
             </ui:NavigationView.MenuItems>
-            <Frame x:Name="FrameContent" Content="Authorization required. Please log in" NavigationUIVisibility="Hidden" >
-            </Frame>
+            <Frame x:Name="FrameContent"  NavigationUIVisibility="Hidden"/>
         </ui:NavigationView>
         
-        <ui:ContentDialog Visibility="Hidden" x:Name="ContentAuth">
+        <ui:ContentDialog Visibility="Visible" x:Name="ContentAuth">
             <Grid>
                 <StackPanel >
-                    <TextBlock Text="Авторизация" Style="{StaticResource SubheaderTextBlockStyle}"/>
-                    <TextBlock Text="И снова здравствуйте, давайте знакомится" Style="{StaticResource BodyTextBlockStyle}" Padding="0 0 0 25"/>
+                    <TextBlock Text="С возращением" Style="{StaticResource SubheaderTextBlockStyle}"/>
+                    <TextBlock Text="Перед продолжением, вам необходимо авторизоваться" Style="{StaticResource BodyTextBlockStyle}" Padding="0 0 0 10"/>
                     <TextBlock Text="Логин" Style="{StaticResource BodyTextBlockStyle}"/>
                     <TextBox x:Name="tb_login"></TextBox>
-                    <TextBlock Text="Пароль" Style="{StaticResource BodyTextBlockStyle}"/>
+                    <TextBlock Text="Пароль" Margin="0 10 0 0" Style="{StaticResource BodyTextBlockStyle}"/>
                     <PasswordBox x:Name="tb_password" Margin="0 0 0 25"></PasswordBox>
                     <Button x:Name="btn_enter" Click="btn_enter_Click" Content="Войти"></Button>
                 </StackPanel>
@@ -73,17 +72,22 @@
             </Grid>
         </ui:ContentDialog>
 
-        <ui:ContentDialog Visibility="Visible" x:Name="ContentAppVer">
+        <ui:ContentDialog Visibility="Hidden"  x:Name="ContentAppVer">
             <Grid>
                 <StackPanel >
                     <TextBlock Text="О программе" Style="{StaticResource SubheaderTextBlockStyle}"/>
                     <TextBlock Text="Registrant Core" Margin="0 5 0 0" Style="{StaticResource SubtitleTextBlockStyle}"/>
-                    <StackPanel>
-                        <TextBlock Margin="0 10 0 0" Text="Разработка говнокода Алексей Кулагин (TheCrazyWolf)" Style="{StaticResource BodyTextBlockStyle}" />
-                        <TextBlock Text="Это могло произойти по следующим причинам:" Style="{StaticResource BodyTextBlockStyle}" Padding="0 15 0 0"/>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Версия ПО:  " Style="{StaticResource BodyTextBlockStyle}" Padding="0 15 0 0"/>
+                        <TextBlock x:Name="text_verson" Text="2.0" Style="{StaticResource BodyTextBlockStyle}" Padding="0 15 0 0"/>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" >
-                        <Button Click="btn_opensettings_Click" >Настройки подключения</Button>
+
+                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Padding="0 15 0 0">
+                        Данное программное обеспечение является<LineBreak/> проприетарным продуктом.
+                    </TextBlock>
+                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Padding="0 15 0 0">Разработка говнокода: Алексей Кулагин (TheCrazyWolf)</TextBlock>
+                    <StackPanel Orientation="Horizontal" Margin="0 10 0 0" >
+                        <Button x:Name="btn_about_close" Click="btn_about_close_Click">Закрыть</Button>
                     </StackPanel>
                 </StackPanel>
             </Grid>

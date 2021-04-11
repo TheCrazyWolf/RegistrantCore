@@ -63,7 +63,7 @@
             <TextBlock Text="Администрирование " Style="{StaticResource SubheaderTextBlockStyle}"/>
         </StackPanel>
         
-        <ui:ContentDialog Grid.ColumnSpan="5" Grid.RowSpan="5" Visibility="Collapsed" x:Name="ContentSave" >
+        <ui:ContentDialog  x:Name="ContentSave" >
             <Grid >
                 <StackPanel>
                     <TextBlock Text="Получилось!" Style="{StaticResource SubheaderTextBlockStyle}"/>

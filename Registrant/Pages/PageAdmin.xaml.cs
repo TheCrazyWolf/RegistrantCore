@@ -22,10 +22,14 @@ namespace Registrant.Pages
         public PageAdmin()
         {
             InitializeComponent();
+            LoadUser();
+        }
 
+        void LoadUser()
+        {
             try
             {
-               using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
+                using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
                 {
                     DataGrid_Users.ItemsSource = ef.Users.OrderBy(x => x.IdUser).ToList();
                 }
@@ -35,24 +39,35 @@ namespace Registrant.Pages
 
                 throw;
             }
-
         }
 
         private void btn_deluser_Click(object sender, RoutedEventArgs e)
         {
+            var bt = e.OriginalSource as Button;
+            var current = bt.DataContext as DB.User;
 
+            if (current != null)
+            {
+                using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
+                {
+                    ef.Remove(current);
+                    ef.SaveChanges();
+                    LoadUser();
+                }
+                ContentSave.ShowAsync();
+            }
         }
 
         private void btn_info_close_Click(object sender, RoutedEventArgs e)
         {
-
+            ContentSave.Hide();
         }
 
         private void btn_add_add_Click(object sender, RoutedEventArgs e)
         {
+            ContentAddUser.Hide();
             if (tb_login.Text != "")
             {
-                ContentAddUser.Hide();
                 try
                 {
                     using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
@@ -82,11 +97,9 @@ namespace Registrant.Pages
                         {
                             user.LevelAccess = "admin";
                         }
-
                         ef.Add(user);
                         ef.SaveChanges();
-                        DataGrid_Users.ItemsSource = ef.Users.OrderBy(x => x.IdUser).ToList();
-                        ContentSave.ShowAsync();
+                        LoadUser();
                     }
                 }
                 catch (Exception)
@@ -94,12 +107,13 @@ namespace Registrant.Pages
 
                     throw;
                 }
+                ContentSave.ShowAsync();
             }
         }
 
         private void btn_add_close_Click(object sender, RoutedEventArgs e)
         {
-            ContentSave.Hide();
+            ContentAddUser.Hide();
         }
 
 

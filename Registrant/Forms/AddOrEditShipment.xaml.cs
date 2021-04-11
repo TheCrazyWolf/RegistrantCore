@@ -39,7 +39,7 @@ namespace Registrant.Forms
         private void cb_drivers_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var test = cb_drivers as ComboBox;
-            var current = test.SelectedItem as DB.Driver;
+            var current = test.SelectedItem as Models.Drivers;
 
             if (current != null)
             {
@@ -51,7 +51,8 @@ namespace Registrant.Forms
 
                         tb_contragent.Text = temp.IdContragentNavigation?.Name;
                         tb_phone.Text = temp.Phone;
-                        tb_autonum.Text = temp.AutoNumber; 
+                        tb_autonum.Text = temp.AutoNumber;
+                        tb_attorney.Text = temp.Attorney;
                     }
                 }
                 catch (Exception)
@@ -78,8 +79,10 @@ namespace Registrant.Forms
             {
                 using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
                 {
-                    cb_drivers.ItemsSource = ef.Drivers.Where(x => x.Active != "0").OrderBy(x => x.Family).ToList();
-                    
+                    Controllers.DriversController driver = new Controllers.DriversController();
+
+                    cb_drivers.ItemsSource = driver.GetDriversСurrent();
+
                 }
             }
             catch (Exception)
@@ -130,9 +133,11 @@ namespace Registrant.Forms
                 using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
                 {
                     var temp = ef.Shipments.FirstOrDefault(x => x.IdShipment == id);
-                    
-                    cb_drivers.ItemsSource = ef.Drivers.Where(x => x.Active != "0" | x.IdDriver == temp.IdDriver).OrderByDescending(x => x.Family).ToList();
-                    cb_drivers.SelectedItem = ef.Drivers.FirstOrDefault(x => x.IdDriver == temp.IdDriver);
+
+                    Controllers.DriversController driver = new Controllers.DriversController();
+
+                    cb_drivers.ItemsSource = driver.GetDriversСurrent((int)temp.IdDriver);
+                    cb_drivers.SelectedItem = driver.Driver.FirstOrDefault(x => x.IdDriver == temp.IdDriver);
 
                     if (temp.IdTimeNavigation.DateTimeLoad != null)
                     {
@@ -318,7 +323,7 @@ namespace Registrant.Forms
                         if (cb_drivers.SelectedItem != null)
                         {
                             var test = cb_drivers as ComboBox;
-                            var current = test.SelectedItem as DB.Driver;
+                            var current = test.SelectedItem as Models.Drivers;
                             shipment.IdDriver = current.IdDriver;
                         }
 
@@ -355,9 +360,9 @@ namespace Registrant.Forms
                         {
                             shipment.PacketDocuments = tb_packetdoc.Text;
                         }
-                        if (tb_typeload.Text != null)
+                        if (tb_tochkaload.Text != null)
                         {
-                            shipment.TochkaLoad = tb_typeload.Text;
+                            shipment.TochkaLoad = tb_tochkaload.Text;
                         }
                         if (tb_CountPodons.Text != null)
                         {
@@ -419,7 +424,7 @@ namespace Registrant.Forms
                     if (cb_drivers.SelectedItem != null)
                     {
                         var test = cb_drivers as ComboBox;
-                        var current = test.SelectedItem as DB.Driver;
+                        var current = test.SelectedItem as Models.Drivers;
                         shipment.IdDriver = current.IdDriver;
                     }
                     DB.Time time = new DB.Time();

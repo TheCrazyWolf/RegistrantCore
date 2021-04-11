@@ -9,8 +9,8 @@
         ExtendViewIntoTitleBar="True"
         xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
         mc:Ignorable="d"
-        Title="AddOrEditShipment" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Width="700" >
-    <Grid>
+        Title="AddOrEditShipment" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Height="712" Width="678"  >
+    <Grid Background="White">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="30"/>
             <ColumnDefinition Width="*"/>
@@ -29,13 +29,11 @@
             <StackPanel Orientation="Horizontal">
                 <StackPanel >
                     <TextBlock Text="Водитель" Style="{StaticResource BodyTextBlockStyle}"  Padding="0 0 0 0"/>
-                    <ComboBox IsTextSearchEnabled="True" IsEditable="True" TextSearch.TextPath="Family"  x:Name="cb_drivers" SelectionChanged="cb_drivers_SelectionChanged" Width="200">
+                    <ComboBox IsTextSearchEnabled="True" IsEditable="True" TextSearch.TextPath="FIO"  x:Name="cb_drivers" SelectionChanged="cb_drivers_SelectionChanged" Width="410">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="{Binding Family}"/>
-                                    <TextBlock Text=" "/>
-                                    <TextBlock Text="{Binding Name}"/>
+                                    <TextBlock Name="DriverFamily" Text="{Binding FIO}" Margin="0 0 5 0"/>
                                 </StackPanel>
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
@@ -45,15 +43,20 @@
                     <TextBlock Text="Контрагент" Style="{StaticResource BodyTextBlockStyle}"  Padding="0 0 0 0"/>
                     <TextBox x:Name="tb_contragent"  IsReadOnly="True"  Width="200" />
                 </StackPanel>
-                <StackPanel Margin="10 0 0 0">
+            </StackPanel>
+            
+            <StackPanel Orientation="Horizontal">
+                <StackPanel Margin="0 0 10 0">
                     <TextBlock Text="Телефон" Style="{StaticResource BodyTextBlockStyle}"  Padding="0 0 0 0"/>
                     <TextBox x:Name="tb_phone"  IsReadOnly="True"  Width="200" />
                 </StackPanel>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
                 <StackPanel >
                     <TextBlock Text="Номер т/с" Style="{StaticResource BodyTextBlockStyle}"  Padding="0 0 0 0"/>
                     <TextBox x:Name="tb_autonum"  IsReadOnly="True" Width="200"/>
+                </StackPanel>
+                <StackPanel Margin="10 0 0 0">
+                    <TextBlock Text="Доверенность" Style="{StaticResource BodyTextBlockStyle}"  Padding="0 0 0 0"/>
+                    <TextBox x:Name="tb_attorney"  IsReadOnly="True" Width="200"/>
                 </StackPanel>
 
             </StackPanel>
