@@ -177,19 +177,18 @@ namespace Registrant.Pages
             var bt = e.OriginalSource as Button;
             var current = bt.DataContext as Models.Shipments;
 
-            try
+            if (current != null)
             {
-                using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
+                MessageBoxResult result = (MessageBoxResult)ModernWpf.MessageBox.Show("Сменить статус водителя " + current.FIO + " на Загрузка начата?", "Внимание", MessageBoxButton.YesNo, MessageBoxImage.Information);
+                if (result == MessageBoxResult.Yes)
                 {
-                    var temp = ef.Shipments.FirstOrDefault(x => x.IdShipment == current.IdShipment);
-                    temp.IdTimeNavigation.DateTimeLoad = DateTime.Now;
-                    ef.SaveChanges();
+                    using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
+                    {
+                        var temp = ef.Shipments.FirstOrDefault(x => x.IdShipment == current.IdShipment);
+                        temp.IdTimeNavigation.DateTimeLoad = DateTime.Now;
+                        ef.SaveChanges();
+                    }
                 }
-            }
-            catch (Exception)
-            {
-
-                throw;
             }
 
             btn_refresh_Click(sender, e);
@@ -200,19 +199,19 @@ namespace Registrant.Pages
             var bt = e.OriginalSource as Button;
             var current = bt.DataContext as Models.Shipments;
 
-            try
+            if (current != null)
             {
-                using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
+                MessageBoxResult result = (MessageBoxResult)ModernWpf.MessageBox.Show("Сменить статус водителя " + current.FIO + " на Загрузка окончена?", "Внимание", MessageBoxButton.YesNo, MessageBoxImage.Information);
+                if (result == MessageBoxResult.Yes)
                 {
-                    var temp = ef.Shipments.FirstOrDefault(x => x.IdShipment == current.IdShipment);
-                    temp.IdTimeNavigation.DateTimeEndLoad = DateTime.Now;
-                    ef.SaveChanges();
+                    using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
+                    {
+                        var temp = ef.Shipments.FirstOrDefault(x => x.IdShipment == current.IdShipment);
+                        temp.IdTimeNavigation.DateTimeEndLoad = DateTime.Now;
+                        ef.SaveChanges();
+                    }
                 }
-            }
-            catch (Exception)
-            {
-
-                throw;
+                   
             }
 
             btn_refresh_Click(sender, e);
@@ -222,15 +221,10 @@ namespace Registrant.Pages
         {
             var bt = e.OriginalSource as Button;
             var current = bt.DataContext as Models.Shipments;
-
-            try
+            if (current !=null)
             {
                 Forms.AddOrEditShipment addOr = new Forms.AddOrEditShipment(current.IdShipment);
                 addOr.ShowDialog();
-            }
-            catch (Exception)
-            {
-                throw;
             }
             btn_refresh_Click(sender, e);
         }

@@ -72,23 +72,27 @@ namespace Registrant.Pages
         {
             var bt = e.OriginalSource as Button;
             var current = bt.DataContext as Models.KPPShipments;
-            MessageBoxResult result = (MessageBoxResult)ModernWpf.MessageBox.Show("Сменить статус водителя " + current.FIO + " на Прибыл?", "Внимание", MessageBoxButton.YesNo, MessageBoxImage.Information);
-            if (result == MessageBoxResult.Yes)
-            {
-                try
-                {
-                    using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
-                    {
-                        var temp = ef.Shipments.FirstOrDefault(x => x.IdShipment == current.IdShipment);
-                        temp.IdTimeNavigation.DateTimeArrive = DateTime.Now;
-                        ef.SaveChanges();
-                        btn_refresh_Click(sender, e);
-                    }
-                }
-                catch (Exception)
-                {
 
-                    throw;
+            if (current != null)
+            {
+                MessageBoxResult result = (MessageBoxResult)ModernWpf.MessageBox.Show("Сменить статус водителя " + current.FIO + " на Прибыл?", "Внимание", MessageBoxButton.YesNo, MessageBoxImage.Information);
+                if (result == MessageBoxResult.Yes)
+                {
+                    try
+                    {
+                        using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
+                        {
+                            var temp = ef.Shipments.FirstOrDefault(x => x.IdShipment == current.IdShipment);
+                            temp.IdTimeNavigation.DateTimeArrive = DateTime.Now;
+                            ef.SaveChanges();
+                            btn_refresh_Click(sender, e);
+                        }
+                    }
+                    catch (Exception)
+                    {
+
+                        throw;
+                    }
                 }
             }
 
@@ -98,23 +102,26 @@ namespace Registrant.Pages
         {
             var bt = e.OriginalSource as Button;
             var current = bt.DataContext as Models.KPPShipments;
-            MessageBoxResult result = (MessageBoxResult)ModernWpf.MessageBox.Show("Сменить статус водителя " + current.FIO + " на Покинул склад?", "Внимание", MessageBoxButton.YesNo, MessageBoxImage.Information);
-            if (result == MessageBoxResult.Yes)
+            if (current !=null)
             {
-                try
+                MessageBoxResult result = (MessageBoxResult)ModernWpf.MessageBox.Show("Сменить статус водителя " + current.FIO + " на Покинул склад?", "Внимание", MessageBoxButton.YesNo, MessageBoxImage.Information);
+                if (result == MessageBoxResult.Yes)
                 {
-                    using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
+                    try
                     {
-                        var temp = ef.Shipments.FirstOrDefault(x => x.IdShipment == current.IdShipment);
-                        temp.IdTimeNavigation.DateTimeLeft = DateTime.Now;
-                        ef.SaveChanges();
-                        btn_refresh_Click(sender, e);
+                        using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
+                        {
+                            var temp = ef.Shipments.FirstOrDefault(x => x.IdShipment == current.IdShipment);
+                            temp.IdTimeNavigation.DateTimeLeft = DateTime.Now;
+                            ef.SaveChanges();
+                            btn_refresh_Click(sender, e);
+                        }
                     }
-                }
-                catch (Exception)
-                {
+                    catch (Exception)
+                    {
 
-                    throw;
+                        throw;
+                    }
                 }
             }
         }
@@ -140,23 +147,26 @@ namespace Registrant.Pages
         {
             var bt = e.OriginalSource as Button;
             var current = bt.DataContext as Models.PlanShipment;
-            MessageBoxResult result = (MessageBoxResult)ModernWpf.MessageBox.Show("Сменить статус водителя " + current.FIO + " на Зарегистрирован?", "Внимание", MessageBoxButton.YesNo, MessageBoxImage.Information);
-            if (result == MessageBoxResult.Yes)
+            if (current !=null)
             {
-                try
+                MessageBoxResult result = (MessageBoxResult)ModernWpf.MessageBox.Show("Сменить статус водителя " + current.FIO + " на Зарегистрирован?", "Внимание", MessageBoxButton.YesNo, MessageBoxImage.Information);
+                if (result == MessageBoxResult.Yes)
                 {
-                    using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
+                    try
                     {
-                        var temp = ef.Shipments.FirstOrDefault(x => x.IdShipment == current.IdShipment);
-                        temp.IdTimeNavigation.DateTimeFactRegist = DateTime.Now;
-                        ef.SaveChanges();
-                        btn_refresh_Click(sender, e);
+                        using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
+                        {
+                            var temp = ef.Shipments.FirstOrDefault(x => x.IdShipment == current.IdShipment);
+                            temp.IdTimeNavigation.DateTimeFactRegist = DateTime.Now;
+                            ef.SaveChanges();
+                            btn_refresh_Click(sender, e);
+                        }
                     }
-                }
-                catch (Exception)
-                {
+                    catch (Exception)
+                    {
 
-                    throw;
+                        throw;
+                    }
                 }
             }
 

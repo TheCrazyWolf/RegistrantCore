@@ -130,17 +130,14 @@ namespace Registrant.Pages
         /// <param name="e"></param>
         private void btn_edit_Click(object sender, RoutedEventArgs e)
         {
-            ContentAddEdit.ShowAsync();
-            ClearTextbox();
-
             var bt = e.OriginalSource as Button;
             var current = bt.DataContext as Models.Drivers;
+            ClearTextbox();
 
             btn_edit.Visibility = Visibility.Visible;
             btn_add.Visibility = Visibility.Collapsed;
             btn_delete.Visibility = Visibility.Visible;
-
-            try
+            if (current != null)
             {
                 using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
                 {
@@ -155,20 +152,16 @@ namespace Registrant.Pages
                     tb_phone.Text = driver.Phone;
 
                     tb_contragent.ItemsSource = ef.Contragents.Where(x => x.Active != "0").ToList();
-                    tb_contragent.SelectedItem = ef.Contragents.FirstOrDefault(x => x.IdContragent == driver.IdContragent) ;
+                    tb_contragent.SelectedItem = ef.Contragents.FirstOrDefault(x => x.IdContragent == driver.IdContragent);
 
                     tb_attorney.Text = driver.Attorney;
                     tb_auto.Text = driver.Auto;
                     tb_autonum.Text = driver.AutoNumber;
                     tb_passport.Text = driver.Passport;
                     tb_info.Text = driver.Info;
-                    
-                }
-            }
-            catch (Exception)
-            {
+                    ContentAddEdit.ShowAsync();
 
-                throw;
+                }
             }
         }
 
@@ -312,7 +305,7 @@ namespace Registrant.Pages
             var bt = e.OriginalSource as Button;
             var current = bt.DataContext as Models.Drivers;
 
-            try
+            if (current !=null)
             {
                 using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
                 {
@@ -320,11 +313,6 @@ namespace Registrant.Pages
                     ContentInfoGrid.DataContext = ef.Drivers.FirstOrDefault(x => x.IdDriver == current.IdDriver);
                     text_info_namedriver.Text = current.FIO;
                 }
-            }
-            catch (Exception)
-            {
-
-                throw;
             }
         }
 

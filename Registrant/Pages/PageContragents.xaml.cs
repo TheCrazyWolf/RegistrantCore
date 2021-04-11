@@ -91,23 +91,19 @@ namespace Registrant.Pages
         /// <param name="e"></param>
         private void btn_edit_Click(object sender, RoutedEventArgs e)
         {
-            ContentEdit.ShowAsync();
             var bt = e.OriginalSource as Button;
             var current = bt.DataContext as DB.Contragent;
-            text_editnamecontragent.Text = "Редактирование элемента " + current.Name;
-            try
+
+            if (current != null)
             {
+                text_editnamecontragent.Text = "Редактирование элемента " + current.Name;
                 using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
                 {
                     var temp = ef.Contragents.FirstOrDefault(x => x.IdContragent == current.IdContragent);
                     tb_idcontragent.Text = temp.IdContragent.ToString();
                     tb_edit_name.Text = temp.Name.ToString();
+                    ContentEdit.ShowAsync();
                 }
-            }
-            catch (Exception)
-            {
-
-                throw;
             }
         }
 
@@ -250,7 +246,7 @@ namespace Registrant.Pages
             var bt = e.OriginalSource as Button;
             var current = bt.DataContext as DB.Contragent;
 
-            try
+            if (current != null)
             {
                 using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
                 {
@@ -258,11 +254,6 @@ namespace Registrant.Pages
                     text_namecontragent.Text = temp.Name;
                     text_infocontragent.Text = temp.ServiceInfo;
                 }
-            }
-            catch (Exception)
-            {
-
-                throw;
             }
         }
     }
