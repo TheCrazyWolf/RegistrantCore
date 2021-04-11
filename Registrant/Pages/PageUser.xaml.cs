@@ -70,5 +70,11 @@ namespace Registrant.Pages
         {
             ContentSave.Hide();
         }
+
+        private void btn_edit_connectstring_Click(object sender, RoutedEventArgs e)
+        {
+            Forms.EditConnect edit = new Forms.EditConnect();
+            edit.ShowDialog();
+        }
     }
 }

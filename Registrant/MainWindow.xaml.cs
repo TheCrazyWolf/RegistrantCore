@@ -26,6 +26,7 @@ namespace Registrant
         Pages.PageDrivers pageDrivers;
         Pages.PageShipments pageShipments;
         Pages.PageUser pageUser;
+        Pages.PageAdmin pageAdmin;
 
         public MainWindow()
         {
@@ -162,6 +163,7 @@ namespace Registrant
                 pageContragents = new Pages.PageContragents();
                 pageDrivers = new Pages.PageDrivers();
                 pageShipments = new Pages.PageShipments();
+                pageAdmin = new Pages.PageAdmin();
 
             }
             else if (App.LevelAccess == "reader")
@@ -226,7 +228,7 @@ namespace Registrant
 
         private void nav_admin_MouseDown(object sender, MouseButtonEventArgs e)
         {
-
+            FrameContent.Content = pageAdmin;
         }
 
         private void AcrylicWindow_Closed(object sender, EventArgs e)
