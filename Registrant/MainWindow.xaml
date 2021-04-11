@@ -20,6 +20,7 @@
                 <ui:NavigationViewItem Visibility="Collapsed" x:Name="nav_contragents" MouseDown="nav_contragents_MouseDown" Icon="Tag" Content="Контрагенты" />
                 <ui:NavigationViewItem Visibility="Collapsed" x:Name="nav_drivers" MouseDown="nav_drivers_MouseDown" Icon="ContactInfo" Content="Водители" />
                 <ui:NavigationViewItem Visibility="Collapsed" x:Name="nav_jurnalshipment" MouseDown="nav_jurnalshipment_MouseDown" Icon="Library" Content="Отгрузки" />
+                <ui:NavigationViewItem Visibility="Collapsed" x:Name="nav_userset" MouseDown="nav_userset_MouseDown" Icon="Contact" Content="Пользователь" />
                 <ui:NavigationViewItem Visibility="Collapsed" x:Name="nav_admin" MouseDown="nav_admin_MouseDown" Icon="Setting" Content="Администрирование" />
                 <ui:NavigationViewItem Icon="World" Content="О программе" />
             </ui:NavigationView.MenuItems>

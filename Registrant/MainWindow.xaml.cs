@@ -25,6 +25,7 @@ namespace Registrant
         Pages.PageKPP pageKPP;
         Pages.PageDrivers pageDrivers;
         Pages.PageShipments pageShipments;
+        Pages.PageUser pageUser;
 
         public MainWindow()
         {
@@ -124,10 +125,12 @@ namespace Registrant
 
                     if (user != null)
                     {
+                        ContentAuth.Hide();
                         App.SetActiveUser(user.Name);
                         App.SetLevelAccess(user.LevelAccess);
                         NavUI.PaneTitle = "РЕГИСТРАНТ (" + user.Name + ")";
-                        ContentAuth.Hide();
+                        nav_userset.Content = user.Name;
+                        pageUser = new Pages.PageUser(user.IdUser);
                         Verify();
                     }
 
@@ -152,6 +155,7 @@ namespace Registrant
                 nav_drivers.Visibility = Visibility.Visible;
                 nav_jurnalkpp.Visibility = Visibility.Visible;
                 nav_jurnalshipment.Visibility = Visibility.Visible;
+                nav_userset.Visibility = Visibility.Visible;
 
                 //
                 pageKPP = new Pages.PageKPP();
@@ -164,13 +168,17 @@ namespace Registrant
             {
                 nav_drivers.Visibility = Visibility.Visible;
                 nav_jurnalshipment.Visibility = Visibility.Visible;
+                nav_userset.Visibility = Visibility.Visible;
+
                 pageDrivers = new Pages.PageDrivers();
                 pageShipments = new Pages.PageShipments();
+
             }
             else if (App.LevelAccess == "warehouse")
             {
                 nav_drivers.Visibility = Visibility.Visible;
                 nav_jurnalshipment.Visibility = Visibility.Visible;
+                nav_userset.Visibility = Visibility.Visible;
 
                 pageContragents = new Pages.PageContragents();
                 pageDrivers = new Pages.PageDrivers();
@@ -182,6 +190,7 @@ namespace Registrant
                 nav_jurnalshipment.Visibility = Visibility.Visible;
                 nav_contragents.Visibility = Visibility.Visible;
                 nav_drivers.Visibility = Visibility.Visible;
+                nav_userset.Visibility = Visibility.Visible;
 
                 pageContragents = new Pages.PageContragents();
                 pageDrivers = new Pages.PageDrivers();
@@ -190,6 +199,7 @@ namespace Registrant
             else if (App.LevelAccess == "kpp")
             {
                 nav_jurnalkpp.Visibility = Visibility.Visible;
+                nav_userset.Visibility = Visibility.Visible;
                 pageKPP = new Pages.PageKPP();
             }
         }
@@ -222,6 +232,11 @@ namespace Registrant
         private void AcrylicWindow_Closed(object sender, EventArgs e)
         {
             Environment.Exit(0);
+        }
+
+        private void nav_userset_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            FrameContent.Content = pageUser;
         }
     }
 }
