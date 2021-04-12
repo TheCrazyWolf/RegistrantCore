@@ -68,11 +68,7 @@ namespace Registrant.Pages
             }
         }
 
-        /// <summary>
         /// Кнопка закрытия диалогового окна с редактированием
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void btn_close_Click(object sender, RoutedEventArgs e)
         {
             ContentAddEdit.Hide();
@@ -80,11 +76,7 @@ namespace Registrant.Pages
             btn_add.Visibility = Visibility.Collapsed;
         }
 
-        /// <summary>
         /// Кнопка добавления водителя
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void btn_add_Click(object sender, RoutedEventArgs e)
         {
             try
