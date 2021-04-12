@@ -123,11 +123,7 @@ namespace Registrant.Pages
             }
         }
 
-        /// <summary>
         /// Кнопка открыть окно редактирования
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void btn_edit_Click(object sender, RoutedEventArgs e)
         {
             var bt = e.OriginalSource as Button;
@@ -139,37 +135,41 @@ namespace Registrant.Pages
             btn_delete.Visibility = Visibility.Visible;
             if (current != null)
             {
-                using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
+                try
                 {
-                    var driver = ef.Drivers.FirstOrDefault(x => x.IdDriver == current.IdDriver);
+                    using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
+                    {
+                        var driver = ef.Drivers.FirstOrDefault(x => x.IdDriver == current.IdDriver);
 
-                    text_namedriver.Text = driver.Family + " " + driver.Name + " " + driver.Patronymic;
+                        text_namedriver.Text = driver.Family + " " + driver.Name + " " + driver.Patronymic;
 
-                    tb_id.Text = driver.IdDriver.ToString();
-                    tb_Family.Text = driver.Family;
-                    tb_name.Text = driver.Name;
-                    tb_patronomyc.Text = driver.Patronymic;
-                    tb_phone.Text = driver.Phone;
+                        tb_id.Text = driver.IdDriver.ToString();
+                        tb_Family.Text = driver.Family;
+                        tb_name.Text = driver.Name;
+                        tb_patronomyc.Text = driver.Patronymic;
+                        tb_phone.Text = driver.Phone;
 
-                    tb_contragent.ItemsSource = ef.Contragents.Where(x => x.Active != "0").ToList();
-                    tb_contragent.SelectedItem = ef.Contragents.FirstOrDefault(x => x.IdContragent == driver.IdContragent);
+                        tb_contragent.ItemsSource = ef.Contragents.Where(x => x.Active != "0").ToList();
+                        tb_contragent.SelectedItem = ef.Contragents.FirstOrDefault(x => x.IdContragent == driver.IdContragent);
 
-                    tb_attorney.Text = driver.Attorney;
-                    tb_auto.Text = driver.Auto;
-                    tb_autonum.Text = driver.AutoNumber;
-                    tb_passport.Text = driver.Passport;
-                    tb_info.Text = driver.Info;
-                    ContentAddEdit.ShowAsync();
+                        tb_attorney.Text = driver.Attorney;
+                        tb_auto.Text = driver.Auto;
+                        tb_autonum.Text = driver.AutoNumber;
+                        tb_passport.Text = driver.Passport;
+                        tb_info.Text = driver.Info;
+                        ContentAddEdit.ShowAsync();
 
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString(), "Программное исключене", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
 
-        /// <summary>
+
         /// Кнлпка удалить
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void btn_delete_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -184,18 +184,13 @@ namespace Registrant.Pages
                     btn_refresh_Click(sender, e);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                MessageBox.Show(ex.ToString(), "Программное исключене", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
-        /// <summary>
         /// Кнопка добавить водителя
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void btn_add_driver_Click(object sender, RoutedEventArgs e)
         {
             ContentAddEdit.ShowAsync();
@@ -211,16 +206,14 @@ namespace Registrant.Pages
                     btn_delete.Visibility = Visibility.Collapsed;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                MessageBox.Show(ex.ToString(), "Программное исключене", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
 
-        /// <summary>
         /// Очистка
-        /// </summary>
         void ClearTextbox()
         {
             tb_id.Text = null;
@@ -236,11 +229,7 @@ namespace Registrant.Pages
             tb_info.Text = null;
         }
 
-        /// <summary>
         /// Непосредственное редактирование
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void btn_edit_Click1(object sender, RoutedEventArgs e)
         {
             
@@ -273,32 +262,22 @@ namespace Registrant.Pages
                         btn_refresh_Click(sender, e);
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-
-                    throw;
-                }
+                MessageBox.Show(ex.ToString(), "Программное исключене", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
             
 
             
         }
 
-        /// <summary>
         /// Закрытия окна с информацией
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void btn_info_close_Click(object sender, RoutedEventArgs e)
         {
             ContentInfo.Hide();
         }
 
-        /// <summary>
         /// Открыть окно с расширенной информацией
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void btn_info_Click(object sender, RoutedEventArgs e)
         {
 
@@ -307,12 +286,21 @@ namespace Registrant.Pages
 
             if (current !=null)
             {
-                using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
+
+                try
                 {
-                    ContentInfo.ShowAsync();
-                    ContentInfoGrid.DataContext = ef.Drivers.FirstOrDefault(x => x.IdDriver == current.IdDriver);
-                    text_info_namedriver.Text = current.FIO;
+                    using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
+                    {
+                        ContentInfo.ShowAsync();
+                        ContentInfoGrid.DataContext = ef.Drivers.FirstOrDefault(x => x.IdDriver == current.IdDriver);
+                        text_info_namedriver.Text = current.FIO;
+                    }
                 }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString(), "Программное исключене", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+
             }
         }
 
@@ -346,10 +334,9 @@ namespace Registrant.Pages
                         // Нашел
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-
-                    throw;
+                    MessageBox.Show(ex.ToString(), "Программное исключене", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
 
@@ -377,10 +364,9 @@ namespace Registrant.Pages
                    // var temp = ef.Shipments.Where(x => (x.IdTimeNavigation.DateTimeLeft > last30) && x.IdDriverNavigation.Active != "0" && x.IdTimeNavigation.DateTimeFactRegist == currentMonth.GetDateTimeFormats.);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                MessageBox.Show(ex.ToString(), "Программное исключене", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

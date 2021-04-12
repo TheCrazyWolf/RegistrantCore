@@ -18,9 +18,7 @@ namespace Registrant.Forms
     /// </summary>
     public partial class AddOrEditShipment
     {
-        /// <summary>
         /// Новая отгрузка
-        /// </summary>
         public AddOrEditShipment()
         {
             InitializeComponent();
@@ -31,11 +29,7 @@ namespace Registrant.Forms
 
         }
 
-        /// <summary>
         /// Выбор водителя
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void cb_drivers_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var test = cb_drivers as ComboBox;
@@ -55,10 +49,9 @@ namespace Registrant.Forms
                         tb_attorney.Text = temp.Attorney;
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-
-                    throw;
+                    MessageBox.Show(ex.ToString(), "Программное исключене", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             else
@@ -70,9 +63,7 @@ namespace Registrant.Forms
             
         }
 
-        /// <summary>
         /// Подгрузка водителей
-        /// </summary>
         void LoadDriversBox()
         {
             try
@@ -91,10 +82,10 @@ namespace Registrant.Forms
                 throw;
             }
         }
-        /// <summary>
+
+
+
         /// Редактирование отгрузок
-        /// </summary>
-        /// <param name="id"></param>
         public AddOrEditShipment(int id)
         {
             InitializeComponent();
@@ -139,9 +130,13 @@ namespace Registrant.Forms
                     cb_drivers.ItemsSource = driver.GetDriversСurrent((int)temp.IdDriver);
                     cb_drivers.SelectedItem = driver.Driver.FirstOrDefault(x => x.IdDriver == temp.IdDriver);
 
+                    //ЗАПРЕТ НА РЕДАКТИРОВАНИЕ ЕСЛИ НАЧАЛАСЬ ЗАГРУЗКА
                     if (temp.IdTimeNavigation.DateTimeLoad != null)
                     {
-                        cb_drivers.IsEnabled = false;
+                        if (App.LevelAccess != "admin")
+                        {
+                            cb_drivers.IsEnabled = false;
+                        }
                     }
 
                     dt_plan.Value = temp.IdTimeNavigation?.DateTimePlanRegist;
@@ -165,11 +160,7 @@ namespace Registrant.Forms
                     tb_storekeeper.Text = temp.StoreKeeper;
                 }
             }
-            catch (Exception)
-            {
-
-                throw;
-            }
+            catch (Exception ex) { MessageBox.Show(ex.ToString(), "Программное исключене", MessageBoxButton.OK, MessageBoxImage.Error); }
 
             if (dt_plan.Value != null)
             {
@@ -179,15 +170,10 @@ namespace Registrant.Forms
             {
                 text_title.Text = "Отгрузка №" + id;
             }
-
-
         }
 
-        /// <summary>
         /// Кнопка редактировать
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+
         private void btn_edit_Click(object sender, RoutedEventArgs e)
         {
             if (App.LevelAccess == "shipment")
@@ -248,8 +234,7 @@ namespace Registrant.Forms
                 }
                 catch (Exception ex)
                 {
-
-                    MessageBox.Show(ex.ToString());
+                    MessageBox.Show(ex.ToString(), "Программное исключене", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             else if (App.LevelAccess == "warehouse")
@@ -308,9 +293,9 @@ namespace Registrant.Forms
                 }
                 catch (Exception ex)
                 {
-
-                    MessageBox.Show(ex.ToString());
+                    MessageBox.Show(ex.ToString(), "Программное исключене", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
+
             }
             else if (App.LevelAccess == "admin")
             {
@@ -402,17 +387,12 @@ namespace Registrant.Forms
                 }
                 catch (Exception ex)
                 {
-
-                    MessageBox.Show(ex.ToString());
+                    MessageBox.Show(ex.ToString(), "Программное исключене", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
 
-        /// <summary>
         /// Добавить соответственно
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void btn_add_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -427,6 +407,7 @@ namespace Registrant.Forms
                         var current = test.SelectedItem as Models.Drivers;
                         shipment.IdDriver = current.IdDriver;
                     }
+
                     DB.Time time = new DB.Time();
                     shipment.IdTimeNavigation = time;
 
@@ -508,8 +489,7 @@ namespace Registrant.Forms
             }
             catch (Exception ex)
             {
-
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show(ex.ToString(), "Программное исключене", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

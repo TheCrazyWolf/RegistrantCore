@@ -2,32 +2,38 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows;
 
 namespace Registrant.Controllers
 {
     public class ShipmentController
     {
-
         List<Models.Shipments> Shipments { get; set; }
 
         public ShipmentController()
         {
             Shipments = new List<Models.Shipments>();
         }
-
         public List<Models.Shipments> GetShipments(DateTime date)
         {
             Shipments.Clear();
 
             date = date.Date;
-            using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
+            try
             {
-                var temp = ef.Shipments.Where(x => ((x.IdTimeNavigation.DateTimePlanRegist.Value.Date == date || x.IdTimeNavigation.DateTimeFactRegist.Value.Date == date) && x.Active != "0")).OrderByDescending(x => x.IdTimeNavigation.DateTimePlanRegist);
-                foreach (var item in temp)
+                using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
                 {
-                    Models.Shipments shipment = new Models.Shipments(item);
-                    Shipments.Add(shipment);
+                    var temp = ef.Shipments.Where(x => ((x.IdTimeNavigation.DateTimePlanRegist.Value.Date == date || x.IdTimeNavigation.DateTimeFactRegist.Value.Date == date) && x.Active != "0")).OrderByDescending(x => x.IdTimeNavigation.DateTimePlanRegist);
+                    foreach (var item in temp)
+                    {
+                        Models.Shipments shipment = new Models.Shipments(item);
+                        Shipments.Add(shipment);
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Программное исключене", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             return Shipments;
         }
@@ -40,14 +46,21 @@ namespace Registrant.Controllers
         public List<Models.Shipments> GetShipmentsAll()
         {
             Shipments.Clear();
-            using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
+            try
             {
-                var temp = ef.Shipments.OrderByDescending(x => x.IdTimeNavigation.DateTimePlanRegist);
-                foreach (var item in temp)
+                using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
                 {
-                    Models.Shipments shipment = new Models.Shipments(item);
-                    Shipments.Add(shipment);
+                    var temp = ef.Shipments.OrderByDescending(x => x.IdTimeNavigation.DateTimePlanRegist);
+                    foreach (var item in temp)
+                    {
+                        Models.Shipments shipment = new Models.Shipments(item);
+                        Shipments.Add(shipment);
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Программное исключене", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             return Shipments;
         }
@@ -61,14 +74,21 @@ namespace Registrant.Controllers
             Shipments.Clear();
 
             date = date.Date;
-            using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
+            try
             {
-                var temp = ef.Shipments.Where(x => ((x.IdTimeNavigation.DateTimePlanRegist.Value.Date == date || x.IdTimeNavigation.DateTimeFactRegist.Value.Date == date) && x.IdTimeNavigation.DateTimeLeft == null && x.IdTimeNavigation.DateTimeArrive == null && x.Active != "0")).OrderByDescending(x => x.IdTimeNavigation.DateTimePlanRegist);
-                foreach (var item in temp)
+                using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
                 {
-                    Models.Shipments shipment = new Models.Shipments(item);
-                    Shipments.Add(shipment);
+                    var temp = ef.Shipments.Where(x => ((x.IdTimeNavigation.DateTimePlanRegist.Value.Date == date || x.IdTimeNavigation.DateTimeFactRegist.Value.Date == date) && x.IdTimeNavigation.DateTimeLeft == null && x.IdTimeNavigation.DateTimeArrive == null && x.Active != "0")).OrderByDescending(x => x.IdTimeNavigation.DateTimePlanRegist);
+                    foreach (var item in temp)
+                    {
+                        Models.Shipments shipment = new Models.Shipments(item);
+                        Shipments.Add(shipment);
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Программное исключене", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             return Shipments;
         }
@@ -82,14 +102,21 @@ namespace Registrant.Controllers
             Shipments.Clear();
 
             date = date.Date;
-            using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
+            try
             {
-                var temp = ef.Shipments.Where(x => ((x.IdTimeNavigation.DateTimePlanRegist.Value.Date == date || x.IdTimeNavigation.DateTimeFactRegist.Value.Date == date) && x.IdTimeNavigation.DateTimeArrive !=null && x.IdTimeNavigation.DateTimeLeft == null && x.Active != "0")).OrderByDescending(x => x.IdTimeNavigation.DateTimePlanRegist);
-                foreach (var item in temp)
+                using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
                 {
-                    Models.Shipments shipment = new Models.Shipments(item);
-                    Shipments.Add(shipment);
+                    var temp = ef.Shipments.Where(x => ((x.IdTimeNavigation.DateTimePlanRegist.Value.Date == date || x.IdTimeNavigation.DateTimeFactRegist.Value.Date == date) && x.IdTimeNavigation.DateTimeArrive != null && x.IdTimeNavigation.DateTimeLeft == null && x.Active != "0")).OrderByDescending(x => x.IdTimeNavigation.DateTimePlanRegist);
+                    foreach (var item in temp)
+                    {
+                        Models.Shipments shipment = new Models.Shipments(item);
+                        Shipments.Add(shipment);
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Программное исключене", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             return Shipments;
         }
@@ -98,19 +125,26 @@ namespace Registrant.Controllers
         /// </summary>
         /// <param name="date"></param>
         /// <returns></returns>
+        /// 
         public List<Models.Shipments> GetShipmentsLeft(DateTime date)
         {
             Shipments.Clear();
-
             date = date.Date;
-            using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
+            try
             {
-                var temp = ef.Shipments.Where(x => ((x.IdTimeNavigation.DateTimePlanRegist.Value.Date == date || x.IdTimeNavigation.DateTimeFactRegist.Value.Date == date) && x.IdTimeNavigation.DateTimeLeft !=null && x.Active != "0")).OrderByDescending(x => x.IdTimeNavigation.DateTimePlanRegist);
-                foreach (var item in temp)
+                using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
                 {
-                    Models.Shipments shipment = new Models.Shipments(item);
-                    Shipments.Add(shipment);
+                    var temp = ef.Shipments.Where(x => ((x.IdTimeNavigation.DateTimePlanRegist.Value.Date == date || x.IdTimeNavigation.DateTimeFactRegist.Value.Date == date) && x.IdTimeNavigation.DateTimeLeft != null && x.Active != "0")).OrderByDescending(x => x.IdTimeNavigation.DateTimePlanRegist);
+                    foreach (var item in temp)
+                    {
+                        Models.Shipments shipment = new Models.Shipments(item);
+                        Shipments.Add(shipment);
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Программное исключене", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             return Shipments;
         }

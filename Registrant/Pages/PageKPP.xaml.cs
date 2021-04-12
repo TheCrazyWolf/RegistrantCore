@@ -88,11 +88,7 @@ namespace Registrant.Pages
                             btn_refresh_Click(sender, e);
                         }
                     }
-                    catch (Exception)
-                    {
-
-                        throw;
-                    }
+                    catch (Exception ex) { MessageBox.Show(ex.ToString(), "Программное исключене", MessageBoxButton.OK, MessageBoxImage.Error); }
                 }
             }
 
@@ -117,11 +113,7 @@ namespace Registrant.Pages
                             btn_refresh_Click(sender, e);
                         }
                     }
-                    catch (Exception)
-                    {
-
-                        throw;
-                    }
+                    catch (Exception ex) { MessageBox.Show(ex.ToString(), "Программное исключене", MessageBoxButton.OK, MessageBoxImage.Error); }
                 }
             }
         }
@@ -162,11 +154,7 @@ namespace Registrant.Pages
                             btn_refresh_Click(sender, e);
                         }
                     }
-                    catch (Exception)
-                    {
-
-                        throw;
-                    }
+                    catch (Exception ex) { MessageBox.Show(ex.ToString(), "Программное исключене", MessageBoxButton.OK, MessageBoxImage.Error); }
                 }
             }
 
@@ -208,7 +196,7 @@ namespace Registrant.Pages
             }
             catch (Exception ex)
             {
-                throw;
+                MessageBox.Show(ex.ToString(), "Программное исключене", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

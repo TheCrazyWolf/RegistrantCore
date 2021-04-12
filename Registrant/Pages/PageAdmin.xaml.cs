@@ -34,10 +34,9 @@ namespace Registrant.Pages
                     DataGrid_Users.ItemsSource = ef.Users.OrderBy(x => x.IdUser).ToList();
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                MessageBox.Show(ex.ToString(), "Программное исключене", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -48,13 +47,21 @@ namespace Registrant.Pages
 
             if (current != null)
             {
-                using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
+
+                try
                 {
-                    ef.Remove(current);
-                    ef.SaveChanges();
-                    LoadUser();
+                    using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
+                    {
+                        ef.Remove(current);
+                        ef.SaveChanges();
+                        LoadUser();
+                    }
+                    ContentSave.ShowAsync();
                 }
-                ContentSave.ShowAsync();
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString(), "Программное исключене", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
 
@@ -102,10 +109,9 @@ namespace Registrant.Pages
                         LoadUser();
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-
-                    throw;
+                    MessageBox.Show(ex.ToString(), "Программное исключене", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 ContentSave.ShowAsync();
             }

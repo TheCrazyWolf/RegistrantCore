@@ -24,14 +24,22 @@ namespace Registrant.Pages
             InitializeComponent();
 
             tb_refresher.Text = Settings.App.Default.RefreshContent.ToString();
-            using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
+
+            try
             {
-                var user = ef.Users.FirstOrDefault(x => x.IdUser == id);
-                txt_user.Text = user.Name;
-                tb_name.Text = user.Name;
-                tb_id.Text = user.IdUser.ToString();
-                tb_login.Text = user.Login;
-                tb_role.Text = user.LevelAccess;
+                using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
+                {
+                    var user = ef.Users.FirstOrDefault(x => x.IdUser == id);
+                    txt_user.Text = user.Name;
+                    tb_name.Text = user.Name;
+                    tb_id.Text = user.IdUser.ToString();
+                    tb_login.Text = user.Login;
+                    tb_role.Text = user.LevelAccess;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Программное исключене", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

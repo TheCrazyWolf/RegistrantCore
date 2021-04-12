@@ -151,10 +151,9 @@ namespace Registrant.Pages
                         // Нашел
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-
-                    throw;
+                    MessageBox.Show(ex.ToString(), "Программное исключене", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
 
@@ -182,12 +181,21 @@ namespace Registrant.Pages
                 MessageBoxResult result = (MessageBoxResult)ModernWpf.MessageBox.Show("Сменить статус водителя " + current.FIO + " на Загрузка начата?", "Внимание", MessageBoxButton.YesNo, MessageBoxImage.Information);
                 if (result == MessageBoxResult.Yes)
                 {
-                    using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
+
+                    try
                     {
-                        var temp = ef.Shipments.FirstOrDefault(x => x.IdShipment == current.IdShipment);
-                        temp.IdTimeNavigation.DateTimeLoad = DateTime.Now;
-                        ef.SaveChanges();
+                        using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
+                        {
+                            var temp = ef.Shipments.FirstOrDefault(x => x.IdShipment == current.IdShipment);
+                            temp.IdTimeNavigation.DateTimeLoad = DateTime.Now;
+                            ef.SaveChanges();
+                        }
                     }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.ToString(), "Программное исключене", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    
                 }
             }
 
@@ -204,12 +212,21 @@ namespace Registrant.Pages
                 MessageBoxResult result = (MessageBoxResult)ModernWpf.MessageBox.Show("Сменить статус водителя " + current.FIO + " на Загрузка окончена?", "Внимание", MessageBoxButton.YesNo, MessageBoxImage.Information);
                 if (result == MessageBoxResult.Yes)
                 {
-                    using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
+
+                    try
                     {
-                        var temp = ef.Shipments.FirstOrDefault(x => x.IdShipment == current.IdShipment);
-                        temp.IdTimeNavigation.DateTimeEndLoad = DateTime.Now;
-                        ef.SaveChanges();
+                        using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
+                        {
+                            var temp = ef.Shipments.FirstOrDefault(x => x.IdShipment == current.IdShipment);
+                            temp.IdTimeNavigation.DateTimeEndLoad = DateTime.Now;
+                            ef.SaveChanges();
+                        }
                     }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.ToString(), "Программное исключене", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+
                 }
                    
             }

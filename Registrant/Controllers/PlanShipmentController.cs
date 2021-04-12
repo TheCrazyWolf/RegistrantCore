@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows;
 
 namespace Registrant.Controllers
 {
@@ -14,19 +15,27 @@ namespace Registrant.Controllers
             PlanShipments = new List<Models.PlanShipment>();
         }
 
+        //Для кпп по датам
         public List<Models.PlanShipment> GetPlanShipments(DateTime date)
         {
             PlanShipments.Clear();
             
             date = date.Date;
-            using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
+            try
             {
-                var temp = ef.Shipments.Where(x => x.IdTimeNavigation.DateTimePlanRegist.Value.Date == date && x.IdTimeNavigation.DateTimeFactRegist.Value == null);
-                foreach (var item in temp)
+                using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
                 {
-                    Models.PlanShipment shipment = new Models.PlanShipment(item);
-                    PlanShipments.Add(shipment);
+                    var temp = ef.Shipments.Where(x => x.IdTimeNavigation.DateTimePlanRegist.Value.Date == date && x.IdTimeNavigation.DateTimeFactRegist.Value == null);
+                    foreach (var item in temp)
+                    {
+                        Models.PlanShipment shipment = new Models.PlanShipment(item);
+                        PlanShipments.Add(shipment);
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Программное исключене", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             return PlanShipments;
         }

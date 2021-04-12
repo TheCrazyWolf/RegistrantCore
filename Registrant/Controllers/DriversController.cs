@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows;
 
 namespace Registrant.Controllers
 {
@@ -15,6 +16,7 @@ namespace Registrant.Controllers
             Driver = new List<Models.Drivers>();
         }
 
+        //Обычные водилы без активных
         public List<Models.Drivers> GetDrivers()
         {
             Driver.Clear();
@@ -31,13 +33,13 @@ namespace Registrant.Controllers
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                MessageBox.Show(ex.ToString(), "Программное исключене", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             return Driver;
         }
+        //Только выбранный и остальные не активные
         public List<Models.Drivers> GetDriversСurrent(int id)
         {
             Driver.Clear();
@@ -54,14 +56,13 @@ namespace Registrant.Controllers
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                MessageBox.Show(ex.ToString(), "Программное исключене", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             return Driver;
         }
-
+        //Только активные для чекбокса
         public List<Models.Drivers> GetDriversСurrent()
         {
             Driver.Clear();
@@ -78,13 +79,14 @@ namespace Registrant.Controllers
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                MessageBox.Show(ex.ToString(), "Программное исключене", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             return Driver;
         }
+
+        //Все в том числе неактивные
         public List<Models.Drivers> GetDriversAll()
         {
             Driver.Clear();
@@ -101,17 +103,12 @@ namespace Registrant.Controllers
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                MessageBox.Show(ex.ToString(), "Программное исключене", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             return Driver;
         }
 
-        internal IEnumerable GetDriversСurrent(int? idDriver)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

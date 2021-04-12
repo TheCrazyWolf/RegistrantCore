@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         ExtendViewIntoTitleBar="True"
         Title="" Height="578" Width="530" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" >
-    <Grid>
+    <Grid Background="White">
         <StackPanel Margin="20 75 20 20">
             <TextBlock Text="Параметры для подключения" Style="{StaticResource SubheaderTextBlockStyle}"/>
             <StackPanel>

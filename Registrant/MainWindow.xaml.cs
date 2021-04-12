@@ -21,6 +21,7 @@ namespace Registrant
     /// </summary>
     public partial class MainWindow 
     {
+        //Чтобы потом обратится при нажатие на кнопку
         Pages.PageContragents pageContragents;
         Pages.PageKPP pageKPP;
         Pages.PageDrivers pageDrivers;
@@ -42,33 +43,23 @@ namespace Registrant
         }
 
 
-        /// <summary>
         /// Открытие дебага
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void btn_debug_Click(object sender, RoutedEventArgs e)
         {
             text_error.Visibility = Visibility.Visible;
         }
 
-        /// <summary>
-        /// Кнопка повторить попытку соединения
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        
+        //Кнопка повторить попытку
         private void btn_tryconnect_Click(object sender, RoutedEventArgs e)
         {
-            btn_tryconnect.Visibility = Visibility.Collapsed;
             ContentError.Hide();
             Thread thread1 = new Thread(TestConnect);
             thread1.Start();
         }
 
 
-        /// <summary>
         /// Проверка существует ли вообще подключение к серверу
-        /// </summary>
         void TestConnect()
         {
             Thread.Sleep(2000);
@@ -91,22 +82,14 @@ namespace Registrant
             }
         }
 
-        /// <summary>
         /// Кнопка с редактированием настроек подключения
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void btn_opensettings_Click(object sender, RoutedEventArgs e)
         {
             Forms.EditConnect edit = new Forms.EditConnect();
             edit.ShowDialog();
         }
 
-        /// <summary>
         /// Действие на нажатие на кнопку Войти
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void btn_enter_Click(object sender, RoutedEventArgs e)
         {
             Settings.User.Default.login = tb_login.Text;
@@ -134,13 +117,13 @@ namespace Registrant
             }
             catch (Exception ex)
             {
-                throw;
+                Dispatcher.Invoke(() => ContentWait.Hide());
+                Dispatcher.Invoke(() => ContentError.ShowAsync());
+                Dispatcher.Invoke(() => text_error.Text = ex.ToString());
             }
         }
 
-        /// <summary>
         /// Проверяем кто он по масти
-        /// </summary>
         void Verify()
         {
             if (App.LevelAccess == "admin")
@@ -152,7 +135,7 @@ namespace Registrant
                 nav_jurnalshipment.Visibility = Visibility.Visible;
                 nav_userset.Visibility = Visibility.Visible;
 
-                //
+                //Иниципализация нужных страниц под ролей
                 pageKPP = new Pages.PageKPP();
                 pageContragents = new Pages.PageContragents();
                 pageDrivers = new Pages.PageDrivers();
