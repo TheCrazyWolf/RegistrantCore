@@ -101,7 +101,8 @@ namespace Registrant.Pages
                     {
                         var test = tb_contragent as ComboBox;
                         var current = test.SelectedItem as DB.Contragent;
-                        driver.IdContragent = current.IdContragent;
+                        if (current != null)
+                        { driver.IdContragent = current.IdContragent; }
                     }
                     
                     driver.Attorney = tb_attorney.Text;
@@ -247,7 +248,8 @@ namespace Registrant.Pages
                         {
                             var test = tb_contragent as ComboBox;
                             var current = test.SelectedItem as DB.Contragent;
-                            driver.IdContragent = current.IdContragent;
+                            if (current !=null)
+                            { driver.IdContragent = current.IdContragent; }
                         }
                         
                         driver.Attorney = tb_attorney.Text;
@@ -266,9 +268,6 @@ namespace Registrant.Pages
                 {
                 MessageBox.Show(ex.ToString(), "Программное исключене", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            
-
-            
         }
 
         /// Закрытия окна с информацией

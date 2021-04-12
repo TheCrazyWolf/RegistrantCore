@@ -74,7 +74,7 @@
                             <TextBlock  Text="Телефон" Margin="0 5 0 0" Style="{StaticResource BodyTextBlockStyle}" />
                             <TextBox x:Name="tb_phone" />
                             <TextBlock  Text="Контрагент" Margin="0 5 0 0" Style="{StaticResource BodyTextBlockStyle}" />
-                            <ComboBox x:Name="tb_contragent">
+                            <ComboBox x:Name="tb_contragent" IsEditable="True" IsTextSearchEnabled="True" TextSearch.TextPath="Name" >
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
                                         <Grid>
@@ -170,7 +170,7 @@
             </Grid>
         </ui:ContentDialog>
 
-        <ui:ContentDialog Grid.ColumnSpan="3" Grid.RowSpan="3"  Visibility="Visible" x:Name="Content30days" >
+        <ui:ContentDialog Grid.ColumnSpan="3" Grid.RowSpan="3"  Visibility="Hidden" x:Name="Content30days" >
             <Grid >
                 <StackPanel>
                     <TextBlock Text="Массовое удаление элементов" Style="{StaticResource SubheaderTextBlockStyle}" Foreground="Black"/>
