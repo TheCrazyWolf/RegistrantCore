@@ -201,6 +201,7 @@ namespace Registrant
                 string Act = web.DownloadString("https://raw.githubusercontent.com/TheCrazyWolf/RegistrantCore/master/Registrant/ActualVer.txt");
                 string ActualText = web.DownloadString("https://raw.githubusercontent.com/TheCrazyWolf/RegistrantCore/master/Registrant/ActualTextDesc.txt");
                 Act = Act.Replace("\n", "");
+                Act = Act.Replace(".", ",");
 
                 decimal Current = decimal.Parse(Settings.App.Default.AppVersion);
                 decimal Actual = decimal.Parse(Act);
