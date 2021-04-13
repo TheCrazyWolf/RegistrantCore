@@ -199,7 +199,8 @@ namespace Registrant
             {
                 string Act = web.DownloadString("https://raw.githubusercontent.com/TheCrazyWolf/RegistrantCore/master/Registrant/ActualVer.txt");
                 string ActualText = web.DownloadString("https://raw.githubusercontent.com/TheCrazyWolf/RegistrantCore/master/Registrant/ActualTextDesc.txt");
-                
+                Act = Act.Replace("\n", "");
+
                 decimal Current = decimal.Parse(Settings.App.Default.AppVersion);
                 decimal Actual = decimal.Parse(Act);
 
@@ -217,9 +218,8 @@ namespace Registrant
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
-                //Dispatcher.Invoke(() => txt_desc.Text = "");
-                //TestConnect();
+                Dispatcher.Invoke(() => txt_desc.Text = "");
+                TestConnect();
             }
         }
 
