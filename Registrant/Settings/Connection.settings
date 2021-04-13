@@ -3,19 +3,19 @@
   <Profiles />
   <Settings>
     <Setting Name="IP" Type="System.String" Scope="User">
-      <Value Profile="(Default)">DESKTOP-ALEX\SQLEXPRESS</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="Port" Type="System.String" Scope="User">
       <Value Profile="(Default)">1433</Value>
     </Setting>
     <Setting Name="Database" Type="System.String" Scope="User">
-      <Value Profile="(Default)">RegistrantCore</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="Login" Type="System.String" Scope="User">
-      <Value Profile="(Default)">admon</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="Password" Type="System.String" Scope="User">
-      <Value Profile="(Default)">admon</Value>
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>

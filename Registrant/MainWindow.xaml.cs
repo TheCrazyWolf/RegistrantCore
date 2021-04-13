@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -38,7 +39,7 @@ namespace Registrant
             text_verson.Text = Settings.App.Default.AppVersion;
 
             //Поток наа 1 старт чтобы при старте не тормозилось
-            Thread thread = new Thread(TestConnect);
+            Thread thread = new Thread(CheckForUpdates);
             thread.Start();
         }
 
@@ -188,6 +189,34 @@ namespace Registrant
                 pageKPP = new Pages.PageKPP();
 
                 FrameContent.Content = pageKPP;
+            }
+        }
+
+        void CheckForUpdates()
+        {
+            WebClient web = new WebClient();
+            try
+            {
+                string Act = web.DownloadString("https://raw.githubusercontent.com/TheCrazyWolf/RegistrantCore/master/Registrant/ActualVer.txt");
+                string ActualText = web.DownloadString("https://raw.githubusercontent.com/TheCrazyWolf/RegistrantCore/master/Registrant/ActualTextDesc");
+                double Actual = Convert.ToDouble(Act);
+                double Current = Convert.ToDouble(Settings.App.Default.AppVersion);
+
+                if (Actual > Current)
+                {
+                    Dispatcher.Invoke(() => ContentUpdate);
+                    Dispatcher.Invoke(() => txt_currver.Text = Current.ToString());
+                    Dispatcher.Invoke(() => txt_newver.Text = Actual.ToString());
+                    Dispatcher.Invoke(() => txt_desc.Text = ActualText);
+                }
+                else
+                {
+                    TestConnect();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
             }
         }
 

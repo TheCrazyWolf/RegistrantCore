@@ -23,6 +23,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="ActualTextDesc.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ActualTextDesc.txt</DependentUpon>
+    </Compile>
     <Compile Update="Settings\App.Designer.cs">
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <AutoGen>True</AutoGen>
@@ -41,6 +46,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="ActualTextDesc.txt">
+      <LastGenOutput>ActualTextDesc.cs</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
     <None Update="ActualVer.txt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ActualVer.cs</LastGenOutput>

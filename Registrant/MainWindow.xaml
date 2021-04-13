@@ -27,7 +27,7 @@
             <Frame x:Name="FrameContent"  NavigationUIVisibility="Hidden"/>
         </ui:NavigationView>
         
-        <ui:ContentDialog Visibility="Visible" x:Name="ContentAuth">
+        <ui:ContentDialog Visibility="Hidden" x:Name="ContentAuth">
             <Grid>
                 <StackPanel >
                     <TextBlock Text="С возращением" Style="{StaticResource SubheaderTextBlockStyle}"/>
@@ -88,6 +88,31 @@
                     <TextBlock Style="{StaticResource BodyTextBlockStyle}" Padding="0 15 0 0">Разработка говнокода: Алексей Кулагин (TheCrazyWolf)</TextBlock>
                     <StackPanel Orientation="Horizontal" Margin="0 10 0 0" >
                         <Button x:Name="btn_about_close" Click="btn_about_close_Click">Закрыть</Button>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </ui:ContentDialog>
+
+        <ui:ContentDialog Visibility="Visible"  x:Name="ContentUpdate">
+            <Grid>
+                <StackPanel >
+                    <TextBlock Text="Программное обеспечение необходимо обновить" Style="{StaticResource SubheaderTextBlockStyle}"/>
+                    <TextBlock Text="Registrant Core" Margin="0 5 0 0" Style="{StaticResource SubtitleTextBlockStyle}"/>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Текущая версия ПО:  " Style="{StaticResource BodyTextBlockStyle}" Padding="0 15 0 0"/>
+                        <TextBlock x:Name="txt_currver" Text="2.0" Style="{StaticResource BodyTextBlockStyle}" Padding="0 15 0 0"/>
+                        <TextBlock Text="Доступная для загрузки:  " Style="{StaticResource BodyTextBlockStyle}" Padding="15 15 0 0"/>
+                        <TextBlock x:Name="txt_newver" Text="2.0" Style="{StaticResource BodyTextBlockStyle}" Padding="0 15 0 0"/>
+                    </StackPanel>
+                    <TextBlock x:Name="txt_desc" Style="{StaticResource BodyTextBlockStyle}" Padding="0 15 0 0">
+                        Доступна новая версия приложения
+                    </TextBlock>
+                    <TextBlock  Style="{StaticResource BodyTextBlockStyle}" Padding="0 15 0 0">
+                        Во время обновления не стоит выключать компьютер и<LineBreak/>закрывать консоль обновления. Это может привести к<LineBreak/>поломке программы
+                    </TextBlock>
+                    <StackPanel Orientation="Horizontal" Margin="0 10 0 0" >
+                        <Button>Обновить сейчас</Button>
+                        <Button Margin="10 0 0 0">Отложить</Button>
                     </StackPanel>
                 </StackPanel>
             </Grid>

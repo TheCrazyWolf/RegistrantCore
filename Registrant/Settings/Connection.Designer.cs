@@ -25,7 +25,7 @@ namespace Registrant.Settings {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("DESKTOP-ALEX\\SQLEXPRESS")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string IP {
             get {
                 return ((string)(this["IP"]));
@@ -49,7 +49,7 @@ namespace Registrant.Settings {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("RegistrantCore")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string Database {
             get {
                 return ((string)(this["Database"]));
@@ -61,7 +61,7 @@ namespace Registrant.Settings {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("admon")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string Login {
             get {
                 return ((string)(this["Login"]));
@@ -73,7 +73,7 @@ namespace Registrant.Settings {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("admon")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string Password {
             get {
                 return ((string)(this["Password"]));
