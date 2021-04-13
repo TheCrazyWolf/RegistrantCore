@@ -199,14 +199,15 @@ namespace Registrant
             {
                 string Act = web.DownloadString("https://raw.githubusercontent.com/TheCrazyWolf/RegistrantCore/master/Registrant/ActualVer.txt");
                 string ActualText = web.DownloadString("https://raw.githubusercontent.com/TheCrazyWolf/RegistrantCore/master/Registrant/ActualTextDesc.txt");
-                double Actual = Convert.ToDouble(Act);
-                double Current = Convert.ToDouble(Settings.App.Default.AppVersion);
+                
+                decimal Current = decimal.Parse(Settings.App.Default.AppVersion);
+                decimal Actual = decimal.Parse(Act);
 
                 if (Actual > Current)
                 {
                     Dispatcher.Invoke(() => ContentUpdate);
                     Dispatcher.Invoke(() => txt_currver.Text = Current.ToString());
-                    Dispatcher.Invoke(() => txt_newver.Text = Actual.ToString());
+                    Dispatcher.Invoke(() => txt_newver.Text = Act.ToString());
                     Dispatcher.Invoke(() => txt_desc.Text = ActualText);
                 }
                 else
@@ -214,10 +215,11 @@ namespace Registrant
                     TestConnect();
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                Dispatcher.Invoke(() => txt_desc.Text = "");
-                TestConnect();
+                MessageBox.Show(ex.ToString());
+                //Dispatcher.Invoke(() => txt_desc.Text = "");
+                //TestConnect();
             }
         }
 
