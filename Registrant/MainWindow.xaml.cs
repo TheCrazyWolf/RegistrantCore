@@ -198,7 +198,7 @@ namespace Registrant
             try
             {
                 string Act = web.DownloadString("https://raw.githubusercontent.com/TheCrazyWolf/RegistrantCore/master/Registrant/ActualVer.txt");
-                string ActualText = web.DownloadString("https://raw.githubusercontent.com/TheCrazyWolf/RegistrantCore/master/Registrant/ActualTextDesc");
+                string ActualText = web.DownloadString("https://raw.githubusercontent.com/TheCrazyWolf/RegistrantCore/master/Registrant/ActualTextDesc.txt");
                 double Actual = Convert.ToDouble(Act);
                 double Current = Convert.ToDouble(Settings.App.Default.AppVersion);
 
@@ -216,7 +216,8 @@ namespace Registrant
             }
             catch (Exception)
             {
-                throw;
+                Dispatcher.Invoke(() => txt_desc.Text = "");
+                TestConnect();
             }
         }
 
