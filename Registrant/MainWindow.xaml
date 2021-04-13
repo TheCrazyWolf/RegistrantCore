@@ -111,8 +111,8 @@
                         Во время обновления не стоит выключать компьютер и<LineBreak/>закрывать консоль обновления. Это может привести к<LineBreak/>поломке программы
                     </TextBlock>
                     <StackPanel Orientation="Horizontal" Margin="0 10 0 0" >
-                        <Button>Обновить сейчас</Button>
-                        <Button Margin="10 0 0 0">Отложить</Button>
+                        <Button x:Name="btn_updatenow" Click="btn_updatenow_Click" >Обновить сейчас</Button>
+                        <Button x:Name="btn_updatelate" Click="btn_updatelate_Click" Margin="10 0 0 0">Отложить</Button>
                     </StackPanel>
                 </StackPanel>
             </Grid>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -206,7 +207,7 @@ namespace Registrant
 
                 if (Actual > Current)
                 {
-                    Dispatcher.Invoke(() => ContentUpdate);
+                    Dispatcher.Invoke(() => ContentUpdate.ShowAsync());
                     Dispatcher.Invoke(() => txt_currver.Text = Current.ToString());
                     Dispatcher.Invoke(() => txt_newver.Text = Act.ToString());
                     Dispatcher.Invoke(() => txt_desc.Text = ActualText);
@@ -266,6 +267,19 @@ namespace Registrant
         private void nav_aboutpo_MouseDown(object sender, MouseButtonEventArgs e)
         {
             ContentAppVer.ShowAsync();
+        }
+
+        private void btn_updatenow_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start("CoreUpdater.exe");
+            Environment.Exit(0);
+        }
+
+        private void btn_updatelate_Click(object sender, RoutedEventArgs e)
+        {
+            ContentUpdate.Hide();
+            Thread thread = new Thread(TestConnect);
+            thread.Start();
         }
     }
 }
