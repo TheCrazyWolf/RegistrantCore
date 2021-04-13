@@ -7,14 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="ActualVer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>ActualVer.tt</DependentUpon>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Extended.Wpf.Toolkit" Version="4.0.2" />
     <PackageReference Include="FluentWPF" Version="0.9.0" />
     <PackageReference Include="iTextSharp" Version="5.5.13.2" />
@@ -49,7 +41,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="ActualVer.tt">
+    <None Update="ActualVer.txt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ActualVer.cs</LastGenOutput>
     </None>
