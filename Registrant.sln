@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31025.194
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Registrant", "Registrant\Registrant.csproj", "{B3E4208F-8816-4380-BBFE-023948BFC711}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Registrant", "Registrant\Registrant.csproj", "{B3E4208F-8816-4380-BBFE-023948BFC711}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreUpdater", "CoreUpdater\CoreUpdater.csproj", "{AF2D4D50-FFFD-423D-9AAD-3A745A4D1B2F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{B3E4208F-8816-4380-BBFE-023948BFC711}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B3E4208F-8816-4380-BBFE-023948BFC711}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B3E4208F-8816-4380-BBFE-023948BFC711}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF2D4D50-FFFD-423D-9AAD-3A745A4D1B2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF2D4D50-FFFD-423D-9AAD-3A745A4D1B2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF2D4D50-FFFD-423D-9AAD-3A745A4D1B2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF2D4D50-FFFD-423D-9AAD-3A745A4D1B2F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
