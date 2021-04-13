@@ -47,8 +47,6 @@
 
   <ItemGroup>
     <None Update="ActualVer.txt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ActualVer.cs</LastGenOutput>
     </None>
     <None Update="Settings\App.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
