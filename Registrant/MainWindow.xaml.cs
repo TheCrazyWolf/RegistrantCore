@@ -203,7 +203,9 @@ namespace Registrant
                 Act = Act.Replace("\n", "");
                 Act = Act.Replace(".", ",");
 
-                decimal Current = decimal.Parse(Settings.App.Default.AppVersion);
+                string currentstring = Settings.App.Default.AppVersion;
+                currentstring = currentstring.Replace(".", ",");
+                decimal Current = decimal.Parse(currentstring);
                 decimal Actual = decimal.Parse(Act);
 
                 if (Actual > Current)
@@ -220,6 +222,7 @@ namespace Registrant
             }
             catch (Exception ex)
             {
+                //MessageBox.Show(ex.ToString());
                 Dispatcher.Invoke(() => txt_desc.Text = "");
                 TestConnect();
             }
