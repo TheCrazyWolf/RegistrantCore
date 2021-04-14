@@ -12,6 +12,7 @@ optionsBuilder.UseLazyLoadingProxies().UseSqlServer("Server=" + Settings.Connect
 optionsBuilder.UseLazyLoadingProxies().UseSqlServer("Server=" + Settings.Connection.Default.IP + "," + Settings.Connection.Default.Port + ";" + "Database=" + Settings.Connection.Default.Database + ";User ID=" + Settings.Connection.Default.Login + ";" + "Password=" + Settings.Connection.Default.Password + ";Trusted_Connection=True;MultipleActiveResultSets=True;");
 
 
+optionsBuilder.UseLazyLoadingProxies().UseSqlServer("Server=" + Settings.Connection.Default.IP + "," + Settings.Connection.Default.Port + ";" + "Database=" + Settings.Connection.Default.Database + ";User ID=" + Settings.Connection.Default.Login + ";" + "Password=" + Settings.Connection.Default.Password + ";MultipleActiveResultSets=True;");
 
         public string FIO { get; set; }
 
