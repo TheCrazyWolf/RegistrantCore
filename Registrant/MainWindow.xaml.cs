@@ -214,6 +214,17 @@ namespace Registrant
                     Dispatcher.Invoke(() => txt_currver.Text = Current.ToString());
                     Dispatcher.Invoke(() => txt_newver.Text = Act.ToString());
                     Dispatcher.Invoke(() => txt_desc.Text = ActualText);
+
+                    string CanRefuse = web.DownloadString("https://raw.githubusercontent.com/TheCrazyWolf/RegistrantCore/master/Registrant/ActualVerCanRefuse.txt");
+                    CanRefuse= CanRefuse.Replace("\n", "");
+
+                    if (CanRefuse == "No")
+                    {
+                        btn_updatelate.Visibility = Visibility.Hidden;
+                        txt_desc.Text = txt_desc.Text + "\nЭто обновление нельзя отложить, т.к. содержит\nкритические правки в коде";
+                        ContentUpdate.Background = new SolidColorBrush(Color.FromRgb(255, 140, 140));
+                    }
+
                 }
                 else
                 {

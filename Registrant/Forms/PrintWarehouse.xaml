@@ -19,7 +19,7 @@
             <DatePicker x:Name="DatePicker" SelectedDateChanged="DatePicker_SelectedDateChanged" Margin="5 5 0 5 "/>
             <Button x:Name="btn_month" Click="btn_month_Click" Margin="5 5 0 5" Content="Показать за месяц"/>
             <Button Visibility="Collapsed" x:Name="btn_print" Click="btn_print_Click" Margin="5 5 0 5" Content="Печать"/>
-            <Button x:Name="btn_saveExcel" Click="btn_saveExcel_Click" Margin="5 5 0 5" Content="Выгрузить в Excel" ToolTip="Да оно выгрузит, эта кнопка сделает выгрузку. Но как она выгрузит это уже другой вопрос ??? В основе этой кнопки находится говнокод, которые непонятно как и непонятно что делает. Поэтому не удивляйтесь если полученный файл не откроется, а может даже откроется с интересными кракозабрями. Ну если что можно постаринке через горячие клавиши CTR + A (Выделить всё) CTRL + C (Скопировать) CTRL + V (догадайтесь сами)"></Button>
+            <Button x:Name="btn_saveExcel" Click="btn_saveExcel_Click" Margin="5 5 0 5" Content="Выгрузить в Excel"></Button>
         </StackPanel>
         <DataGrid x:Name="grid_shipments" Grid.Row="1"  Margin="0 7 0 0"  AutoGenerateColumns="False" ColumnWidth="*" IsReadOnly="True">
             <DataGrid.Columns>

@@ -9,7 +9,7 @@
         ExtendViewIntoTitleBar="True"
         xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
         mc:Ignorable="d"
-        Title="AddOrEditShipment" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Height="712" Width="678"  >
+        Title="AddOrEditShipment" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Height="712" Width="694"  >
     <Grid Background="White">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="30"/>

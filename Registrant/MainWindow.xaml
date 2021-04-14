@@ -26,7 +26,7 @@
             </ui:NavigationView.MenuItems>
             <Frame x:Name="FrameContent"  NavigationUIVisibility="Hidden"/>
         </ui:NavigationView>
-        
+
         <ui:ContentDialog Visibility="Hidden" x:Name="ContentAuth">
             <Grid>
                 <StackPanel >
@@ -43,7 +43,7 @@
                 </StackPanel>
             </Grid>
         </ui:ContentDialog>
-        
+
         <ui:ContentDialog Visibility="Hidden" x:Name="ContentWait">
             <Grid>
                 <StackPanel>
@@ -54,7 +54,7 @@
                 </StackPanel>
             </Grid>
         </ui:ContentDialog>
-        
+
         <ui:ContentDialog Visibility="Hidden" x:Name="ContentError">
             <Grid>
                 <StackPanel >
@@ -99,9 +99,9 @@
             </Grid>
         </ui:ContentDialog>
 
-        <ui:ContentDialog Visibility="Hidden"  x:Name="ContentUpdate" Background="White">
+        <ui:ContentDialog Visibility="Visible" x:Name="ContentUpdate" Background="#FFFF8C8C">
             <Grid>
-                <StackPanel >
+                <StackPanel>
                     <Image Source="/img/icon_flash.png" Width="50" HorizontalAlignment="Left" Margin="0 0 0 5" />
                     <TextBlock Text="Обновление ПО" Style="{StaticResource SubheaderTextBlockStyle}"/>
                     <TextBlock Text="Registrant Core" Margin="0 5 0 0" Style="{StaticResource SubtitleTextBlockStyle}"/>
@@ -148,7 +148,5 @@
                 </StackPanel>
             </Grid>
         </ui:ContentDialog>
-
-
     </Grid>
 </fw:AcrylicWindow>

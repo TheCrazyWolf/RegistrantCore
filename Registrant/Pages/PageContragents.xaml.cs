@@ -50,8 +50,8 @@ namespace Registrant.Pages
                 }
                 catch (Exception ex)
                 {
-                    ((MainWindow)System.Windows.Application.Current.MainWindow).ContentErrorText.ShowAsync();
-                    ((MainWindow)System.Windows.Application.Current.MainWindow).text_debuger.Text = ex.ToString();
+                    Dispatcher.Invoke(() => ((MainWindow)System.Windows.Application.Current.MainWindow).ContentErrorText.ShowAsync());
+                    Dispatcher.Invoke(() => ((MainWindow)System.Windows.Application.Current.MainWindow).text_debuger.Text = ex.ToString());
                 }
             }
         }
