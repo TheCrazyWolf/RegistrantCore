@@ -220,9 +220,9 @@ namespace Registrant
 
                     if (CanRefuse == "No")
                     {
-                        btn_updatelate.Visibility = Visibility.Hidden;
-                        txt_desc.Text = txt_desc.Text + "\nЭто обновление нельзя отложить, т.к. содержит\nкритические правки в коде";
-                        ContentUpdate.Background = new SolidColorBrush(Color.FromRgb(255, 140, 140));
+                        Dispatcher.Invoke(() => btn_updatelate.Visibility = Visibility.Hidden);
+                        Dispatcher.Invoke(() => txt_desc.Text = txt_desc.Text + "\n\nЭто обновление нельзя отложить, т.к. содержит\nкритические правки в коде");
+                        Dispatcher.Invoke(() => ContentUpdate.Background = new SolidColorBrush(Color.FromRgb(255, 140, 140)));
                     }
 
                 }
