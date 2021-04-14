@@ -63,13 +63,15 @@ namespace Registrant.Pages
                     }
                     else
                     {
-                        MessageBox.Show("Пароль не совпадает со старым", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                        ((MainWindow)System.Windows.Application.Current.MainWindow).ContentErrorText.ShowAsync();
+                        ((MainWindow)System.Windows.Application.Current.MainWindow).text_debuger.Text = "Пароль не совпадает со старым";
                     }
                 }
             }
             else
             {
-                MessageBox.Show("Новый логин не должен быть пустым", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).ContentErrorText.ShowAsync();
+                ((MainWindow)System.Windows.Application.Current.MainWindow).text_debuger.Text = "Новый логин не должен быть пустым";
             }
 
         }

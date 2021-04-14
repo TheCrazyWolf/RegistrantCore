@@ -14,7 +14,7 @@
         IsSettingsVisible="False"
         IsBackButtonVisible="Auto"
         PaneTitle="РЕГИСТРАНТ"
-        PaneDisplayMode="Auto">
+        PaneDisplayMode="Auto" >
             <ui:NavigationView.MenuItems>
                 <ui:NavigationViewItem Visibility="Collapsed" x:Name="nav_jurnalkpp" MouseDown="nav_jurnalkpp_MouseDown" Icon="Library" Content="Журнал для КПП"  />
                 <ui:NavigationViewItem Visibility="Collapsed" x:Name="nav_contragents" MouseDown="nav_contragents_MouseDown" Icon="Tag" Content="Контрагенты" />
@@ -30,8 +30,11 @@
         <ui:ContentDialog Visibility="Hidden" x:Name="ContentAuth">
             <Grid>
                 <StackPanel >
-                    <TextBlock Text="С возращением" Style="{StaticResource SubheaderTextBlockStyle}"/>
-                    <TextBlock Text="Перед продолжением, вам необходимо авторизоваться" Style="{StaticResource BodyTextBlockStyle}" Padding="0 0 0 10"/>
+                    <Image Source="pack://application:,,,/img/icon_auth.png" Width="50" HorizontalAlignment="Left" Margin="0 0 0 5" />
+                    <TextBlock Text="Авторизация" Style="{StaticResource SubheaderTextBlockStyle}"/>
+                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Padding="0 0 0 10">
+                        С возращением, пожалуйста, заполните поля<LineBreak/>данными, которые вам были предоставлены
+                    </TextBlock>
                     <TextBlock Text="Логин" Style="{StaticResource BodyTextBlockStyle}"/>
                     <TextBox x:Name="tb_login"></TextBox>
                     <TextBlock Text="Пароль" Margin="0 10 0 0" Style="{StaticResource BodyTextBlockStyle}"/>
@@ -43,8 +46,9 @@
         
         <ui:ContentDialog Visibility="Hidden" x:Name="ContentWait">
             <Grid>
-                <StackPanel >
-                    <TextBlock Text="Ожидание подключения к серверу" Style="{StaticResource SubheaderTextBlockStyle}"/>
+                <StackPanel>
+                    <Image Source="pack://application:,,,/img/icon_connect.png" Width="50" HorizontalAlignment="Left" Margin="0 0 0 5" />
+                    <TextBlock Text="Соединяемся с сервером" Style="{StaticResource SubheaderTextBlockStyle}"/>
                     <TextBlock Text="Это может занять некоторое время" Style="{StaticResource BodyTextBlockStyle}" Padding="0 5 0 25"/>
                     <ProgressBar IsIndeterminate="True" ></ProgressBar>
                 </StackPanel>
@@ -54,7 +58,8 @@
         <ui:ContentDialog Visibility="Hidden" x:Name="ContentError">
             <Grid>
                 <StackPanel >
-                    <TextBlock Text="Похоже, что хомячки выпали из колес" Style="{StaticResource SubheaderTextBlockStyle}"/>
+                    <Image Source="pack://application:,,,/img/info_error.png" Width="50" HorizontalAlignment="Left" Margin="0 0 0 5" />
+                    <TextBlock Text="Сетевая ошибка" Style="{StaticResource SubheaderTextBlockStyle}"/>
                     <StackPanel>
                         <TextBlock Text="Не удалось подключится к базе данных расположенному на сервере." Style="{StaticResource BodyTextBlockStyle}" />
                         <TextBlock Text="Это могло произойти по следующим причинам:" Style="{StaticResource BodyTextBlockStyle}" Padding="0 15 0 0"/>
@@ -63,7 +68,7 @@
                         <TextBlock Text="• Структура базы данных изменилась, и ваше ПО необходимо обновить" Style="{StaticResource BodyTextBlockStyle}" Padding="0 0 0 25"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" >
-                        <Button x:Name="btn_tryconnect" Click="btn_tryconnect_Click" Margin="0 0 15 0">Попытка не пытка, повторить попытку</Button>
+                        <Button x:Name="btn_tryconnect" Click="btn_tryconnect_Click" Margin="0 0 5 0">Попытка не пытка, повторить попытку</Button>
                         <Button Click="btn_opensettings_Click"  x:Name="btn_opensettings">Настройки подключения</Button>
                         <Button  x:Name="btn_debug" Click="btn_debug_Click" Margin="5 0 0 0">▼</Button>
                     </StackPanel>
@@ -75,6 +80,7 @@
         <ui:ContentDialog Visibility="Hidden"  x:Name="ContentAppVer">
             <Grid>
                 <StackPanel >
+                    <Image Source="pack://application:,,,/img/icon_info.png" Width="50" HorizontalAlignment="Left" Margin="0 0 0 5" />
                     <TextBlock Text="О программе" Style="{StaticResource SubheaderTextBlockStyle}"/>
                     <TextBlock Text="Registrant Core" Margin="0 5 0 0" Style="{StaticResource SubtitleTextBlockStyle}"/>
                     <StackPanel Orientation="Horizontal">
@@ -85,7 +91,7 @@
                     <TextBlock Style="{StaticResource BodyTextBlockStyle}" Padding="0 15 0 0">
                         Данное программное обеспечение является<LineBreak/> проприетарным продуктом.
                     </TextBlock>
-                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Padding="0 15 0 0">Разработка говнокода: Алексей Кулагин (TheCrazyWolf)</TextBlock>
+                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Padding="0 15 0 0">Разработка: Алексей Кулагин (TheCrazyWolf)</TextBlock>
                     <StackPanel Orientation="Horizontal" Margin="0 10 0 0" >
                         <Button x:Name="btn_about_close" Click="btn_about_close_Click">Закрыть</Button>
                     </StackPanel>
@@ -93,29 +99,56 @@
             </Grid>
         </ui:ContentDialog>
 
-        <ui:ContentDialog Visibility="Visible"  x:Name="ContentUpdate">
+        <ui:ContentDialog Visibility="Hidden"  x:Name="ContentUpdate" Background="White">
             <Grid>
                 <StackPanel >
-                    <TextBlock Text="Программное обеспечение необходимо обновить" Style="{StaticResource SubheaderTextBlockStyle}"/>
+                    <Image Source="/img/icon_flash.png" Width="50" HorizontalAlignment="Left" Margin="0 0 0 5" />
+                    <TextBlock Text="Обновление ПО" Style="{StaticResource SubheaderTextBlockStyle}"/>
                     <TextBlock Text="Registrant Core" Margin="0 5 0 0" Style="{StaticResource SubtitleTextBlockStyle}"/>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Текущая версия ПО:  " Style="{StaticResource BodyTextBlockStyle}" Padding="0 15 0 0"/>
+                        <TextBlock Text="Текущая версия:  " Style="{StaticResource BodyTextBlockStyle}" Padding="0 15 0 0"/>
                         <TextBlock x:Name="txt_currver" Text="2.0" Style="{StaticResource BodyTextBlockStyle}" Padding="0 15 0 0"/>
-                        <TextBlock Text="Доступная для загрузки:  " Style="{StaticResource BodyTextBlockStyle}" Padding="15 15 0 0"/>
+                        <TextBlock Text="Актуальная:  " Style="{StaticResource BodyTextBlockStyle}" Padding="15 15 0 0"/>
                         <TextBlock x:Name="txt_newver" Text="2.0" Style="{StaticResource BodyTextBlockStyle}" Padding="0 15 0 0"/>
                     </StackPanel>
+                    <TextBlock  Style="{StaticResource BodyTextBlockStyle}" Padding="0 15 0 0">
+                        Найден пакет для обновления программного обепечения<LineBreak/>Не прерывайте процесс обновления. Описание пакета:
+                    </TextBlock>
                     <TextBlock x:Name="txt_desc" Style="{StaticResource BodyTextBlockStyle}" Padding="0 15 0 0">
                         Доступна новая версия приложения
                     </TextBlock>
-                    <TextBlock  Style="{StaticResource BodyTextBlockStyle}" Padding="0 15 0 0">
-                        Во время обновления не стоит выключать компьютер и<LineBreak/>закрывать консоль обновления. Это может привести к<LineBreak/>поломке программы
-                    </TextBlock>
                     <StackPanel Orientation="Horizontal" Margin="0 10 0 0" >
-                        <Button x:Name="btn_updatenow" Click="btn_updatenow_Click" >Обновить сейчас</Button>
+                        <Button x:Name="btn_updatenow" Click="btn_updatenow_Click">Загрузить и обновить</Button>
                         <Button x:Name="btn_updatelate" Click="btn_updatelate_Click" Margin="10 0 0 0">Отложить</Button>
                     </StackPanel>
                 </StackPanel>
             </Grid>
         </ui:ContentDialog>
+
+        <ui:ContentDialog Visibility="Hidden" x:Name="ContentErrorText" Background="#FFFBB3B3">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" >
+                    <Image Source="/img/icon_error2.png" Width="50" HorizontalAlignment="Left" Margin="0 0 0 5" />
+                    <TextBlock Text="Возникла ошибка" Style="{StaticResource SubheaderTextBlockStyle}"/>
+                    <TextBlock Text="Ой. Что-то пошел не так" Margin="0 5 0 0" Style="{StaticResource SubtitleTextBlockStyle}"/>
+                </StackPanel>
+                <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                    <TextBlock Name="text_debuger"  Style="{StaticResource BodyTextBlockStyle}" Padding="0 15 0 0">
+                        Текст для отладки
+                    </TextBlock>
+                </ScrollViewer>
+                <StackPanel Grid.Row="2" Orientation="Vertical" Margin="0 10 0 0" >
+                    <Button x:Name="btn_debugger_close" Click="btn_debugger_close_Click">Закрыть</Button>
+                </StackPanel>
+            </Grid>
+        </ui:ContentDialog>
+
+
     </Grid>
 </fw:AcrylicWindow>

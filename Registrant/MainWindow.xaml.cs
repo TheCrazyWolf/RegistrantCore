@@ -285,5 +285,10 @@ namespace Registrant
             Thread thread = new Thread(TestConnect);
             thread.Start();
         }
+
+        private void btn_debugger_close_Click(object sender, RoutedEventArgs e)
+        {
+            ContentErrorText.Hide();
+        }
     }
 }
