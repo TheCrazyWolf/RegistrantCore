@@ -8,7 +8,8 @@
         xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
         mc:Ignorable="d"
         ExtendViewIntoTitleBar="True"
-        Title="Регистрант" Height="720" Width="1280" Closed="AcrylicWindow_Closed" WindowStartupLocation="CenterScreen" WindowState="Maximized" >
+        Title="Регистрант" Height="720" Width="1280" Closed="AcrylicWindow_Closed" WindowStartupLocation="CenterScreen" WindowState="Maximized"
+                  Icon="img/ico_app.ico">
     <Grid Background="White">
         <ui:NavigationView x:Name="NavUI" 
         IsSettingsVisible="False"
@@ -39,38 +40,49 @@
                     <TextBox x:Name="tb_login"></TextBox>
                     <TextBlock Text="Пароль" Margin="0 10 0 0" Style="{StaticResource BodyTextBlockStyle}"/>
                     <PasswordBox x:Name="tb_password" Margin="0 0 0 25"></PasswordBox>
-                    <Button x:Name="btn_enter" Click="btn_enter_Click" Content="Войти"></Button>
+                    <Button x:Name="btn_enter" Click="btn_enter_Click" Content="Войти" Style="{DynamicResource AccentButtonStyle}"></Button>
                 </StackPanel>
             </Grid>
         </ui:ContentDialog>
 
         <ui:ContentDialog Visibility="Hidden" x:Name="ContentWait">
+            <ui:ContentDialog.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="White" Offset="0.251"/>
+                    <GradientStop Color="#FF2EC1EC" Offset="0"/>
+                </LinearGradientBrush>
+            </ui:ContentDialog.Background>
             <Grid>
                 <StackPanel>
-                    <Image Source="pack://application:,,,/img/icon_connect.png" Width="50" HorizontalAlignment="Left" Margin="0 0 0 5" />
+                    <Image Source="pack://application:,,,/img/icon_connect.png" Width="35" HorizontalAlignment="Left" Margin="0 0 0 5" />
                     <TextBlock Text="Соединяемся с сервером" Style="{StaticResource SubheaderTextBlockStyle}"/>
                     <TextBlock Text="Это может занять некоторое время" Style="{StaticResource BodyTextBlockStyle}" Padding="0 5 0 25"/>
-                    <ProgressBar IsIndeterminate="True" ></ProgressBar>
+                    <ProgressBar IsIndeterminate="True"></ProgressBar>
                 </StackPanel>
             </Grid>
         </ui:ContentDialog>
 
         <ui:ContentDialog Visibility="Hidden" x:Name="ContentError">
+            <ui:ContentDialog.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="White" Offset="0.251"/>
+                    <GradientStop Color="#FFFF9085" Offset="0"/>
+                </LinearGradientBrush>
+            </ui:ContentDialog.Background>
             <Grid>
                 <StackPanel >
                     <Image Source="pack://application:,,,/img/info_error.png" Width="50" HorizontalAlignment="Left" Margin="0 0 0 5" />
                     <TextBlock Text="Сетевая ошибка" Style="{StaticResource SubheaderTextBlockStyle}"/>
                     <StackPanel>
-                        <TextBlock Text="Не удалось подключится к базе данных расположенному на сервере." Style="{StaticResource BodyTextBlockStyle}" />
-                        <TextBlock Text="Это могло произойти по следующим причинам:" Style="{StaticResource BodyTextBlockStyle}" Padding="0 15 0 0"/>
+                        <TextBlock Text="Не удалось установить подключение к серверу" Style="{StaticResource BodyTextBlockStyle}" />
+                        <TextBlock Text="Возможные причиины:" Style="{StaticResource BodyTextBlockStyle}" Padding="0 15 0 0"/>
                         <TextBlock Text="• Сервер и (или) служба SQL Server на удаленном сервере выключен или не запущена" Style="{StaticResource BodyTextBlockStyle}"/>
-                        <TextBlock Text="• Неверная строка подключения и (или её данные)" Style="{StaticResource BodyTextBlockStyle}"/>
-                        <TextBlock Text="• Структура базы данных изменилась, и ваше ПО необходимо обновить" Style="{StaticResource BodyTextBlockStyle}" Padding="0 0 0 25"/>
+                        <TextBlock Text="• Неверная строка подключения и (или её данные)" Style="{StaticResource BodyTextBlockStyle}" Padding="0 0 0 10" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" >
-                        <Button x:Name="btn_tryconnect" Click="btn_tryconnect_Click" Margin="0 0 5 0">Попытка не пытка, повторить попытку</Button>
+                        <Button x:Name="btn_tryconnect" Click="btn_tryconnect_Click" Margin="0 0 5 0" Style="{DynamicResource AccentButtonStyle}">Повторить</Button>
                         <Button Click="btn_opensettings_Click"  x:Name="btn_opensettings">Настройки подключения</Button>
-                        <Button  x:Name="btn_debug" Click="btn_debug_Click" Margin="5 0 0 0">▼</Button>
+                        <Button x:Name="btn_debug" Click="btn_debug_Click" Margin="5 0 0 0">▼ Лог</Button>
                     </StackPanel>
                     <TextBlock Visibility="Collapsed" x:Name="text_error" Text="Дебаг режим подробнее об ошибке"></TextBlock>
                 </StackPanel>
@@ -78,6 +90,12 @@
         </ui:ContentDialog>
 
         <ui:ContentDialog Visibility="Hidden"  x:Name="ContentAppVer">
+            <ui:ContentDialog.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="White" Offset="0.251"/>
+                    <GradientStop Color="#FF2EC1EC" Offset="0"/>
+                </LinearGradientBrush>
+            </ui:ContentDialog.Background>
             <Grid>
                 <StackPanel >
                     <Image Source="pack://application:,,,/img/icon_info.png" Width="50" HorizontalAlignment="Left" Margin="0 0 0 5" />
@@ -93,13 +111,19 @@
                     </TextBlock>
                     <TextBlock Style="{StaticResource BodyTextBlockStyle}" Padding="0 15 0 0">Разработка: Алексей Кулагин (TheCrazyWolf)</TextBlock>
                     <StackPanel Orientation="Horizontal" Margin="0 10 0 0" >
-                        <Button x:Name="btn_about_close" Click="btn_about_close_Click">Закрыть</Button>
+                        <Button x:Name="btn_about_close" Click="btn_about_close_Click" Style="{DynamicResource AccentButtonStyle}">Закрыть</Button>
                     </StackPanel>
                 </StackPanel>
             </Grid>
         </ui:ContentDialog>
 
-        <ui:ContentDialog Visibility="Visible" x:Name="ContentUpdate" Background="#FFFF8C8C">
+        <ui:ContentDialog Visibility="Hidden" x:Name="ContentUpdate" >
+            <ui:ContentDialog.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="White" Offset="0.251"/>
+                    <GradientStop Color="#FF68EAD8" Offset="0"/>
+                </LinearGradientBrush>
+            </ui:ContentDialog.Background>
             <Grid>
                 <StackPanel>
                     <Image Source="/img/icon_flash.png" Width="50" HorizontalAlignment="Left" Margin="0 0 0 5" />
@@ -112,13 +136,13 @@
                         <TextBlock x:Name="txt_newver" Text="2.0" Style="{StaticResource BodyTextBlockStyle}" Padding="0 15 0 0"/>
                     </StackPanel>
                     <TextBlock  Style="{StaticResource BodyTextBlockStyle}" Padding="0 15 0 0">
-                        Найден пакет для обновления программного обепечения<LineBreak/>Не прерывайте процесс обновления. Описание пакета:
+                        Найдено обновление программного обеспечения<LineBreak/>Описания обновления:
                     </TextBlock>
                     <TextBlock x:Name="txt_desc" Style="{StaticResource BodyTextBlockStyle}" Padding="0 15 0 0">
                         Доступна новая версия приложения
                     </TextBlock>
                     <StackPanel Orientation="Horizontal" Margin="0 10 0 0" >
-                        <Button x:Name="btn_updatenow" Click="btn_updatenow_Click">Загрузить и обновить</Button>
+                        <Button x:Name="btn_updatenow" Click="btn_updatenow_Click" Style="{DynamicResource AccentButtonStyle}">Загрузить и обновить</Button>
                         <Button x:Name="btn_updatelate" Click="btn_updatelate_Click" Margin="10 0 0 0">Отложить</Button>
                     </StackPanel>
                 </StackPanel>

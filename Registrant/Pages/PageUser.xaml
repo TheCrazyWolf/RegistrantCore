@@ -65,15 +65,22 @@
             <TextBlock x:Name="txt_user" Text="Иванов В." Style="{StaticResource SubheaderTextBlockStyle}"/>
         </StackPanel>
         <Grid Grid.Row="2" Grid.Column="1"/>
-        <ui:ContentDialog  x:Name="ContentSave" >
+        <ui:ContentDialog Grid.ColumnSpan="5" Grid.RowSpan="4" Visibility="Visible" x:Name="ContentSave" >
+            <ui:ContentDialog.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="White" Offset="0.251"/>
+                    <GradientStop Color="#FF2EC1EC" Offset="0"/>
+                </LinearGradientBrush>
+            </ui:ContentDialog.Background>
             <Grid >
                 <StackPanel>
+                    <Image Source="/img/ico_done.png" Width="50" HorizontalAlignment="Left" Margin="0 0 0 5"  />
                     <TextBlock Text="Получилось!" Style="{StaticResource SubheaderTextBlockStyle}"/>
                     <StackPanel>
                         <TextBlock Text="Все изменения сохранились на сервере. Грут!" Style="{StaticResource BodyTextBlockStyle}" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <Button x:Name="btn_close" Click="btn_close_Click" Margin="0 10 0 0" Content="Закрыть"/>
+                        <Button x:Name="btn_close" Click="btn_close_Click" Margin="0 10 0 0" Content="Закрыть" Style="{DynamicResource AccentButtonStyle}"/>
                     </StackPanel>
                 </StackPanel>
             </Grid>

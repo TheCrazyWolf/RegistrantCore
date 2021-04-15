@@ -41,9 +41,8 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <Button x:Name="btn_edit" Content="Редактировать" Margin="5 5 0 5" Click="btn_edit_Click"></Button>
-                                    <Button x:Name="btn_delete" Content="Удалить" Margin="5 5 5 5" Click="btn_delete_Click"></Button>
-                                    <Button x:Name="btn_info" Content="Инфо" Margin="0 5 5 5" Click="btn_info_Click"></Button>
+                                    <Button x:Name="btn_edit" Content="Редактировать" Margin="0 5 5 5" Click="btn_edit_Click"></Button>
+                                    <Button x:Name="btn_info" Content="Инфо" Click="btn_info_Click"></Button>
                                 </StackPanel>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
@@ -51,9 +50,16 @@
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
-        <ui:ContentDialog Visibility="Hidden" x:Name="ContentAdd" >
+        <ui:ContentDialog Grid.ColumnSpan="3" Grid.RowSpan="3" Visibility="Hidden" x:Name="ContentAdd" >
+            <ui:ContentDialog.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="White" Offset="0.251"/>
+                    <GradientStop Color="#FF2EC1EC" Offset="0"/>
+                </LinearGradientBrush>
+            </ui:ContentDialog.Background>
             <Grid >
                 <StackPanel>
+                    <Image Source="/img/icon_add.png" Width="50" HorizontalAlignment="Left" Margin="0 0 0 5" />
                     <TextBlock Text="Добавление контрагента" Style="{StaticResource SubheaderTextBlockStyle}"/>
                     <StackPanel>
                         <TextBlock Text="Регистрация контрагентов в системе" Style="{StaticResource BodyTextBlockStyle}" />
@@ -61,41 +67,56 @@
                         <TextBox x:Name="tb_namecontragent" ></TextBox>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <Button x:Name="btn_add_add" Click="btn_add_add_Click" Margin="0 10 10 0" Content="Добавить"/>
+                        <Button x:Name="btn_add_add" Click="btn_add_add_Click" Margin="0 10 10 0" Content="Добавить" Style="{DynamicResource AccentButtonStyle}"/>
+                        
                         <Button x:Name="btn_add_close" Click="btn_add_close_Click_1" Margin="0 10 0 0" Content="Закрыть"/>
                     </StackPanel>
                 </StackPanel>
             </Grid>
         </ui:ContentDialog>
-        <ui:ContentDialog Visibility="Hidden" x:Name="ContentEdit" >
+        <ui:ContentDialog Grid.ColumnSpan="3" Grid.RowSpan="3" Visibility="Hidden" x:Name="ContentEdit" >
+            <ui:ContentDialog.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="White" Offset="0.251"/>
+                    <GradientStop Color="#FF2EC1EC" Offset="0"/>
+                </LinearGradientBrush>
+            </ui:ContentDialog.Background>
             <Grid >
                 <StackPanel>
+                    <Image Source="/img/icon_edit.png" Width="50" HorizontalAlignment="Left" Margin="0 0 0 5" />
                     <TextBlock x:Name="text_editnamecontragent" Text="Каскадное редактирование контрагента" Style="{StaticResource SubheaderTextBlockStyle}"/>
                     <StackPanel>
                         <TextBlock Text="Ахтунг! Обратите внимание, все сопутствующие записи связанные с контрагентами будут отредактированы автоматически." Style="{StaticResource BodyTextBlockStyle}" Foreground="Red" />
-                        <TextBlock Text="Используйте данный функционал, если была допущена ошибка при добавлении контрагента" Margin="0 5 0 0" Style="{StaticResource BodyTextBlockStyle}" />
-                        <TextBlock Text="Идентификатор" Style="{StaticResource BodyTextBlockStyle}"  Padding="0 12 0 0"/>
-                        <TextBox x:Name="tb_idcontragent" IsEnabled="False"></TextBox>
-                        <TextBlock Text="Наименование" Style="{StaticResource BodyTextBlockStyle}"  Padding="0 12 0 0"/>
+                        <TextBlock Visibility="Collapsed" Text="Идентификатор" Style="{StaticResource BodyTextBlockStyle}"  Padding="0 3 0 0"/>
+                        <TextBox Visibility="Collapsed" x:Name="tb_idcontragent" IsEnabled="False"></TextBox>
+                        <TextBlock Text="Наименование" Style="{StaticResource BodyTextBlockStyle}"  Padding="0 3 0 0"/>
                         <TextBox x:Name="tb_edit_name" ></TextBox>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <Button x:Name="btn_save_edit" Click="btn_save_edit_Click" Margin="0 10 10 0" Content="Редактировать"/>
-                        <Button x:Name="btn_edit_close" Click="btn_edit_close_Click" Margin="0 10 0 0" Content="Закрыть"/>
+                    <StackPanel Orientation="Horizontal" Margin="0 10 10 0">
+                        <Button x:Name="btn_save_edit" Click="btn_save_edit_Click" Margin="0 0 5 0" Content="Сохранить" Style="{DynamicResource AccentButtonStyle}"/>
+                        <Button x:Name="btn_delete" Content="Удалить" Margin="0 0 5 0" Click="btn_delete_Click"></Button>
+                        <Button x:Name="btn_edit_close" Click="btn_edit_close_Click" Margin="0 0 0 0" Content="Закрыть"/>
                     </StackPanel>
                 </StackPanel>
             </Grid>
         </ui:ContentDialog>
 
-        <ui:ContentDialog Visibility="Hidden" x:Name="ContentInfo" >
+        <ui:ContentDialog Grid.ColumnSpan="3" Grid.RowSpan="3" Visibility="Hidden" x:Name="ContentInfo" >
+            <ui:ContentDialog.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="White" Offset="0.251"/>
+                    <GradientStop Color="#FF2EC1EC" Offset="0"/>
+                </LinearGradientBrush>
+            </ui:ContentDialog.Background>
             <Grid >
                 <StackPanel>
+                    <Image Source="/img/icon_info.png" Width="50" HorizontalAlignment="Left" Margin="0 0 0 5" />
                     <TextBlock x:Name="text_namecontragent" Text="Инфо" Style="{StaticResource SubheaderTextBlockStyle}"/>
                     <StackPanel>
                         <TextBlock x:Name="text_infocontragent" Text="Здесь информация о текущем контрагенте" Margin="0 5 0 0" Style="{StaticResource BodyTextBlockStyle}" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <Button x:Name="btn_info_close" Click="btn_info_close_Click" Margin="0 10 0 0" Content="Закрыть"/>
+                        <Button x:Name="btn_info_close" Click="btn_info_close_Click" Margin="0 10 0 0" Content="Закрыть" Style="{DynamicResource AccentButtonStyle}"/>
                     </StackPanel>
                 </StackPanel>
             </Grid>

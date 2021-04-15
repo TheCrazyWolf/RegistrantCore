@@ -4,14 +4,21 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>img\ico_app.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="img\icon_add.png" />
     <None Remove="img\icon_auth.png" />
     <None Remove="img\icon_connect.png" />
+    <None Remove="img\icon_donesave.png" />
+    <None Remove="img\icon_edit.png" />
     <None Remove="img\icon_error2.png" />
     <None Remove="img\icon_flash.png" />
     <None Remove="img\icon_info.png" />
+    <None Remove="img\icon_newdriver.png" />
+    <None Remove="img\ico_app.ico" />
+    <None Remove="img\ico_done.png" />
     <None Remove="img\info_error.png" />
   </ItemGroup>
 
@@ -32,12 +39,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="img\icon_add.png" />
     <Resource Include="img\icon_auth.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="img\icon_connect.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="img\icon_donesave.png" />
+    <Resource Include="img\icon_edit.png" />
     <Resource Include="img\icon_error2.png" />
     <Resource Include="img\icon_flash.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -45,6 +55,9 @@
     <Resource Include="img\icon_info.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="img\icon_newdriver.png" />
+    <Resource Include="img\ico_app.ico" />
+    <Resource Include="img\ico_done.png" />
     <Resource Include="img\info_error.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>

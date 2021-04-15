@@ -78,35 +78,43 @@
 
             </DataGrid>
         </Grid>
-        <ui:ContentDialog Visibility="Hidden" x:Name="ContentAdd" >
+        <ui:ContentDialog Grid.ColumnSpan="3" Grid.RowSpan="5" Visibility="Visible" x:Name="ContentAdd" >
+            <ui:ContentDialog.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="White" Offset="0.251"/>
+                    <GradientStop Color="#FF2EC1EC" Offset="0"/>
+                </LinearGradientBrush>
+            </ui:ContentDialog.Background>
             <Grid >
                 <StackPanel>
+                    <Image Source="/img/icon_newdriver.png" Width="50" HorizontalAlignment="Left" Margin="0 0 0 5" />
                     <TextBlock Text="Внеплановая регистрация" Style="{StaticResource SubheaderTextBlockStyle}"/>
                     <StackPanel>
                         <TextBlock Text="Используйте регистрацию, если подъехал водитель вне запланированных списков" Style="{StaticResource BodyTextBlockStyle}" />
-                        <TextBlock Text="Фамилия" Style="{StaticResource BodyTextBlockStyle}"  Padding="0 12 0 0"/>
+                        <TextBlock Text="Фамилия" Style="{StaticResource BodyTextBlockStyle}"  Padding="0 3 0 0"/>
                         <TextBox x:Name="tb_family" Text="{Binding Test}" ></TextBox>
-                        <TextBlock Text="Имя" Style="{StaticResource BodyTextBlockStyle}" Padding="0 12 0 0"/>
+                        <TextBlock Text="Имя" Style="{StaticResource BodyTextBlockStyle}" Padding="0 3 0 0"/>
                         <TextBox x:Name="tb_name" Text="{Binding Test}"></TextBox>
-                        <TextBlock Text="Отчество" Style="{StaticResource BodyTextBlockStyle}" Padding="0 12 0 0"/>
+                        <TextBlock Text="Отчество" Style="{StaticResource BodyTextBlockStyle}" Padding="0 3 0 0"/>
                         <TextBox x:Name="tb_patronymic" Text="{Binding Test}"></TextBox>
-                        <TextBlock Text="Контактный номер (в формате 7ХХХХХХХХХХ)" Style="{StaticResource BodyTextBlockStyle}" Padding="0 12 0 0"/>
+                        <TextBlock Text="Контактный номер (в формате 7ХХХХХХХХХХ)" Style="{StaticResource BodyTextBlockStyle}" Padding="0 3 0 0"/>
                         <TextBox x:Name="tb_phone" Text="{Binding Test}"></TextBox>
-                        <TextBlock Text="Номер т/с" Style="{StaticResource BodyTextBlockStyle}" Padding="0 12 0 0"/>
+                        <TextBlock Text="Номер т/с" Style="{StaticResource BodyTextBlockStyle}" Padding="0 3 0 0"/>
                         <TextBox x:Name="tb_autonum" Text="{Binding Test}"></TextBox>
-                        <TextBlock Text="Документ удостоверяющий личность" Style="{StaticResource BodyTextBlockStyle}" Padding="0 12 0 0"/>
+                        <TextBlock Text="Документ удостоверяющий личность" Style="{StaticResource BodyTextBlockStyle}" Padding="0 3 0 0"/>
                         <TextBox x:Name="tb_passport" Text="{Binding Test}"></TextBox>
-                        <TextBlock Text="Дополнительно" Style="{StaticResource BodyTextBlockStyle}" Padding="0 12 0 0"/>
+                        <TextBlock Text="Дополнительно" Style="{StaticResource BodyTextBlockStyle}" Padding="0 3 0 0"/>
                         <TextBox x:Name="tb_info" Text="{Binding Test}"></TextBox>
                     </StackPanel>
                     <TextBlock Visibility="Collapsed" x:Name="text_error" Text="Дебаг режим подробнее об ошибке"></TextBlock>
-                    <StackPanel Orientation="Horizontal">
-                        <Button x:Name="btn_add_add"  Click="btn_add_add_Click" Margin="0 10 10 0" Content="Добавить и зарегистрировать водителя"/>
-                        <Button x:Name="btn_add_close" Click="btn_add_close_Click" Margin="0 10 0 0" Content="Закрыть"/>
+                    <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
+                        <Button x:Name="btn_add_add"  Click="btn_add_add_Click" Content="Регистрация" Margin="0 0 5 0" Style="{DynamicResource AccentButtonStyle}">
+                        </Button>
+                        <Button x:Name="btn_add_close" Click="btn_add_close_Click" Content="Закрыть"/>
                     </StackPanel>
                 </StackPanel>
             </Grid>
         </ui:ContentDialog>
-        
+
     </Grid>
 </Page>

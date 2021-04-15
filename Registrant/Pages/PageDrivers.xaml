@@ -54,17 +54,24 @@
         </Grid>
 
 
-        <ui:ContentDialog  Visibility="Hidden" x:Name="ContentAddEdit" >
+        <ui:ContentDialog Grid.ColumnSpan="3" Grid.RowSpan="3" Visibility="Hidden" x:Name="ContentAddEdit" >
+            <ui:ContentDialog.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="White" Offset="0.251"/>
+                    <GradientStop Color="#FF2EC1EC" Offset="0"/>
+                </LinearGradientBrush>
+            </ui:ContentDialog.Background>
             <Grid >
                 <StackPanel>
+                    <Image Source="/img/icon_edit.png" Width="50" HorizontalAlignment="Left" Margin="0 0 0 5" />
                     <TextBlock x:Name="text_namedriver" Text="Новый водитель" Style="{StaticResource SubheaderTextBlockStyle}"/>
                     <StackPanel>
                         <TextBlock x:Name="text_infocontragent" Text="Добавление или изменение данных" Margin="0 5 0 0" Style="{StaticResource BodyTextBlockStyle}" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <StackPanel Width="200">
-                            <TextBlock  Text="Индентификатор" Margin="0 5 0 0" Style="{StaticResource BodyTextBlockStyle}" />
-                            <TextBox x:Name="tb_id" IsEnabled="False"/>
+                            <TextBlock Visibility="Collapsed" Text="Индентификатор" Margin="0 5 0 0" Style="{StaticResource BodyTextBlockStyle}" />
+                            <TextBox Visibility="Collapsed" x:Name="tb_id" IsEnabled="False"/>
                             <TextBlock  Text="Фамилия" Margin="0 5 0 0" Style="{StaticResource BodyTextBlockStyle}" />
                             <TextBox x:Name="tb_Family" />
                             <TextBlock  Text="Имя" Margin="0 5 0 0" Style="{StaticResource BodyTextBlockStyle}" />
@@ -99,17 +106,25 @@
                         </StackPanel>
                     </StackPanel>
                     <StackPanel  Margin="0 10 0 0" Orientation="Horizontal">
-                        <Button Visibility="Collapsed" x:Name="btn_add" Click="btn_add_Click" Margin="0 0 5 0" Content="Добавить"/>
-                        <Button  Visibility="Collapsed" x:Name="btn_edit" Click="btn_edit_Click1" Margin="0 0 5 0" Content="Сохранить"/>
+                        <Button Visibility="Collapsed" x:Name="btn_add" Click="btn_add_Click" Margin="0 0 5 0" Content="Добавить" Style="{DynamicResource AccentButtonStyle}"/>
+                        <Button  Visibility="Collapsed" x:Name="btn_edit" Click="btn_edit_Click1" Margin="0 0 5 0" Content="Сохранить" Style="{DynamicResource AccentButtonStyle}"/>
                         <Button Visibility="Collapsed" x:Name="btn_delete" Click="btn_delete_Click" Margin="0 0 5 0" Content="Удалить"/>
                         <Button x:Name="btn_close" Click="btn_close_Click"  Margin="0 0 0 0" Content="Закрыть"/>
                     </StackPanel>
                 </StackPanel>
             </Grid>
         </ui:ContentDialog>
-        <ui:ContentDialog  Visibility="Hidden" x:Name="ContentInfo" >
+        
+        <ui:ContentDialog Grid.ColumnSpan="3" Grid.RowSpan="3" Visibility="Visible" x:Name="ContentInfo" >
+            <ui:ContentDialog.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="White" Offset="0.251"/>
+                    <GradientStop Color="#FF2EC1EC" Offset="0"/>
+                </LinearGradientBrush>
+            </ui:ContentDialog.Background>
             <Grid x:Name="ContentInfoGrid" >
                 <StackPanel>
+                    <Image Source="/img/icon_info.png" Width="50" HorizontalAlignment="Left" Margin="0 0 0 5" />
                     <TextBlock x:Name="text_info_namedriver" Text="Новый водитель" Style="{StaticResource SubheaderTextBlockStyle}"/>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Идентификатор в БД:" Margin="0 5 0 0" Style="{StaticResource BodyTextBlockStyle}" />
@@ -133,7 +148,7 @@
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Контрагент:"  Style="{StaticResource BodyTextBlockStyle}" />
-                        <TextBlock Text="{Binding IdContragentNavigation?.Name}" Margin="10 0 0 0"  Style="{StaticResource BodyTextBlockStyle}" />
+                        <TextBlock Text="{Binding IdContragentNavigation.Name}" Margin="10 0 0 0"  Style="{StaticResource BodyTextBlockStyle}" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Доверенность:"  Style="{StaticResource BodyTextBlockStyle}" />
@@ -164,7 +179,7 @@
                     </StackPanel>
                     <TextBlock Text="{Binding ServiceInfo}"  Style="{StaticResource BodyTextBlockStyle}" />
                     <StackPanel  Margin="0 10 0 0" Orientation="Horizontal">
-                        <Button x:Name="btn_info_close" Click="btn_info_close_Click"  Margin="0 0 0 0" Content="Закрыть"/>
+                        <Button x:Name="btn_info_close" Click="btn_info_close_Click"  Margin="0 0 0 0" Content="Закрыть" Style="{DynamicResource AccentButtonStyle}"/>
                     </StackPanel>
                 </StackPanel>
             </Grid>

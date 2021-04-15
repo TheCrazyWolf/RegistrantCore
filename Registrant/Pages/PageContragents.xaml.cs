@@ -93,7 +93,7 @@ namespace Registrant.Pages
         /// <param name="e"></param>
         private void btn_edit_Click(object sender, RoutedEventArgs e)
         {
-            var bt = e.OriginalSource as Button;
+            var bt = e.OriginalSource as Button; 
             var current = bt.DataContext as DB.Contragent;
 
             if (current != null)
@@ -114,13 +114,33 @@ namespace Registrant.Pages
                     ((MainWindow)System.Windows.Application.Current.MainWindow).ContentErrorText.ShowAsync();
                     ((MainWindow)System.Windows.Application.Current.MainWindow).text_debuger.Text = ex.ToString();
                 }
-            }
+            } 
         }
 
         //Кнопка удалить
         private void btn_delete_Click(object sender, RoutedEventArgs e)
         {
-            var bt = e.OriginalSource as Button;
+            if (tb_idcontragent != null)
+            {
+                try
+                {
+                    using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
+                    {
+                        var temp = ef.Contragents.FirstOrDefault(x => x.IdContragent == Convert.ToInt64(tb_idcontragent.Text));
+                        temp.Active = "0";
+                        ef.SaveChanges();
+                        ContentEdit.Hide();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ((MainWindow)System.Windows.Application.Current.MainWindow).ContentErrorText.ShowAsync();
+                    ((MainWindow)System.Windows.Application.Current.MainWindow).text_debuger.Text = ex.ToString();
+                }
+
+            }
+            //Кнопа перенесена в другоме место,
+            /*var bt = e.OriginalSource as Button;
             var current = bt.DataContext as DB.Contragent;
 
             try
@@ -139,7 +159,7 @@ namespace Registrant.Pages
             {
                 ((MainWindow)System.Windows.Application.Current.MainWindow).ContentErrorText.ShowAsync();
                 ((MainWindow)System.Windows.Application.Current.MainWindow).text_debuger.Text = ex.ToString();
-            }
+            }*/
         }
 
         //Обновить
@@ -187,7 +207,7 @@ namespace Registrant.Pages
                     contragent.Active = "1";
                     ef.Add(contragent);
                     ef.SaveChanges();
-                    btn_refresh_Click(sender, e);
+                    //btn_refresh_Click(sender, e);
                     ContentAdd.Hide();
                 }
             }
@@ -223,7 +243,7 @@ namespace Registrant.Pages
                     temp.Name = tb_edit_name.Text;
                     temp.ServiceInfo = temp.ServiceInfo + "\n" + DateTime.Now + " " + App.ActiveUser + " изменил название контрагента";
                     ef.SaveChanges();
-                    btn_refresh_Click(sender, e);
+                    //btn_refresh_Click(sender, e);
                     ContentEdit.Hide();
                 }
             }

@@ -175,7 +175,7 @@ namespace Registrant.Pages
                     driver.ServiceInfo = driver.ServiceInfo + "\n" + DateTime.Now + " " + App.ActiveUser + " удалил водителя";
                     ef.SaveChanges();
                     ContentAddEdit.Hide();
-                    btn_refresh_Click(sender, e);
+                    //btn_refresh_Click(sender, e);
                 }
             }
             catch (Exception ex)
@@ -256,7 +256,7 @@ namespace Registrant.Pages
                         ef.SaveChanges();
                         btn_close_Click(sender, e);
                         ContentAddEdit.Hide();
-                        btn_refresh_Click(sender, e);
+                        //btn_refresh_Click(sender, e);
                     }
                 }
                 catch (Exception ex)

@@ -35,7 +35,7 @@
                     <ComboBoxItem>Покинули</ComboBoxItem>
                 </ComboBox>
                 <Button Visibility="Collapsed" x:Name="btn_refresh" Click="btn_refresh_Click" Margin="0 0 5 0" Content="Обновить"></Button>
-                <Button Click="ButtonAdd_Click" Visibility="Collapsed" x:Name="btn_new" Margin="0 0 5 0" Content="Новая отгрузка"></Button>
+                <Button Click="ButtonAdd_Click" Visibility="Collapsed" x:Name="btn_new" Margin="0 0 5 0" Content="Новая отгрузка" Style="{DynamicResource AccentButtonStyle}"></Button>
                 <Button x:Name="btn_print" Click="btn_print_Click" Content="Выгрузка данных из БД"></Button>
             </StackPanel>
             <TextBlock x:Name="Text_date" Text="Реестр за 01.01.1970" Margin="0 10 0 0" Style="{StaticResource SubtitleTextBlockStyle}"/>
@@ -50,12 +50,15 @@
                     <DataGridTextColumn Header="ФИО водителя" Binding="{Binding FIO}"/>
                     <DataGridTextColumn Header="Номер" Binding="{Binding Phone}"/>
                     <DataGridTextColumn Header="Статус" Binding="{Binding TextStatus}"/>
+                    <DataGridTextColumn Header="№ реализации" Binding="{Binding NumRealese}"/>
+                    <DataGridTextColumn Header="Пакет документов" Binding="{Binding PacketDocuments}"/>
+                    <DataGridTextColumn Header="Дополнительно" Binding="{Binding Description}"/>
                     <DataGridTemplateColumn Header="Действия">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <Button x:Name="btn_load" Click="btn_load_Click" Visibility="{Binding btn_load}" Content="Начать отгрузку" Margin="5 5 5 5" ></Button>
-                                    <Button x:Name="btn_endload"  Click="btn_endload_Click" Visibility="{Binding btn_endload}" Content="Закончить отгрузку" Margin="5 5 5 5" ></Button>
+                                    <!-- <Button x:Name="btn_load" Click="btn_load_Click" Visibility="{Binding btn_load}" Content="Начать отгрузку" Margin="5 5 5 5" ></Button>
+                                    <Button x:Name="btn_endload"  Click="btn_endload_Click" Visibility="{Binding btn_endload}" Content="Закончить отгрузку" Margin="5 5 5 5" ></Button> -->
                                     <Button x:Name="btn_edit" Click="btn_edit_Click" Visibility="{Binding BtnEditVis}" Content="Редактировать" Margin="5 5 5 5" ></Button>
                                 </StackPanel>
                             </DataTemplate>
@@ -64,19 +67,5 @@
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
-
-
-        <ui:ContentDialog  Grid.ColumnSpan="3" Grid.RowSpan="4" Visibility="Collapsed" x:Name="ContentAddEdit" >
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" Text="Отгрузка №" Style="{StaticResource SubheaderTextBlockStyle}"/>
-                <ScrollViewer Grid.Row="1">
-                    <Frame Width="auto" x:Name="frame_edit" Content="Следуйте инструкциям на экране в открывшемся диалоговом окне"/>
-                </ScrollViewer>
-            </Grid>
-        </ui:ContentDialog>
     </Grid>
 </Page>

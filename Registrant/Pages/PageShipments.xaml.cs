@@ -164,10 +164,8 @@ namespace Registrant.Pages
 
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
         {
-            ContentAddEdit.ShowAsync();
             Forms.AddOrEditShipment addOrEditShipment = new Forms.AddOrEditShipment();
             addOrEditShipment.ShowDialog();
-            ContentAddEdit.Hide();
             btn_refresh_Click(sender, e);
         }
 

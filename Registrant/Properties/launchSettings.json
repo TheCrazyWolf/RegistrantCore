@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Registrant": {
+      "commandName": "Project",
+      "remoteDebugEnabled": false
+    }
+  }
+}
