@@ -29,17 +29,23 @@
         </ui:NavigationView>
 
         <ui:ContentDialog Visibility="Hidden" x:Name="ContentAuth">
+            <ui:ContentDialog.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="White" Offset="0.58"/>
+                    <GradientStop Color="#FF2EC1EC" Offset="0"/>
+                </LinearGradientBrush>
+            </ui:ContentDialog.Background>
             <Grid>
                 <StackPanel >
                     <Image Source="pack://application:,,,/img/icon_auth.png" Width="50" HorizontalAlignment="Left" Margin="0 0 0 5" />
-                    <TextBlock Text="Авторизация" Style="{StaticResource SubheaderTextBlockStyle}"/>
+                    <TextBlock Text="Вход" Style="{StaticResource SubheaderTextBlockStyle}"/>
                     <TextBlock Style="{StaticResource BodyTextBlockStyle}" Padding="0 0 0 10">
                         С возращением, пожалуйста, заполните поля<LineBreak/>данными, которые вам были предоставлены
                     </TextBlock>
                     <TextBlock Text="Логин" Style="{StaticResource BodyTextBlockStyle}"/>
                     <TextBox x:Name="tb_login"></TextBox>
                     <TextBlock Text="Пароль" Margin="0 10 0 0" Style="{StaticResource BodyTextBlockStyle}"/>
-                    <PasswordBox x:Name="tb_password" Margin="0 0 0 25"></PasswordBox>
+                    <PasswordBox x:Name="tb_password" Margin="0 0 0 15"></PasswordBox>
                     <Button x:Name="btn_enter" Click="btn_enter_Click" Content="Войти" Style="{DynamicResource AccentButtonStyle}"></Button>
                 </StackPanel>
             </Grid>
@@ -48,14 +54,14 @@
         <ui:ContentDialog Visibility="Hidden" x:Name="ContentWait">
             <ui:ContentDialog.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="White" Offset="0.251"/>
+                    <GradientStop Color="White" Offset="0.58"/>
                     <GradientStop Color="#FF2EC1EC" Offset="0"/>
                 </LinearGradientBrush>
             </ui:ContentDialog.Background>
             <Grid>
                 <StackPanel>
                     <Image Source="pack://application:,,,/img/icon_connect.png" Width="35" HorizontalAlignment="Left" Margin="0 0 0 5" />
-                    <TextBlock Text="Соединяемся с сервером" Style="{StaticResource SubheaderTextBlockStyle}"/>
+                    <TextBlock Text="Подключение к базе данных" Style="{StaticResource SubheaderTextBlockStyle}"/>
                     <TextBlock Text="Это может занять некоторое время" Style="{StaticResource BodyTextBlockStyle}" Padding="0 5 0 25"/>
                     <ProgressBar IsIndeterminate="True"></ProgressBar>
                 </StackPanel>
@@ -172,5 +178,51 @@
                 </StackPanel>
             </Grid>
         </ui:ContentDialog>
+
+        <ui:ContentDialog Visibility="Hidden" x:Name="ContentCheckingUpdate">
+            <ui:ContentDialog.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="White" Offset="0.58"/>
+                    <GradientStop Color="#FF2EC1EC" Offset="0"/>
+                </LinearGradientBrush>
+            </ui:ContentDialog.Background>
+            <Grid>
+                <StackPanel>
+                    <Image Source="pack://application:,,,/img/icon_connect.png" Width="35" HorizontalAlignment="Left" Margin="0 0 0 5" />
+                    <TextBlock Text="Поиск обновлений" Style="{StaticResource SubheaderTextBlockStyle}"/>
+                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Padding="0 5 0 10">
+                        Обновления могут содержать различные улучшения, исправления ошибок и дополнительные функции
+                    </TextBlock>
+                    <ProgressBar IsIndeterminate="True"></ProgressBar>
+                </StackPanel>
+            </Grid>
+        </ui:ContentDialog>
+
+        <ui:ContentDialog Visibility="Hidden" x:Name="ContentInstallUpdates">
+            <ui:ContentDialog.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="White" Offset="0.58"/>
+                    <GradientStop Color="#FF2EC1EC" Offset="0"/>
+                </LinearGradientBrush>
+            </ui:ContentDialog.Background>
+            <Grid>
+                <StackPanel>
+                    <Image Source="pack://application:,,,/img/icon_connect.png" Width="35" HorizontalAlignment="Left" Margin="0 0 0 5" />
+                    <TextBlock Text="Установка обновлений" Style="{StaticResource SubheaderTextBlockStyle}"/>
+                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Padding="0 5 0 10">
+                        Выполняется загрузка и установка обновлений. Программа автоматически перезапустится по окончанию обновления. Если вы попытаетесь закрыть программу во установки, это приведет к её возможной поломке
+                    </TextBlock>
+                    <ProgressBar IsIndeterminate="True"></ProgressBar>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Style="{StaticResource BodyTextBlockStyle}" Padding="0 5 5 0">
+                        ПО будет обновлено до версии:
+                        </TextBlock>
+                        <TextBlock Style="{StaticResource BodyTextBlockStyle}" Padding="0 5 0 0">2.0
+                        </TextBlock>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </ui:ContentDialog>
+
     </Grid>
 </fw:AcrylicWindow>

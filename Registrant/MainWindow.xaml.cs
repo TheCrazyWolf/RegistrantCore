@@ -44,27 +44,10 @@ namespace Registrant
             thread.Start();
         }
 
-
-        /// Открытие дебага
-        private void btn_debug_Click(object sender, RoutedEventArgs e)
-        {
-            text_error.Visibility = Visibility.Visible;
-        }
-
-        
-        //Кнопка повторить попытку
-        private void btn_tryconnect_Click(object sender, RoutedEventArgs e)
-        {
-            ContentError.Hide();
-            Thread thread1 = new Thread(TestConnect);
-            thread1.Start();
-        }
-
-
         /// Проверка существует ли вообще подключение к серверу
         void TestConnect()
         {
-            Thread.Sleep(2000);
+            //Thread.Sleep(2000);
             Dispatcher.Invoke(() => ContentWait.ShowAsync());
 
             try
@@ -82,6 +65,137 @@ namespace Registrant
                 Dispatcher.Invoke(() => ContentError.ShowAsync());
                 Dispatcher.Invoke(() => text_error.Text = ex.ToString());
             }
+        }
+
+        /// Проверяем кто он по масти
+        void Verify()
+        {
+            if (App.LevelAccess == "admin")
+            {
+                Dispatcher.Invoke(() => nav_admin.Visibility = Visibility.Visible);
+                Dispatcher.Invoke(() => nav_contragents.Visibility = Visibility.Visible);
+                Dispatcher.Invoke(() => nav_drivers.Visibility = Visibility.Visible);
+                Dispatcher.Invoke(() => nav_jurnalkpp.Visibility = Visibility.Visible);
+                Dispatcher.Invoke(() => nav_jurnalshipment.Visibility = Visibility.Visible);
+                Dispatcher.Invoke(() => nav_userset.Visibility = Visibility.Visible);
+
+                //Иниципализация нужных страниц под ролей
+                Dispatcher.Invoke(() => pageKPP = new Pages.PageKPP());
+                Dispatcher.Invoke(() => pageContragents = new Pages.PageContragents());
+                Dispatcher.Invoke(() => pageDrivers = new Pages.PageDrivers());
+                Dispatcher.Invoke(() => pageShipments = new Pages.PageShipments());
+                Dispatcher.Invoke(() => pageAdmin = new Pages.PageAdmin());
+
+                Dispatcher.Invoke(() => FrameContent.Content = pageShipments);
+            }
+            else if (App.LevelAccess == "reader")
+            {
+                Dispatcher.Invoke(() => nav_drivers.Visibility = Visibility.Visible);
+                Dispatcher.Invoke(() => nav_jurnalshipment.Visibility = Visibility.Visible);
+                Dispatcher.Invoke(() => nav_userset.Visibility = Visibility.Visible);
+
+                Dispatcher.Invoke(() => pageDrivers = new Pages.PageDrivers());
+                Dispatcher.Invoke(() => pageShipments = new Pages.PageShipments());
+
+                Dispatcher.Invoke(() => FrameContent.Content = pageShipments);
+            }
+            else if (App.LevelAccess == "warehouse")
+            {
+                Dispatcher.Invoke(() => nav_drivers.Visibility = Visibility.Visible);
+                Dispatcher.Invoke(() => nav_jurnalshipment.Visibility = Visibility.Visible);
+                Dispatcher.Invoke(() => nav_userset.Visibility = Visibility.Visible);
+
+                Dispatcher.Invoke(() => pageContragents = new Pages.PageContragents());
+                Dispatcher.Invoke(() =>  pageDrivers = new Pages.PageDrivers());
+                Dispatcher.Invoke(() => pageShipments = new Pages.PageShipments());
+
+                Dispatcher.Invoke(() => FrameContent.Content = pageShipments);
+
+            }
+            else if (App.LevelAccess == "shipment")
+            {
+                Dispatcher.Invoke(() => nav_jurnalshipment.Visibility = Visibility.Visible);
+                Dispatcher.Invoke(() => nav_contragents.Visibility = Visibility.Visible);
+                Dispatcher.Invoke(() => nav_drivers.Visibility = Visibility.Visible);
+                Dispatcher.Invoke(() => nav_userset.Visibility = Visibility.Visible);
+
+                Dispatcher.Invoke(() => pageContragents = new Pages.PageContragents());
+                Dispatcher.Invoke(() => pageDrivers = new Pages.PageDrivers());
+                Dispatcher.Invoke(() => pageShipments = new Pages.PageShipments());
+
+                Dispatcher.Invoke(() => FrameContent.Content = pageShipments);
+            }
+            else if (App.LevelAccess == "kpp")
+            {
+                Dispatcher.Invoke(() => nav_jurnalkpp.Visibility = Visibility.Visible);
+                Dispatcher.Invoke(() => nav_userset.Visibility = Visibility.Visible);
+                Dispatcher.Invoke(() => pageKPP = new Pages.PageKPP());
+
+                Dispatcher.Invoke(() => FrameContent.Content = pageKPP);
+            }
+        }
+
+        void CheckForUpdates()
+        {
+            Thread.Sleep(1500);
+            Dispatcher.Invoke(() => ContentCheckingUpdate.ShowAsync());
+            WebClient web = new WebClient();
+            try
+            {
+                string Act = web.DownloadString("https://raw.githubusercontent.com/TheCrazyWolf/RegistrantCore/master/Registrant/ActualVer.txt");
+                string ActualText = web.DownloadString("https://raw.githubusercontent.com/TheCrazyWolf/RegistrantCore/master/Registrant/ActualTextDesc.txt");
+                Act = Act.Replace("\n", "");
+                Act = Act.Replace(".", ",");
+
+                string currentstring = Settings.App.Default.AppVersion;
+                currentstring = currentstring.Replace(".", ",");
+                decimal Current = decimal.Parse(currentstring);
+                decimal Actual = decimal.Parse(Act);
+                Dispatcher.Invoke(() => ContentCheckingUpdate.Hide());
+
+                if (Actual > Current)
+                {
+                    Dispatcher.Invoke(() => ContentUpdate.ShowAsync());
+                    Dispatcher.Invoke(() => txt_currver.Text = Current.ToString());
+                    Dispatcher.Invoke(() => txt_newver.Text = Act.ToString());
+                    Dispatcher.Invoke(() => txt_desc.Text = ActualText);
+
+                    string CanRefuse = web.DownloadString("https://raw.githubusercontent.com/TheCrazyWolf/RegistrantCore/master/Registrant/ActualVerCanRefuse.txt");
+                    CanRefuse= CanRefuse.Replace("\n", "");
+
+                    if (CanRefuse == "No")
+                    {
+                        Dispatcher.Invoke(() => btn_updatelate.Visibility = Visibility.Hidden);
+                        Dispatcher.Invoke(() => txt_desc.Text = txt_desc.Text + "\n\nЭто обновление нельзя отложить, т.к. содержит\nкритические правки в коде");
+                        Dispatcher.Invoke(() => ContentUpdate.Background = new SolidColorBrush(Color.FromRgb(255, 195, 195)));
+                    }
+
+                }
+                else
+                {
+                    TestConnect();
+                }
+            }
+            catch (Exception ex)
+            {
+                Dispatcher.Invoke(() => ContentCheckingUpdate.Hide());
+                TestConnect();
+            }
+        }
+
+
+        /// Открытие дебага
+        private void btn_debug_Click(object sender, RoutedEventArgs e)
+        {
+            text_error.Visibility = Visibility.Visible;
+        }
+
+        //Кнопка повторить попытку
+        private void btn_tryconnect_Click(object sender, RoutedEventArgs e)
+        {
+            ContentError.Hide();
+            Thread thread1 = new Thread(TestConnect);
+            thread1.Start();
         }
 
         /// Кнопка с редактированием настроек подключения
@@ -112,7 +226,14 @@ namespace Registrant
                         NavUI.PaneTitle = "РЕГИСТРАНТ (" + user.Name + ")";
                         nav_userset.Content = user.Name;
                         pageUser = new Pages.PageUser(user.IdUser);
-                        Verify();
+
+
+                        Thread thread = new Thread(Verify);
+                        thread.Start();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Логин и/или пароль неверный", "Ошибка входа", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
 
                 }
@@ -122,120 +243,6 @@ namespace Registrant
                 Dispatcher.Invoke(() => ContentWait.Hide());
                 Dispatcher.Invoke(() => ContentError.ShowAsync());
                 Dispatcher.Invoke(() => text_error.Text = ex.ToString());
-            }
-        }
-
-        /// Проверяем кто он по масти
-        void Verify()
-        {
-            if (App.LevelAccess == "admin")
-            {
-                nav_admin.Visibility = Visibility.Visible;
-                nav_contragents.Visibility = Visibility.Visible;
-                nav_drivers.Visibility = Visibility.Visible;
-                nav_jurnalkpp.Visibility = Visibility.Visible;
-                nav_jurnalshipment.Visibility = Visibility.Visible;
-                nav_userset.Visibility = Visibility.Visible;
-
-                //Иниципализация нужных страниц под ролей
-                pageKPP = new Pages.PageKPP();
-                pageContragents = new Pages.PageContragents();
-                pageDrivers = new Pages.PageDrivers();
-                pageShipments = new Pages.PageShipments();
-                pageAdmin = new Pages.PageAdmin();
-
-                FrameContent.Content = pageShipments;
-            }
-            else if (App.LevelAccess == "reader")
-            {
-                nav_drivers.Visibility = Visibility.Visible;
-                nav_jurnalshipment.Visibility = Visibility.Visible;
-                nav_userset.Visibility = Visibility.Visible;
-
-                pageDrivers = new Pages.PageDrivers();
-                pageShipments = new Pages.PageShipments();
-
-                FrameContent.Content = pageShipments;
-            }
-            else if (App.LevelAccess == "warehouse")
-            {
-                nav_drivers.Visibility = Visibility.Visible;
-                nav_jurnalshipment.Visibility = Visibility.Visible;
-                nav_userset.Visibility = Visibility.Visible;
-
-                pageContragents = new Pages.PageContragents();
-                pageDrivers = new Pages.PageDrivers();
-                pageShipments = new Pages.PageShipments();
-
-                FrameContent.Content = pageShipments;
-
-            }
-            else if (App.LevelAccess == "shipment")
-            {
-                nav_jurnalshipment.Visibility = Visibility.Visible;
-                nav_contragents.Visibility = Visibility.Visible;
-                nav_drivers.Visibility = Visibility.Visible;
-                nav_userset.Visibility = Visibility.Visible;
-
-                pageContragents = new Pages.PageContragents();
-                pageDrivers = new Pages.PageDrivers();
-                pageShipments = new Pages.PageShipments();
-
-                FrameContent.Content = pageShipments;
-            }
-            else if (App.LevelAccess == "kpp")
-            {
-                nav_jurnalkpp.Visibility = Visibility.Visible;
-                nav_userset.Visibility = Visibility.Visible;
-                pageKPP = new Pages.PageKPP();
-
-                FrameContent.Content = pageKPP;
-            }
-        }
-
-        void CheckForUpdates()
-        {
-            WebClient web = new WebClient();
-            try
-            {
-                string Act = web.DownloadString("https://raw.githubusercontent.com/TheCrazyWolf/RegistrantCore/master/Registrant/ActualVer.txt");
-                string ActualText = web.DownloadString("https://raw.githubusercontent.com/TheCrazyWolf/RegistrantCore/master/Registrant/ActualTextDesc.txt");
-                Act = Act.Replace("\n", "");
-                Act = Act.Replace(".", ",");
-
-                string currentstring = Settings.App.Default.AppVersion;
-                currentstring = currentstring.Replace(".", ",");
-                decimal Current = decimal.Parse(currentstring);
-                decimal Actual = decimal.Parse(Act);
-
-                if (Actual > Current)
-                {
-                    Dispatcher.Invoke(() => ContentUpdate.ShowAsync());
-                    Dispatcher.Invoke(() => txt_currver.Text = Current.ToString());
-                    Dispatcher.Invoke(() => txt_newver.Text = Act.ToString());
-                    Dispatcher.Invoke(() => txt_desc.Text = ActualText);
-
-                    string CanRefuse = web.DownloadString("https://raw.githubusercontent.com/TheCrazyWolf/RegistrantCore/master/Registrant/ActualVerCanRefuse.txt");
-                    CanRefuse= CanRefuse.Replace("\n", "");
-
-                    if (CanRefuse == "No")
-                    {
-                        Dispatcher.Invoke(() => btn_updatelate.Visibility = Visibility.Hidden);
-                        Dispatcher.Invoke(() => txt_desc.Text = txt_desc.Text + "\n\nЭто обновление нельзя отложить, т.к. содержит\nкритические правки в коде");
-                        Dispatcher.Invoke(() => ContentUpdate.Background = new SolidColorBrush(Color.FromRgb(255, 195, 195)));
-                    }
-
-                }
-                else
-                {
-                    TestConnect();
-                }
-            }
-            catch (Exception ex)
-            {
-                //MessageBox.Show(ex.ToString());
-                Dispatcher.Invoke(() => txt_desc.Text = "");
-                TestConnect();
             }
         }
 
