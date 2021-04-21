@@ -34,7 +34,6 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Office.Interop.Excel" Version="15.0.4795.1000" />
-    <PackageReference Include="ModernWpf.MessageBox" Version="0.5.1" />
     <PackageReference Include="ModernWpfUI" Version="0.9.4" />
   </ItemGroup>
 

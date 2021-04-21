@@ -79,40 +79,39 @@ namespace Registrant.Pages
         /// Кнопка добавления водителя
         private void btn_add_Click(object sender, RoutedEventArgs e)
         {
-            try
+            if (tb_Family.Text != "")
             {
-                using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
+                try
                 {
-                    DB.Driver driver = new DB.Driver();
-                    driver.Family = tb_Family.Text;
-                    driver.Name = tb_name.Text;
-                    driver.Patronymic = tb_patronomyc.Text;
-                    driver.Phone = tb_phone.Text;
-
-                    if (tb_contragent.SelectedItem != null)
+                    using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
                     {
-                        var test = tb_contragent as ComboBox;
-                        var current = test.SelectedItem as DB.Contragent;
-                        if (current != null)
-                        { driver.IdContragent = current.IdContragent; }
+                        DB.Driver driver = new DB.Driver();
+                        driver.Family = tb_Family.Text;
+                        driver.Name = tb_name.Text;
+                        driver.Patronymic = tb_patronomyc.Text;
+                        driver.Phone = tb_phone.Text;
+
+                        driver.Attorney = tb_attorney.Text;
+                        driver.Auto = tb_auto.Text;
+                        driver.AutoNumber = tb_autonum.Text;
+                        driver.Passport = tb_passport.Text;
+                        driver.Info = tb_info.Text;
+                        driver.Active = "1";
+                        driver.ServiceInfo = DateTime.Now + " " + App.ActiveUser + " добавил водителя";
+                        ef.Add(driver);
+                        ef.SaveChanges();
+                        btn_close_Click(sender, e);
                     }
-                    
-                    driver.Attorney = tb_attorney.Text;
-                    driver.Auto = tb_auto.Text;
-                    driver.AutoNumber = tb_autonum.Text;
-                    driver.Passport = tb_passport.Text;
-                    driver.Info = tb_info.Text;
-                    driver.Active = "1";
-                    driver.ServiceInfo = DateTime.Now + " " + App.ActiveUser + " добавил водителя";
-                    ef.Add(driver);
-                    ef.SaveChanges();
-                    btn_close_Click(sender, e);
+                }
+                catch (Exception ex)
+                {
+                    ((MainWindow)System.Windows.Application.Current.MainWindow).ContentErrorText.ShowAsync();
+                    ((MainWindow)System.Windows.Application.Current.MainWindow).text_debuger.Text = ex.ToString();
                 }
             }
-            catch (Exception ex)
+            else
             {
-                ((MainWindow)System.Windows.Application.Current.MainWindow).ContentErrorText.ShowAsync();
-                ((MainWindow)System.Windows.Application.Current.MainWindow).text_debuger.Text = ex.ToString();
+                MessageBox.Show("Введите хотябы фамилию водителя!", "Внимание!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -141,9 +140,6 @@ namespace Registrant.Pages
                         tb_name.Text = driver.Name;
                         tb_patronomyc.Text = driver.Patronymic;
                         tb_phone.Text = driver.Phone;
-
-                        tb_contragent.ItemsSource = ef.Contragents.Where(x => x.Active != "0").ToList();
-                        tb_contragent.SelectedItem = ef.Contragents.FirstOrDefault(x => x.IdContragent == driver.IdContragent);
 
                         tb_attorney.Text = driver.Attorney;
                         tb_auto.Text = driver.Auto;
@@ -196,7 +192,6 @@ namespace Registrant.Pages
             {
                 using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
                 {
-                    tb_contragent.ItemsSource = ef.Contragents.Where(x => x.Active != "0").ToList();
                     btn_add.Visibility = Visibility.Visible;
                     btn_delete.Visibility = Visibility.Collapsed;
                 }
@@ -217,7 +212,6 @@ namespace Registrant.Pages
             tb_name.Text = null;
             tb_patronomyc.Text = null;
             tb_phone.Text = null;
-            tb_contragent.ItemsSource = null;
             tb_attorney.Text = null;
             tb_auto.Text = null;
             tb_autonum.Text = null;
@@ -239,14 +233,6 @@ namespace Registrant.Pages
                         driver.Patronymic = tb_patronomyc.Text;
                         driver.Phone = tb_phone.Text;
 
-                        if (tb_contragent.SelectedItem != null)
-                        {
-                            var test = tb_contragent as ComboBox;
-                            var current = test.SelectedItem as DB.Contragent;
-                            if (current !=null)
-                            { driver.IdContragent = current.IdContragent; }
-                        }
-                        
                         driver.Attorney = tb_attorney.Text;
                         driver.Auto = tb_auto.Text;
                         driver.AutoNumber = tb_autonum.Text;

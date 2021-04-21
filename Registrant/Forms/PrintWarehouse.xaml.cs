@@ -39,7 +39,7 @@ namespace Registrant.Forms
 
         private void btn_print_Click(object sender, RoutedEventArgs e)
         {
-            ModernWpf.MessageBox.Show("This is a test text!", "Some title", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
+            MessageBox.Show("This is a test text!", "Some title", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
         }
 
         private void btn_saveExcel_Click(object sender, RoutedEventArgs e)

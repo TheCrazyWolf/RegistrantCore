@@ -27,8 +27,8 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="№" Binding="{Binding IdShipment}" ToolTipService.ToolTip="{Binding ServiceInfo}"/>
                 <DataGridTextColumn Header="Дата" Binding="{Binding PlanDate}" />
-                <DataGridTextColumn Header="№То" Binding="{Binding TochkaLoad}" />
-                <DataGridTextColumn Header="Время" Binding="{Binding PlanTime}" />
+                <DataGridTextColumn Header="№То" Binding="{Binding TochkaLoad}"/>
+                <!--<DataGridTextColumn Header="Время" Binding="{Binding PlanTime}" />-->
                 <DataGridTextColumn Header="Контрагент" Binding="{Binding Contragent}"/>
                 <DataGridTextColumn Header="Склад" Binding="{Binding Sklad}"/>
                 <DataGridTextColumn Header="ФИО" Binding="{Binding FIOTelephone}"/>
@@ -41,6 +41,7 @@
                 <DataGridTextColumn Header="Начало отгрузки" Binding="{Binding DateLoad}"/>
                 <DataGridTextColumn Header="Конец отгрузки" Binding="{Binding DateEndLoad}"/>
                 <DataGridTextColumn Header="Убытие со склада" Binding="{Binding DateLeft}"/>
+                <DataGridTextColumn Header="Дополнительно" Binding="{Binding Description}"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

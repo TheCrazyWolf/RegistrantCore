@@ -21,9 +21,9 @@ namespace Registrant.Controllers
             date = date.Date;
             try
             {
-                using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
+                using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext()) //Оно работает корректно
                 {
-                    var temp = ef.Shipments.Where(x => ((x.IdTimeNavigation.DateTimePlanRegist.Value.Date == date || x.IdTimeNavigation.DateTimeFactRegist.Value.Date == date) && x.Active != "0")).OrderBy(x => x.IdTimeNavigation.DateTimePlanRegist);
+                    var temp = ef.Shipments.Where(x => (x.IdTimeNavigation.DateTimePlanRegist.Value.Date == date || x.IdTimeNavigation.DateTimeFactRegist.Value.Date == date) && x.Active != "0").OrderBy(x => x.IdTimeNavigation.DateTimePlanRegist);
                     foreach (var item in temp)
                     {
                         Models.Shipments shipment = new Models.Shipments(item);

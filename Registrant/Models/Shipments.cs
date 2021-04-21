@@ -23,8 +23,7 @@ namespace Registrant.Models
 
         public string TextStatus { get; set; }
 
-        public string btn_load { get; set; }
-        public string btn_endload { get; set; }
+        public string Color { get; set; }
 
         public Shipments(DB.Shipment shipment)
         {
@@ -85,85 +84,35 @@ namespace Registrant.Models
             if (shipment.IdTimeNavigation?.DateTimeLeft != null)
             {
                 TextStatus = "Покинул склад (" + DateTimeLeft.ToString() + ")";
-                if (App.LevelAccess == "admin" || App.LevelAccess == "warehouse")
-                {
-                    btn_endload = "Collapsed";
-                    btn_load = "Collapsed";
-                }
-                else
-                {
-                    btn_endload = "Collapsed";
-                    btn_load = "Collapsed";
-                }
             }
             else if (shipment.IdTimeNavigation?.DateTimeLeft == null && shipment.IdTimeNavigation?.DateTimeEndLoad != null)
             {
                 TextStatus = "Отгрузка завершена (" + DateTimeEndLoad.ToString() + ")";
-                if (App.LevelAccess == "admin" || App.LevelAccess == "warehouse")
-                {
-                    btn_endload = "Collapsed";
-                    btn_load = "Collapsed";
-                }
-                else
-                {
-                    btn_endload = "Collapsed";
-                    btn_load = "Collapsed";
-                }
             }
             else if (shipment.IdTimeNavigation?.DateTimeEndLoad == null && shipment.IdTimeNavigation?.DateTimeLoad != null)
             {
                 TextStatus = "Отгрузка (" + DateTimeLoad.ToString() + ")";
-                if (App.LevelAccess == "admin" || App.LevelAccess == "warehouse")
-                {
-                    btn_endload = "Visible";
-                    btn_load = "Collapsed";
-                }
-                else
-                {
-                    btn_endload = "Collapsed";
-                    btn_load = "Collapsed";
-                }
             }
             else if (shipment.IdTimeNavigation?.DateTimeLoad == null && shipment.IdTimeNavigation?.DateTimeArrive != null)
             {
                 TextStatus = "На территории склада (" + DateTimeArrive.ToString() + ")";
-                if (App.LevelAccess == "admin" || App.LevelAccess == "warehouse")
-                {
-                    btn_endload = "Collapsed";
-                    btn_load = "Visible";
-                }
-                else
-                {
-                    btn_endload = "Collapsed";
-                    btn_load = "Collapsed";
-                }
+                Color = "#FFF9C38B";
+
             }
             else if (shipment.IdTimeNavigation?.DateTimeArrive == null && shipment.IdTimeNavigation?.DateTimeFactRegist != null)
             {
                 TextStatus = "Зарегистрирован (" + DateTimeFactRegist.ToString() + ")";
-                if (App.LevelAccess == "admin" || App.LevelAccess == "warehouse")
-                {
-                    btn_endload = "Collapsed";
-                    btn_load = "Collapsed";
-                }
-                else
-                {
-                    btn_endload = "Collapsed";
-                    btn_load = "Collapsed";
-                }
+                Color = "#FFFFEEDC";
 
             }
             else if (shipment.IdTimeNavigation?.DateTimeFactRegist == null && shipment.IdTimeNavigation?.DateTimePlanRegist != null)
             {
                 TextStatus = "";
-                btn_endload = "Collapsed";
-                btn_load = "Collapsed";
             }
             else if (shipment.IdTimeNavigation?.DateTimePlanRegist == null && shipment.IdTimeNavigation?.DateTimeFactRegist != null)
             {
                 TextStatus =  "Зарегистрирован (" + DateTimeFactRegist.ToString() + ")";
-                btn_endload = "Collapsed";
-                btn_load = "Collapsed";
+                Color = "#FFFFEEDC";
             }
 
         }

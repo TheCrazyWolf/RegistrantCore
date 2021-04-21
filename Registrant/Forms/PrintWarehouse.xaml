@@ -21,7 +21,7 @@
             <Button Visibility="Collapsed" x:Name="btn_print" Click="btn_print_Click" Margin="5 5 0 5" Content="Печать"/>
             <Button x:Name="btn_saveExcel" Click="btn_saveExcel_Click" Margin="5 5 0 5" Content="Выгрузить в Excel"></Button>
         </StackPanel>
-        <DataGrid x:Name="grid_shipments" Grid.Row="1"  Margin="0 7 0 0"  AutoGenerateColumns="False" ColumnWidth="*" IsReadOnly="True">
+        <DataGrid x:Name="grid_shipments" Grid.Row="1"  Margin="0 7 0 0"  AutoGenerateColumns="False"  IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="№" Binding="{Binding IdShipment}" ToolTipService.ToolTip="{Binding ServiceInfo}"/>
                 <DataGridTextColumn Header="Дата" Binding="{Binding PlanDate}"/>

@@ -25,7 +25,7 @@ namespace Registrant.Settings {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("2.5")]
+        [global::System.Configuration.DefaultSettingValueAttribute("2.6")]
         public string AppVersion {
             get {
                 return ((string)(this["AppVersion"]));

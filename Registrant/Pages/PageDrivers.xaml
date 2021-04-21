@@ -80,17 +80,6 @@
                             <TextBox x:Name="tb_patronomyc" />
                             <TextBlock  Text="Телефон" Margin="0 5 0 0" Style="{StaticResource BodyTextBlockStyle}" />
                             <TextBox x:Name="tb_phone" />
-                            <TextBlock  Text="Контрагент" Margin="0 5 0 0" Style="{StaticResource BodyTextBlockStyle}" />
-                            <ComboBox x:Name="tb_contragent" IsEditable="True" IsTextSearchEnabled="True" TextSearch.TextPath="Name" >
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <Grid>
-                                            <TextBlock Text="{Binding IdContragent}" Visibility="Collapsed"/>
-                                            <TextBlock Text="{Binding Name}" Style="{StaticResource BodyTextBlockStyle}"/>
-                                        </Grid>
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>
-                            </ComboBox>
                         </StackPanel>
                         <StackPanel Width="200" Margin="15 0 0 0">
                             <TextBlock  Text="Доверенность" Margin="0 5 0 0" Style="{StaticResource BodyTextBlockStyle}" />
@@ -146,10 +135,7 @@
                         <TextBlock Text="Телефон:"  Style="{StaticResource BodyTextBlockStyle}" />
                         <TextBlock Text="{Binding Phone}" Margin="10 0 0 0" Style="{StaticResource BodyTextBlockStyle}" />
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Контрагент:"  Style="{StaticResource BodyTextBlockStyle}" />
-                        <TextBlock Text="{Binding IdContragentNavigation.Name}" Margin="10 0 0 0"  Style="{StaticResource BodyTextBlockStyle}" />
-                    </StackPanel>
+
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Доверенность:"  Style="{StaticResource BodyTextBlockStyle}" />
                         <TextBlock Text="{Binding Attorney}" Margin="10 0 0 0" Style="{StaticResource BodyTextBlockStyle}" />

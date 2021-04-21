@@ -75,7 +75,7 @@ namespace Registrant.Pages
 
             if (current != null)
             {
-                MessageBoxResult result = (MessageBoxResult)ModernWpf.MessageBox.Show("Сменить статус водителя " + current.FIO + " на Прибыл?", "Внимание", MessageBoxButton.YesNo, MessageBoxImage.Information);
+                MessageBoxResult result = MessageBox.Show("Сменить статус водителя " + current.FIO + " на Прибыл?", "Внимание", MessageBoxButton.YesNo, MessageBoxImage.Information);
                 if (result == MessageBoxResult.Yes)
                 {
                     try
@@ -104,7 +104,7 @@ namespace Registrant.Pages
             var current = bt.DataContext as Models.KPPShipments;
             if (current !=null)
             {
-                MessageBoxResult result = (MessageBoxResult)ModernWpf.MessageBox.Show("Сменить статус водителя " + current.FIO + " на Покинул склад?", "Внимание", MessageBoxButton.YesNo, MessageBoxImage.Information);
+                MessageBoxResult result = MessageBox.Show("Сменить статус водителя " + current.FIO + " на Покинул склад?", "Внимание", MessageBoxButton.YesNo, MessageBoxImage.Information);
                 if (result == MessageBoxResult.Yes)
                 {
                     try
@@ -149,7 +149,7 @@ namespace Registrant.Pages
             var current = bt.DataContext as Models.PlanShipment;
             if (current !=null)
             {
-                MessageBoxResult result = (MessageBoxResult)ModernWpf.MessageBox.Show("Сменить статус водителя " + current.FIO + " на Зарегистрирован?", "Внимание", MessageBoxButton.YesNo, MessageBoxImage.Information);
+                MessageBoxResult result = MessageBox.Show("Сменить статус водителя " + current.FIO + " на Зарегистрирован?", "Внимание", MessageBoxButton.YesNo, MessageBoxImage.Information);
                 if (result == MessageBoxResult.Yes)
                 {
                     try
@@ -180,36 +180,43 @@ namespace Registrant.Pages
 
         private void btn_add_add_Click(object sender, RoutedEventArgs e)
         {
-            try
+            if (tb_family.Text != "")
             {
-                using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
+                try
                 {
-                    DB.Shipment shipment = new DB.Shipment();
-                    shipment.IdDriverNavigation = new DB.Driver();
-                    shipment.IdTimeNavigation = new DB.Time();
-                    shipment.IdDriverNavigation.Family = tb_family.Text;
-                    shipment.IdDriverNavigation.Name = tb_name.Text;
-                    shipment.IdDriverNavigation.Patronymic = tb_patronymic.Text;
-                    shipment.IdDriverNavigation.Phone = tb_phone.Text;
-                    shipment.IdDriverNavigation.AutoNumber = tb_autonum.Text;
-                    shipment.IdDriverNavigation.Passport = tb_passport.Text;
-                    shipment.IdDriverNavigation.Info = tb_info.Text;
-                    shipment.IdDriverNavigation.ServiceInfo = DateTime.Now + " " + App.ActiveUser + " добавил карточку водителя";
+                    using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
+                    {
+                        DB.Shipment shipment = new DB.Shipment();
+                        shipment.IdDriverNavigation = new DB.Driver();
+                        shipment.IdTimeNavigation = new DB.Time();
+                        shipment.IdDriverNavigation.Family = tb_family.Text;
+                        shipment.IdDriverNavigation.Name = tb_name.Text;
+                        shipment.IdDriverNavigation.Patronymic = tb_patronymic.Text;
+                        shipment.IdDriverNavigation.Phone = tb_phone.Text;
+                        shipment.IdDriverNavigation.AutoNumber = tb_autonum.Text;
+                        shipment.IdDriverNavigation.Passport = tb_passport.Text;
+                        shipment.IdDriverNavigation.Info = tb_info.Text;
+                        shipment.IdDriverNavigation.ServiceInfo = DateTime.Now + " " + App.ActiveUser + " добавил карточку водителя";
 
-                    shipment.IdTimeNavigation.DateTimeFactRegist = DateTime.Now;
+                        shipment.IdTimeNavigation.DateTimeFactRegist = DateTime.Now;
 
-                    shipment.ServiceInfo = DateTime.Now + " " + App.ActiveUser + " каскадное добавление с карточкой водителя";
+                        shipment.ServiceInfo = DateTime.Now + " " + App.ActiveUser + " каскадное добавление с карточкой водителя";
 
-                    ef.Add(shipment);
-                    ef.SaveChanges();
-                    ContentAdd.Hide();
-                    btn_refresh_Click(sender, e);
+                        ef.Add(shipment);
+                        ef.SaveChanges();
+                        ContentAdd.Hide();
+                        btn_refresh_Click(sender, e);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ((MainWindow)System.Windows.Application.Current.MainWindow).ContentErrorText.ShowAsync();
+                    ((MainWindow)System.Windows.Application.Current.MainWindow).text_debuger.Text = ex.ToString();
                 }
             }
-            catch (Exception ex)
+            else
             {
-                ((MainWindow)System.Windows.Application.Current.MainWindow).ContentErrorText.ShowAsync();
-                ((MainWindow)System.Windows.Application.Current.MainWindow).text_debuger.Text = ex.ToString();
+                MessageBox.Show("Введите хотябы фамилию водителя!", "Внимание!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

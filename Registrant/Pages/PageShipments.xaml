@@ -38,7 +38,7 @@
                 <Button Click="ButtonAdd_Click" Visibility="Collapsed" x:Name="btn_new" Margin="0 0 5 0" Content="Новая отгрузка" Style="{DynamicResource AccentButtonStyle}"></Button>
                 <Button x:Name="btn_print" Click="btn_print_Click" Content="Выгрузка данных из БД"></Button>
             </StackPanel>
-            <TextBlock x:Name="Text_date" Text="Реестр за 01.01.1970" Margin="0 10 0 0" Style="{StaticResource SubtitleTextBlockStyle}"/>
+            <TextBlock  x:Name="Text_date" Text="Реестр за 01.01.1970" Margin="0 10 0 0" Style="{StaticResource SubtitleTextBlockStyle}" />
         </StackPanel>
         <Grid Grid.Row="2" Grid.Column="1" >
             <DataGrid x:Name="DataGrid_Shipments" Padding="0 10 0 0" AutoGenerateColumns="False" IsReadOnly="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" >

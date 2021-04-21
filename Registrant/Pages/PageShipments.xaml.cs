@@ -177,7 +177,7 @@ namespace Registrant.Pages
 
             if (current != null)
             {
-                MessageBoxResult result = (MessageBoxResult)ModernWpf.MessageBox.Show("Сменить статус водителя " + current.FIO + " на Загрузка начата?", "Внимание", MessageBoxButton.YesNo, MessageBoxImage.Information);
+                MessageBoxResult result = MessageBox.Show("Сменить статус водителя " + current.FIO + " на Загрузка начата?", "Внимание", MessageBoxButton.YesNo, MessageBoxImage.Information);
                 if (result == MessageBoxResult.Yes)
                 {
 
@@ -209,7 +209,7 @@ namespace Registrant.Pages
 
             if (current != null)
             {
-                MessageBoxResult result = (MessageBoxResult)ModernWpf.MessageBox.Show("Сменить статус водителя " + current.FIO + " на Загрузка окончена?", "Внимание", MessageBoxButton.YesNo, MessageBoxImage.Information);
+                MessageBoxResult result = MessageBox.Show("Сменить статус водителя " + current.FIO + " на Загрузка окончена?", "Внимание", MessageBoxButton.YesNo, MessageBoxImage.Information);
                 if (result == MessageBoxResult.Yes)
                 {
 
@@ -263,7 +263,7 @@ namespace Registrant.Pages
             }
             else
             {
-                MessageBoxResult result = (MessageBoxResult)ModernWpf.MessageBox.Show("Вам открыть окно вид для сбыта?", "Внимание", MessageBoxButton.YesNo, MessageBoxImage.Asterisk);
+                MessageBoxResult result = MessageBox.Show("Вам открыть окно вид для сбыта?", "Внимание", MessageBoxButton.YesNo, MessageBoxImage.Asterisk);
                 if (result == MessageBoxResult.Yes)
                 {
                     Forms.PrintShipments print = new Forms.PrintShipments();
