@@ -163,8 +163,8 @@
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="7">
-            <Button x:Name="btn_edit" Click="btn_edit_Click" Content="Сохранить" Margin="0 0 6 0"/>
-            <Button x:Name="btn_add" Click="btn_add_Click" Content="Добавить" Margin="0 0 6 0"/>
+            <Button x:Name="btn_edit" Click="btn_edit_Click" Content="Сохранить" Margin="0 0 6 0" Style="{DynamicResource AccentButtonStyle}"/>
+            <Button x:Name="btn_add" Click="btn_add_Click" Content="Добавить" Margin="0 0 6 0" Style="{DynamicResource AccentButtonStyle}"/>
             <Button x:Name="btn_delete" Click="btn_delete_Click" Content="Удалить" Margin="0 0 6 0"/>
             <Button x:Name="btn_close" Click="btn_close_Click" Content="Закрыть" Margin="0 0 6 0"/>
         </StackPanel>
