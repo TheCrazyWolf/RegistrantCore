@@ -37,7 +37,7 @@ namespace Registrant.Settings {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1433")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string Port {
             get {
                 return ((string)(this["Port"]));

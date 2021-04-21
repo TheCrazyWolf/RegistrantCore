@@ -20,3 +20,6 @@ optionsBuilder.UseLazyLoadingProxies().UseSqlServer("Server=" + Settings.Connect
         {
             FIO = Family + " " + Name + " " + Patronymic; 
         }
+
+
+optionsBuilder.UseLazyLoadingProxies().UseSqlServer("Server=" + Settings.Connection.Default.IP + "," + Settings.Connection.Default.Port + ";" + "Database=" + Settings.Connection.Default.Database + ";User ID=" + Settings.Connection.Default.Login + ";" + "Password=" + Settings.Connection.Default.Password + ";MultipleActiveResultSets=True;");

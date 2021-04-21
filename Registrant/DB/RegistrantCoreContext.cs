@@ -83,11 +83,6 @@ namespace Registrant.DB
                 entity.Property(e => e.Phone).HasMaxLength(150);
 
                 entity.Property(e => e.ServiceInfo).HasColumnType("text");
-
-                entity.HasOne(d => d.IdContragentNavigation)
-                    .WithMany(p => p.Drivers)
-                    .HasForeignKey(d => d.IdContragent)
-                    .HasConstraintName("FK_Drivers_Contragents");
             });
 
             modelBuilder.Entity<Engine>(entity =>
@@ -121,6 +116,8 @@ namespace Registrant.DB
 
                 entity.Property(e => e.Destination).HasMaxLength(150);
 
+                entity.Property(e => e.IdContragent).HasColumnName("idContragent");
+
                 entity.Property(e => e.IdDriver).HasColumnName("idDriver");
 
                 entity.Property(e => e.IdTime).HasColumnName("idTime");
@@ -140,6 +137,11 @@ namespace Registrant.DB
                 entity.Property(e => e.TochkaLoad).HasMaxLength(150);
 
                 entity.Property(e => e.TypeLoad).HasMaxLength(150);
+
+                entity.HasOne(d => d.IdContragentNavigation)
+                    .WithMany(p => p.Shipments)
+                    .HasForeignKey(d => d.IdContragent)
+                    .HasConstraintName("FK_Shipment_Contragents");
 
                 entity.HasOne(d => d.IdDriverNavigation)
                     .WithMany(p => p.Shipments)

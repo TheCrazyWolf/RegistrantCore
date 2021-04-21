@@ -9,7 +9,7 @@ namespace Registrant.DB
     {
         public Contragent()
         {
-            Drivers = new HashSet<Driver>();
+            Shipments = new HashSet<Shipment>();
         }
 
         public int IdContragent { get; set; }
@@ -17,6 +17,6 @@ namespace Registrant.DB
         public string Active { get; set; }
         public string ServiceInfo { get; set; }
 
-        public virtual ICollection<Driver> Drivers { get; set; }
+        public virtual ICollection<Shipment> Shipments { get; set; }
     }
 }

@@ -25,7 +25,7 @@ namespace Registrant.Controllers
             {
                 using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
                 {
-                    var temp = ef.Shipments.Where(x => ((x.IdTimeNavigation.DateTimePlanRegist.Value.Date == date || x.IdTimeNavigation.DateTimeFactRegist.Value.Date == date) && x.IdTimeNavigation.DateTimeLeft == null && x.IdTimeNavigation.DateTimeFactRegist != null && x.Active != "0"));
+                    var temp = ef.Shipments.Where(x => ((x.IdTimeNavigation.DateTimePlanRegist.Value.Date == date || x.IdTimeNavigation.DateTimeFactRegist.Value.Date == date) && x.IdTimeNavigation.DateTimeLeft == null && x.IdTimeNavigation.DateTimeFactRegist != null && x.Active != "0")).OrderBy(x => x.IdTimeNavigation.DateTimePlanRegist);
                     foreach (var item in temp)
                     {
                         Models.KPPShipments shipment = new Models.KPPShipments(item);

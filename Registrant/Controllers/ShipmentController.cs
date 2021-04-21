@@ -23,7 +23,7 @@ namespace Registrant.Controllers
             {
                 using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
                 {
-                    var temp = ef.Shipments.Where(x => ((x.IdTimeNavigation.DateTimePlanRegist.Value.Date == date || x.IdTimeNavigation.DateTimeFactRegist.Value.Date == date) && x.Active != "0")).OrderByDescending(x => x.IdTimeNavigation.DateTimePlanRegist);
+                    var temp = ef.Shipments.Where(x => ((x.IdTimeNavigation.DateTimePlanRegist.Value.Date == date || x.IdTimeNavigation.DateTimeFactRegist.Value.Date == date) && x.Active != "0")).OrderBy(x => x.IdTimeNavigation.DateTimePlanRegist);
                     foreach (var item in temp)
                     {
                         Models.Shipments shipment = new Models.Shipments(item);
@@ -51,7 +51,7 @@ namespace Registrant.Controllers
             {
                 using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
                 {
-                    var temp = ef.Shipments.OrderByDescending(x => x.IdTimeNavigation.DateTimePlanRegist);
+                    var temp = ef.Shipments.OrderBy(x => x.IdTimeNavigation.DateTimePlanRegist);
                     foreach (var item in temp)
                     {
                         Models.Shipments shipment = new Models.Shipments(item);
@@ -80,7 +80,7 @@ namespace Registrant.Controllers
             {
                 using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
                 {
-                    var temp = ef.Shipments.Where(x => ((x.IdTimeNavigation.DateTimePlanRegist.Value.Date == date || x.IdTimeNavigation.DateTimeFactRegist.Value.Date == date) && x.IdTimeNavigation.DateTimeLeft == null && x.IdTimeNavigation.DateTimeArrive == null && x.Active != "0")).OrderByDescending(x => x.IdTimeNavigation.DateTimePlanRegist);
+                    var temp = ef.Shipments.Where(x => ((x.IdTimeNavigation.DateTimePlanRegist.Value.Date == date || x.IdTimeNavigation.DateTimeFactRegist.Value.Date == date) && x.IdTimeNavigation.DateTimeLeft == null && x.IdTimeNavigation.DateTimeArrive == null && x.Active != "0")).OrderBy(x => x.IdTimeNavigation.DateTimePlanRegist);
                     foreach (var item in temp)
                     {
                         Models.Shipments shipment = new Models.Shipments(item);
@@ -109,7 +109,7 @@ namespace Registrant.Controllers
             {
                 using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
                 {
-                    var temp = ef.Shipments.Where(x => ((x.IdTimeNavigation.DateTimePlanRegist.Value.Date == date || x.IdTimeNavigation.DateTimeFactRegist.Value.Date == date) && x.IdTimeNavigation.DateTimeArrive != null && x.IdTimeNavigation.DateTimeLeft == null && x.Active != "0")).OrderByDescending(x => x.IdTimeNavigation.DateTimePlanRegist);
+                    var temp = ef.Shipments.Where(x => ((x.IdTimeNavigation.DateTimePlanRegist.Value.Date == date || x.IdTimeNavigation.DateTimeFactRegist.Value.Date == date) && x.IdTimeNavigation.DateTimeArrive != null && x.IdTimeNavigation.DateTimeLeft == null && x.Active != "0")).OrderBy(x => x.IdTimeNavigation.DateTimePlanRegist);
                     foreach (var item in temp)
                     {
                         Models.Shipments shipment = new Models.Shipments(item);
@@ -138,7 +138,7 @@ namespace Registrant.Controllers
             {
                 using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
                 {
-                    var temp = ef.Shipments.Where(x => ((x.IdTimeNavigation.DateTimePlanRegist.Value.Date == date || x.IdTimeNavigation.DateTimeFactRegist.Value.Date == date) && x.IdTimeNavigation.DateTimeLeft != null && x.Active != "0")).OrderByDescending(x => x.IdTimeNavigation.DateTimePlanRegist);
+                    var temp = ef.Shipments.Where(x => ((x.IdTimeNavigation.DateTimePlanRegist.Value.Date == date || x.IdTimeNavigation.DateTimeFactRegist.Value.Date == date) && x.IdTimeNavigation.DateTimeLeft != null && x.Active != "0")).OrderBy(x => x.IdTimeNavigation.DateTimePlanRegist);
                     foreach (var item in temp)
                     {
                         Models.Shipments shipment = new Models.Shipments(item);

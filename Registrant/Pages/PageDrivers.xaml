@@ -7,6 +7,7 @@
       xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
       xmlns:ui="http://schemas.modernwpf.com/2019"
       mc:Ignorable="d"
+      d:DesignHeight="450" d:DesignWidth="800"
       Title="PageDrivers"  >
 
     <Grid Background="White">
@@ -37,7 +38,6 @@
                     <DataGridTextColumn Header="№" Binding="{Binding IdDriver}"/>
                     <DataGridTextColumn Header="ФИО" Binding="{Binding FIO}"/>
                     <DataGridTextColumn Header="Телефон" Binding="{Binding Phone}"/>
-                    <DataGridTextColumn Header="Контрагент" Binding="{Binding Contragent}"/>
                     <DataGridTextColumn Header="Доверенность" Binding="{Binding Attorney}"/>
                     <DataGridTemplateColumn Header="Действия">
                         <DataGridTemplateColumn.CellTemplate>
@@ -54,7 +54,7 @@
         </Grid>
 
 
-        <ui:ContentDialog Grid.ColumnSpan="3" Grid.RowSpan="3" Visibility="Hidden" x:Name="ContentAddEdit" >
+        <ui:ContentDialog Grid.ColumnSpan="3" Grid.RowSpan="4" Visibility="Hidden" x:Name="ContentAddEdit" >
             <ui:ContentDialog.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="White" Offset="0.251"/>
@@ -115,7 +115,7 @@
             </Grid>
         </ui:ContentDialog>
         
-        <ui:ContentDialog Grid.ColumnSpan="3" Grid.RowSpan="3" Visibility="Visible" x:Name="ContentInfo" >
+        <ui:ContentDialog Grid.ColumnSpan="3" Grid.RowSpan="4" Visibility="Hidden" x:Name="ContentInfo" >
             <ui:ContentDialog.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="White" Offset="0.251"/>
@@ -185,7 +185,7 @@
             </Grid>
         </ui:ContentDialog>
 
-        <ui:ContentDialog Grid.ColumnSpan="3" Grid.RowSpan="3"  Visibility="Hidden" x:Name="Content30days" >
+        <ui:ContentDialog Grid.ColumnSpan="3" Grid.RowSpan="4"  Visibility="Hidden" x:Name="Content30days" >
             <Grid >
                 <StackPanel>
                     <TextBlock Text="Массовое удаление элементов" Style="{StaticResource SubheaderTextBlockStyle}" Foreground="Black"/>

@@ -42,7 +42,7 @@ namespace Registrant.Models
             DateLoad = shipment.IdTimeNavigation?.DateTimeLoad.ToString();
             DateEndLoad = shipment.IdTimeNavigation?.DateTimeEndLoad.ToString();
 
-            Contragent = shipment.IdDriverNavigation?.IdContragentNavigation?.Name;
+            Contragent = shipment.IdContragentNavigation?.Name;
             Attorney = shipment.IdDriverNavigation?.Attorney;
             Auto = shipment.IdDriverNavigation?.Auto + " " + shipment.IdDriverNavigation?.AutoNumber;
 

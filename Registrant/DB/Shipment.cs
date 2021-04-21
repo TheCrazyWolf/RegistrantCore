@@ -9,6 +9,7 @@ namespace Registrant.DB
     {
         public int IdShipment { get; set; }
         public int? IdDriver { get; set; }
+        public int? IdContragent { get; set; }
         public int IdTime { get; set; }
         public string NumRealese { get; set; }
         public string CountPodons { get; set; }
@@ -23,6 +24,7 @@ namespace Registrant.DB
         public string Active { get; set; }
         public string ServiceInfo { get; set; }
 
+        public virtual Contragent IdContragentNavigation { get; set; }
         public virtual Driver IdDriverNavigation { get; set; }
         public virtual Time IdTimeNavigation { get; set; }
     }

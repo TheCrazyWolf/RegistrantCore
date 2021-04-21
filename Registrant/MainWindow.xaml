@@ -9,7 +9,9 @@
         mc:Ignorable="d"
         ExtendViewIntoTitleBar="True"
         Title="Регистрант" Height="720" Width="1280" Closed="AcrylicWindow_Closed" WindowStartupLocation="CenterScreen" WindowState="Maximized"
-                  Icon="img/ico_app.ico">
+        Icon="img/ico_app.ico">
+        <!--ExtendViewIntoTitleBar="True"!-->
+
     <Grid Background="White">
         <ui:NavigationView x:Name="NavUI" 
         IsSettingsVisible="False"
@@ -166,7 +168,7 @@
                 <StackPanel Grid.Row="0" >
                     <Image Source="/img/icon_error2.png" Width="50" HorizontalAlignment="Left" Margin="0 0 0 5" />
                     <TextBlock Text="Возникла ошибка" Style="{StaticResource SubheaderTextBlockStyle}"/>
-                    <TextBlock Text="Ой. Что-то пошел не так" Margin="0 5 0 0" Style="{StaticResource SubtitleTextBlockStyle}"/>
+                    <TextBlock Text="Ой. Что-то пошло не так" Margin="0 5 0 0" Style="{StaticResource SubtitleTextBlockStyle}"/>
                 </StackPanel>
                 <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                     <TextBlock Name="text_debuger"  Style="{StaticResource BodyTextBlockStyle}" Padding="0 15 0 0">

@@ -7,7 +7,6 @@ namespace Registrant.Models
     public class Shipments : DB.Shipment
     {
         //Отгрузка
-
         //Водитель
         public string FIO { get; set; }
         public string Family { get; set; }
@@ -42,7 +41,7 @@ namespace Registrant.Models
             Description = shipment.Description;
             StoreKeeper = shipment.StoreKeeper;
             ServiceInfo = shipment.ServiceInfo;
-            Contragent = shipment.IdDriverNavigation?.IdContragentNavigation?.Name;
+            Contragent = shipment.IdContragentNavigation?.Name;
 
             Family = shipment.IdDriverNavigation?.Family;
             Name = shipment.IdDriverNavigation?.Name;

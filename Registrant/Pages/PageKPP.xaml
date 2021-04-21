@@ -78,7 +78,7 @@
 
             </DataGrid>
         </Grid>
-        <ui:ContentDialog Grid.ColumnSpan="3" Grid.RowSpan="5" Visibility="Visible" x:Name="ContentAdd" >
+        <ui:ContentDialog Grid.ColumnSpan="3" Grid.RowSpan="5" Visibility="Hidden" x:Name="ContentAdd" >
             <ui:ContentDialog.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="White" Offset="0.251"/>

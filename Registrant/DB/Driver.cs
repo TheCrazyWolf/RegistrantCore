@@ -26,7 +26,6 @@ namespace Registrant.DB
         public string Active { get; set; }
         public string ServiceInfo { get; set; }
 
-        public virtual Contragent IdContragentNavigation { get; set; }
         public virtual ICollection<Shipment> Shipments { get; set; }
     }
 }
