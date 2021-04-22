@@ -42,9 +42,10 @@
             <DataGrid x:Name="DataGrid_Plan" Padding="0 10 0 0" AutoGenerateColumns="False" IsReadOnly="True" VerticalScrollBarVisibility="Auto" >
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="idDriver" Visibility="Collapsed" Binding="{Binding idShipment}"/>
+                    <DataGridTextColumn Header="Плановое время" Binding="{Binding PlanDateTimeString}"/>
                     <DataGridTextColumn Header="ФИО" Binding="{Binding FIO}"/>
                     <DataGridTextColumn Header="Номер телефона" Binding="{Binding Phone}"/>
-                    <DataGridTextColumn Header="Плановое время" Binding="{Binding PlanDateTimeString}"/>
+                    <DataGridTextColumn Header="Номер т/c" Binding="{Binding NumAuto}"/>
                     <DataGridTemplateColumn Header="Действия">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
@@ -62,6 +63,7 @@
                     <DataGridTextColumn Header="idShipment" Visibility="Collapsed" Binding="{Binding IdShipment}"/>
                     <DataGridTextColumn Header="ФИО" Binding="{Binding FIO}"/>
                     <DataGridTextColumn Header="Номер телефона" Binding="{Binding Phone}"/>
+                    <DataGridTextColumn Header="Номер т/c" Binding="{Binding NumAuto}"/>
                     <DataGridTextColumn Header="Факт. регистрация" Binding="{Binding PlanDateFactString}"/>
                     <DataGridTextColumn Header="Текущий статус" Binding="{Binding TextStatus}"/>
                     <DataGridTemplateColumn Header="Действия">

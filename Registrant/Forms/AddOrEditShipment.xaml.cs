@@ -402,23 +402,23 @@ namespace Registrant.Forms
                                 {
                                     shipment.IdTimeNavigation.DateTimeLeft = dt_left.Value;
                                 }
-                                if (tb_numrealese.Text != null)
+                                if (tb_numrealese.Text != "")
                                 {
                                     shipment.NumRealese = tb_numrealese.Text;
                                 }
-                                if (tb_packetdoc.Text != null)
+                                if (tb_packetdoc.Text != "")
                                 {
                                     shipment.PacketDocuments = tb_packetdoc.Text;
                                 }
-                                if (tb_typeload.Text != null)
+                                if (tb_typeload.Text != "")
                                 {
                                     shipment.TypeLoad = tb_typeload.Text;
                                 }
-                                if (tb_tochkaload.Text != null)
+                                if (tb_tochkaload.Text != "")
                                 {
                                     shipment.TochkaLoad = tb_tochkaload.Text;
                                 }
-                                if (tb_descript.Text != null)
+                                if (tb_descript.Text != "")
                                 {
                                     shipment.Description = tb_descript.Text;
                                 }
@@ -462,23 +462,23 @@ namespace Registrant.Forms
                         {
                             shipment.IdTimeNavigation.DateTimeEndLoad = dt_endload.Value;
                         }
-                        if (tb_CountPodons.Text != null)
+                        if (tb_CountPodons.Text != "")
                         {
                             shipment.CountPodons = tb_CountPodons.Text;
                         }
-                        if (tb_nomencluture.Text != null)
+                        if (tb_nomencluture.Text != "")
                         {
                             shipment.Nomenclature = tb_nomencluture.Text;
                         }
-                        if (tb_size.Text != null)
+                        if (tb_size.Text != "")
                         {
                             shipment.Size = tb_size.Text;
                         }
-                        if (tb_Destination.Text != null)
+                        if (tb_Destination.Text != "")
                         {
                             shipment.Destination = tb_Destination.Text;
                         }
-                        if (tb_typeload.Text != null)
+                        if (tb_typeload.Text != "")
                         {
                             shipment.TypeLoad = tb_typeload.Text;
                         }
@@ -584,43 +584,43 @@ namespace Registrant.Forms
                                     shipment.IdTimeNavigation.DateTimeLeft = dt_left.Value;
                                 }
 
-                                if (tb_numrealese.Text != null)
+                                if (tb_numrealese.Text != "")
                                 {
                                     shipment.NumRealese = tb_numrealese.Text;
                                 }
-                                if (tb_packetdoc.Text != null)
+                                if (tb_packetdoc.Text != "")
                                 {
                                     shipment.PacketDocuments = tb_packetdoc.Text;
                                 }
-                                if (tb_tochkaload.Text != null)
+                                if (tb_tochkaload.Text != "")
                                 {
                                     shipment.TochkaLoad = tb_tochkaload.Text;
                                 }
-                                if (tb_CountPodons.Text != null)
+                                if (tb_CountPodons.Text != "")
                                 {
                                     shipment.CountPodons = tb_CountPodons.Text;
                                 }
-                                if (tb_nomencluture.Text != null)
+                                if (tb_nomencluture.Text != "")
                                 {
                                     shipment.Nomenclature = tb_nomencluture.Text;
                                 }
-                                if (tb_size.Text != null)
+                                if (tb_size.Text != "")
                                 {
                                     shipment.Size = tb_size.Text;
                                 }
-                                if (tb_Destination.Text != null)
+                                if (tb_Destination.Text != "")
                                 {
                                     shipment.Destination = tb_Destination.Text;
                                 }
-                                if (tb_typeload.Text != null)
+                                if (tb_typeload.Text != "")
                                 {
                                     shipment.TypeLoad = tb_typeload.Text;
                                 }
-                                if (tb_descript.Text != null)
+                                if (tb_descript.Text != "")
                                 {
                                     shipment.Description = tb_descript.Text;
                                 }
-                                if (tb_storekeeper.Text != null)
+                                if (tb_storekeeper.Text != "")
                                 {
                                     shipment.StoreKeeper = tb_storekeeper.Text;
                                 }

@@ -13,6 +13,7 @@ namespace Registrant.Models
         public string PlanDateFactString { get; set; }
         public string TextStatus { get; set; }
 
+        public string NumAuto { get; set; }
         public string btn_left { get; set; }
         public string btn_arrive { get; set; }
 
@@ -27,6 +28,10 @@ namespace Registrant.Models
                 PlanDateFactString = PlanDateFact.ToString();
             }
 
+            if (shipment.IdDriverNavigation.AutoNumber != null)
+            {
+                NumAuto = shipment.IdDriverNavigation.AutoNumber;
+            }
 
             if (shipment.IdTimeNavigation?.DateTimeLeft != null)
             {
