@@ -70,6 +70,7 @@ namespace Registrant.Forms
                                     driver.AutoNumber = tb_autonum.Text;
                                     driver.Attorney = tb_attorney.Text;
                                     driver.Phone = tb_phone.Text;
+                                    driver.Auto = tb_auto.Text;
                                     driver.Active = "1";
                                     driver.ServiceInfo = DateTime.Now + " " + App.ActiveUser + " добавил водителя";
                                 }
@@ -208,6 +209,7 @@ namespace Registrant.Forms
                         tb_phone.Text = temp.Phone;
                         tb_autonum.Text = temp.AutoNumber;
                         tb_attorney.Text = temp.Attorney;
+                        tb_auto.Text = temp.Auto;
                     }
                 }
                 catch (Exception ex)
@@ -218,8 +220,10 @@ namespace Registrant.Forms
             else
             {
                 //cb_contragent.Text = null;
-                tb_phone.Text = null;
-                tb_autonum.Text = null;
+                tb_phone.Text = "";
+                tb_autonum.Text = "";
+                tb_auto.Text = "";
+                tb_attorney.Text = "";
             }
             
         }
@@ -349,6 +353,11 @@ namespace Registrant.Forms
                                     var test = cb_drivers as ComboBox;
                                     var current = test.SelectedItem as Models.Drivers;
                                     shipment.IdDriver = current.IdDriver;
+
+                                    shipment.IdDriverNavigation.Phone = tb_phone.Text;
+                                    shipment.IdDriverNavigation.Attorney = tb_attorney.Text;
+                                    shipment.IdDriverNavigation.Auto = tb_auto.Text;
+                                    shipment.IdDriverNavigation.AutoNumber = tb_autonum.Text;
                                 }
                                 else
                                 {
@@ -361,6 +370,7 @@ namespace Registrant.Forms
                                     driver.Name = temp.name.Replace(" ", "");
                                     driver.Family = temp.family.Replace(" ", "");
                                     driver.Patronymic = temp.patronomyc.Replace(" ", "");
+                                    driver.Auto = tb_auto.Text;
                                     driver.AutoNumber = tb_autonum.Text;
                                     driver.Attorney = tb_attorney.Text;
                                     driver.Phone = tb_phone.Text;
@@ -525,6 +535,12 @@ namespace Registrant.Forms
                                     var test = cb_drivers as ComboBox;
                                     var current = test.SelectedItem as Models.Drivers;
                                     shipment.IdDriver = current.IdDriver;
+
+                                    shipment.IdDriverNavigation.Phone = tb_phone.Text;
+                                    shipment.IdDriverNavigation.Attorney = tb_attorney.Text;
+                                    shipment.IdDriverNavigation.Auto = tb_auto.Text;
+                                    shipment.IdDriverNavigation.AutoNumber = tb_autonum.Text;
+
                                 }
                                 else
                                 {
@@ -537,6 +553,7 @@ namespace Registrant.Forms
                                     driver.Name = temp.name.Replace(" ", "");
                                     driver.Family = temp.family.Replace(" ", "");
                                     driver.Patronymic = temp.patronomyc.Replace(" ", "");
+                                    driver.Auto = tb_auto.Text;
                                     driver.AutoNumber = tb_autonum.Text;
                                     driver.Attorney = tb_attorney.Text;
                                     driver.Phone = tb_phone.Text;
