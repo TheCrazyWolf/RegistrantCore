@@ -122,6 +122,8 @@ namespace Registrant
                 Dispatcher.Invoke(() => pageContragents = new Pages.PageContragents());
                 Dispatcher.Invoke(() => pageDrivers = new Pages.PageDrivers());
                 Dispatcher.Invoke(() => pageShipments = new Pages.PageShipments());
+                Dispatcher.Invoke(() => pageKPP = new Pages.PageKPP());
+                Dispatcher.Invoke(() => nav_jurnalkpp.Visibility = Visibility.Visible);
 
                 Dispatcher.Invoke(() => FrameContent.Content = pageShipments);
             }

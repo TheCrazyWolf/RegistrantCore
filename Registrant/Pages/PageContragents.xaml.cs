@@ -43,7 +43,7 @@ namespace Registrant.Pages
                 {
                     using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
                     {
-                        var temp = ef.Contragents.Where(x => x.Active != "0").OrderByDescending(x => x.IdContragent).ToList();
+                        var temp = ef.Contragents.Where(x => x.Active != "0").OrderBy(x => x.Name).ToList();
                         Dispatcher.Invoke(() => DataGrid_Contragents.ItemsSource = temp);
                         Dispatcher.Invoke(() => DataGrid_Contragents.Items.Refresh());
                     }

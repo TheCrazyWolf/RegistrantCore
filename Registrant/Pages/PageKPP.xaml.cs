@@ -22,6 +22,7 @@ namespace Registrant.Pages
     {
         Controllers.KPPShipmentsController kPP;
         Controllers.PlanShipmentController plan;
+        Controllers.ShipmentController shipmentController;
 
 
         public PageKPP()
@@ -29,6 +30,7 @@ namespace Registrant.Pages
             InitializeComponent();
             kPP = new Controllers.KPPShipmentsController();
             plan = new Controllers.PlanShipmentController();
+            shipmentController = new Controllers.ShipmentController();
 
             DatePicker.SelectedDate = DateTime.Now;
 
@@ -114,7 +116,7 @@ namespace Registrant.Pages
         {
             var bt = e.OriginalSource as Button;
             var current = bt.DataContext as Models.KPPShipments;
-            if (current !=null)
+            if (current != null)
             {
                 MessageBoxResult result = MessageBox.Show("Сменить статус водителя " + current.FIO + " на Покинул склад?", "Внимание", MessageBoxButton.YesNo, MessageBoxImage.Information);
                 if (result == MessageBoxResult.Yes)
@@ -159,7 +161,7 @@ namespace Registrant.Pages
         {
             var bt = e.OriginalSource as Button;
             var current = bt.DataContext as Models.PlanShipment;
-            if (current !=null)
+            if (current != null)
             {
                 MessageBoxResult result = MessageBox.Show("Сменить статус водителя " + current.FIO + " на Зарегистрирован?", "Внимание", MessageBoxButton.YesNo, MessageBoxImage.Information);
                 if (result == MessageBoxResult.Yes)
@@ -197,7 +199,7 @@ namespace Registrant.Pages
             {
                 return;
             }
-            
+
             try
             {
                 using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
@@ -350,6 +352,45 @@ namespace Registrant.Pages
         private void btn_search_Click(object sender, RoutedEventArgs e)
         {
             ContentSeach.ShowAsync();
+        }
+
+        private void tb_search_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (tb_search.Text == "")
+            {
+                datagrid_search.ItemsSource = null;
+                return;
+            }
+            
+            try
+            {
+                datagrid_search.ItemsSource = null;
+
+                var temp = shipmentController.GetShipmentsWhoNoLeft();
+                var data = temp.Where(t => t.FIO.ToUpper().StartsWith(tb_search.Text.ToUpper())).ToList();
+                var sDOP = temp.Where(t => t.FIO.ToUpper().Contains(tb_search.Text.ToUpper())).ToList();
+                data.AddRange(sDOP);
+                var noDupes = data.Distinct().ToList();
+                datagrid_search.ItemsSource = noDupes;
+
+                if (noDupes.Count == 0)
+                {
+                    //Ничекго не нашел
+                }
+                else
+                {
+                    // Нашел
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+        }
+
+        private void btn_search_close_Click(object sender, RoutedEventArgs e)
+        {
+            ContentSeach.Hide();
         }
     }
 }

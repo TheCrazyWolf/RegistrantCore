@@ -38,7 +38,7 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <Button x:Name="btn_deluser" Click="btn_deluser_Click" Visibility="{Binding BtnEditVis}" Content="Удалить" Margin="5 5 5 5" ></Button>
+                                    <Button x:Name="btn_deluser" Click="btn_deluser_Click" Content="Удалить" Margin="5 5 5 5" ></Button>
                                 </StackPanel>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>

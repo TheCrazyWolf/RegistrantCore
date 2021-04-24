@@ -21,7 +21,7 @@ namespace Registrant.Controllers
             date = date.Date;
             try
             {
-                using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext()) //Оно работает корректно
+                using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext()) 
                 {
                     var temp = ef.Shipments.Where(x => (x.IdTimeNavigation.DateTimePlanRegist.Value.Date == date || x.IdTimeNavigation.DateTimeFactRegist.Value.Date == date) && x.Active != "0").OrderBy(x => x.IdTimeNavigation.DateTimePlanRegist);
                     foreach (var item in temp)
@@ -66,6 +66,41 @@ namespace Registrant.Controllers
             }
             return Shipments;
         }
+
+
+        /// <summary>
+        /// ВСЕЕ кто не покинули склад
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns></returns>
+        public List<Models.Shipments> GetShipmentsWhoNoLeft()
+        {
+            Shipments.Clear();
+            try
+            {
+                using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
+                {
+                    var temp = ef.Shipments.Where(x => x.IdTimeNavigation.DateTimeLeft == null && x.Active != "0").OrderBy(x => x.IdTimeNavigation.DateTimePlanRegist); 
+                    foreach (var item in temp)
+                    {
+                        Models.Shipments shipment = new Models.Shipments(item);
+                        Shipments.Add(shipment);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ((MainWindow)System.Windows.Application.Current.MainWindow).ContentErrorText.ShowAsync();
+                ((MainWindow)System.Windows.Application.Current.MainWindow).text_debuger.Text = ex.ToString();
+            }
+            return Shipments;
+        }
+
+
+
+
+
+
         /// <summary>
         /// Только кто фактически реганулся
         /// </summary>

@@ -24,7 +24,7 @@ namespace Registrant.Controllers
             {
                 using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
                 {
-                    var temp = ef.Drivers.Where(x => x.Active != "0").OrderByDescending(x => x.IdDriver);
+                    var temp = ef.Drivers.Where(x => x.Active != "0").OrderBy(x => x.Family);
 
                     foreach (var item in temp)
                     {

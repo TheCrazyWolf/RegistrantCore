@@ -59,7 +59,7 @@
                                 <StackPanel Orientation="Horizontal">
                                     <!-- <Button x:Name="btn_load" Click="btn_load_Click" Visibility="{Binding btn_load}" Content="Начать отгрузку" Margin="5 5 5 5" ></Button>
                                     <Button x:Name="btn_endload"  Click="btn_endload_Click" Visibility="{Binding btn_endload}" Content="Закончить отгрузку" Margin="5 5 5 5" ></Button> -->
-                                    <Button x:Name="btn_edit" Click="btn_edit_Click" Content="Редактировать" Margin="5 5 5 5" ></Button>
+                                    <Button x:Name="btn_edit" Click="btn_edit_Click" Content="Открыть" Margin="5 5 5 5" ></Button>
                                 </StackPanel>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>

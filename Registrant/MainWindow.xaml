@@ -8,6 +8,7 @@
         xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
         mc:Ignorable="d"
         ExtendViewIntoTitleBar="True"
+        fw:AcrylicWindow.TintOpacity="0"
         Title="Регистрант" Height="720" Width="1280" Closed="AcrylicWindow_Closed" WindowStartupLocation="CenterScreen" WindowState="Maximized"
         Icon="img/ico_app.ico">
         <!--ExtendViewIntoTitleBar="True"!-->
@@ -16,6 +17,7 @@
         <ui:NavigationView x:Name="NavUI" 
         IsSettingsVisible="False"
         IsBackButtonVisible="Auto"
+        
         PaneTitle="РЕГИСТРАНТ"
         PaneDisplayMode="Auto" >
             <ui:NavigationView.MenuItems>

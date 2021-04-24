@@ -17,6 +17,7 @@
     <None Remove="img\icon_flash.png" />
     <None Remove="img\icon_info.png" />
     <None Remove="img\icon_newdriver.png" />
+    <None Remove="img\icon_search.png" />
     <None Remove="img\ico_app.ico" />
     <None Remove="img\ico_done.png" />
     <None Remove="img\info_error.png" />
@@ -55,6 +56,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="img\icon_newdriver.png" />
+    <Resource Include="img\icon_search.png" />
     <Resource Include="img\ico_app.ico" />
     <Resource Include="img\ico_done.png" />
     <Resource Include="img\info_error.png">
