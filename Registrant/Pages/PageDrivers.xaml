@@ -54,7 +54,7 @@
         </Grid>
 
 
-        <ui:ContentDialog Grid.ColumnSpan="3" Grid.RowSpan="4" Visibility="Hidden" x:Name="ContentAddEdit" >
+        <ui:ContentDialog Grid.ColumnSpan="3" Grid.RowSpan="4" Visibility="Visible" x:Name="ContentAddEdit" >
             <ui:ContentDialog.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="White" Offset="0.251"/>

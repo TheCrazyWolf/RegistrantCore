@@ -29,13 +29,14 @@
                 <StackPanel Margin="0 10 0 0" Orientation="Horizontal">
                     <DatePicker x:Name="DatePicker" Margin="0 0 8 0" SelectedDateChanged="DatePicker_SelectedDateChanged"/>
                     <Button Visibility="Collapsed" x:Name="btn_refresh" Click="btn_refresh_Click" Margin="0 0 5 0" Content="Обновить"></Button>
-                    <Button x:Name="btn_adddriver" Click="btn_adddriver_Click" Content="Новый водитель (внеплан)"></Button>
+                    <Button x:Name="btn_adddriver" Click="btn_adddriver_Click" Content="Регистрация нового водителя" Margin="0 0 5 0"></Button>
+                    <Button x:Name="btn_search" Click="btn_search_Click" Content="Поиск водителя"></Button>
                 </StackPanel>
-                <TextBlock Text="Запланированные" Margin="0 25 0 0" Style="{StaticResource SubtitleTextBlockStyle}"/>
+                <TextBlock x:Name="txt_plan"  Text="Запланированные" Margin="0 25 0 0" Style="{StaticResource SubtitleTextBlockStyle}"/>
             </StackPanel>
         </StackPanel>
         <StackPanel Grid.Column="1" Grid.Row="3">
-            <TextBlock Margin="0 10 0 0" Style="{StaticResource SubtitleTextBlockStyle}"><Run Language="ru-ru" Text="Зарегистрированные"/></TextBlock>
+            <TextBlock Margin="0 10 0 0" Style="{StaticResource SubtitleTextBlockStyle}"><Run Language="ru-ru" Text="Зарегистрированные и находящиеся на территории"/></TextBlock>
         </StackPanel>
 
         <Grid Grid.Column="1" Grid.Row="2">
@@ -80,7 +81,7 @@
 
             </DataGrid>
         </Grid>
-        <ui:ContentDialog Grid.ColumnSpan="3" Grid.RowSpan="5" Visibility="Hidden" x:Name="ContentAdd" >
+        <ui:ContentDialog Grid.ColumnSpan="3" Grid.RowSpan="5" Visibility="Visible" x:Name="ContentAdd" >
             <ui:ContentDialog.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="White" Offset="0.251"/>
@@ -93,20 +94,26 @@
                     <TextBlock Text="Внеплановая регистрация" Style="{StaticResource SubheaderTextBlockStyle}"/>
                     <StackPanel>
                         <TextBlock Text="Используйте регистрацию, если подъехал водитель вне запланированных списков" Style="{StaticResource BodyTextBlockStyle}" />
-                        <TextBlock Text="Фамилия" Style="{StaticResource BodyTextBlockStyle}"  Padding="0 3 0 0"/>
-                        <TextBox x:Name="tb_family" Text="{Binding Test}" ></TextBox>
-                        <TextBlock Text="Имя" Style="{StaticResource BodyTextBlockStyle}" Padding="0 3 0 0"/>
-                        <TextBox x:Name="tb_name" Text="{Binding Test}"></TextBox>
-                        <TextBlock Text="Отчество" Style="{StaticResource BodyTextBlockStyle}" Padding="0 3 0 0"/>
-                        <TextBox x:Name="tb_patronymic" Text="{Binding Test}"></TextBox>
-                        <TextBlock Text="Контактный номер (в формате 7ХХХХХХХХХХ)" Style="{StaticResource BodyTextBlockStyle}" Padding="0 3 0 0"/>
-                        <TextBox x:Name="tb_phone" Text="{Binding Test}"></TextBox>
+                        <TextBlock Text="ФИО" Style="{StaticResource BodyTextBlockStyle}"  Padding="0 3 0 0"/>
+                        <ComboBox IsTextSearchEnabled="True" IsEditable="True" TextSearch.TextPath="FIO"  x:Name="cb_drivers" SelectionChanged="cb_drivers_SelectionChanged" Width="410">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Name="DriverFamily" Text="{Binding FIO}" Margin="0 0 5 0"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                        <TextBlock Text="Номер телефона" Style="{StaticResource BodyTextBlockStyle}" Padding="0 3 0 0"/>
+                        <TextBox x:Name="tb_phone" ></TextBox>
                         <TextBlock Text="Номер т/с" Style="{StaticResource BodyTextBlockStyle}" Padding="0 3 0 0"/>
-                        <TextBox x:Name="tb_autonum" Text="{Binding Test}"></TextBox>
+                        <TextBox x:Name="tb_autonum" ></TextBox>
+                        <TextBlock Text="Доверенность" Style="{StaticResource BodyTextBlockStyle}" Padding="0 3 0 0"/>
+                        <TextBox x:Name="tb_attorney" ></TextBox>
                         <TextBlock Text="Документ удостоверяющий личность" Style="{StaticResource BodyTextBlockStyle}" Padding="0 3 0 0"/>
-                        <TextBox x:Name="tb_passport" Text="{Binding Test}"></TextBox>
+                        <TextBox x:Name="tb_passport" ></TextBox>
                         <TextBlock Text="Дополнительно" Style="{StaticResource BodyTextBlockStyle}" Padding="0 3 0 0"/>
-                        <TextBox x:Name="tb_info" Text="{Binding Test}"></TextBox>
+                        <TextBox x:Name="tb_info"></TextBox>
                     </StackPanel>
                     <TextBlock Visibility="Collapsed" x:Name="text_error" Text="Дебаг режим подробнее об ошибке"></TextBlock>
                     <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
@@ -117,6 +124,36 @@
                 </StackPanel>
             </Grid>
         </ui:ContentDialog>
+
+        <ui:ContentDialog Grid.ColumnSpan="3" Grid.RowSpan="5" Visibility="Hidden" x:Name="ContentSeach" >
+            <ui:ContentDialog.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="White" Offset="0.251"/>
+                    <GradientStop Color="#FF2EC1EC" Offset="0"/>
+                </LinearGradientBrush>
+            </ui:ContentDialog.Background>
+            <Grid >
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Поиск водителя по незавершенным отгрузкам" Grid.Row="0" Style="{StaticResource SubheaderTextBlockStyle}"/>
+                <TextBox Grid.Row="1"/>
+                <DataGrid Grid.Row="2" Margin="0 10 0 0">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ФИО" Binding="{Binding FIO}"/>
+                        <DataGridTextColumn Header="Статус" Binding="{Binding Status}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0 10 0 0">
+                    <Button Content="Закрыть" Margin="0 0 5 0" Style="{DynamicResource AccentButtonStyle}">
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </ui:ContentDialog>
+
 
     </Grid>
 </Page>
