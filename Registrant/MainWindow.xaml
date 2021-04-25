@@ -202,11 +202,11 @@
             </Grid>
         </ui:ContentDialog>
 
-        <ui:ContentDialog Visibility="Hidden" x:Name="ContentInstallUpdates">
+        <ui:ContentDialog Visibility="Visible" x:Name="ContentInstallUpdates">
             <ui:ContentDialog.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="White" Offset="0.58"/>
-                    <GradientStop Color="#FF2EC1EC" Offset="0"/>
+                    <GradientStop Color="#FFFF9292" Offset="0"/>
                 </LinearGradientBrush>
             </ui:ContentDialog.Background>
             <Grid>
