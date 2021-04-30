@@ -25,7 +25,7 @@ namespace Registrant.Controllers
             {
                 using (DB.RegistrantCoreContext ef = new DB.RegistrantCoreContext())
                 {
-                    var temp = ef.Shipments.Where(x => x.IdTimeNavigation.DateTimePlanRegist.Value.Date == date && x.IdTimeNavigation.DateTimeFactRegist.Value == null).OrderBy(x => x.IdTimeNavigation.DateTimePlanRegist);
+                    var temp = ef.Shipments.Where(x => ((x.IdTimeNavigation.DateTimePlanRegist.Value.Date == date && x.IdTimeNavigation.DateTimeFactRegist.Value == null)) && x.Active != "0").OrderBy(x => x.IdTimeNavigation.DateTimePlanRegist);
                     foreach (var item in temp)
                     {
                         Models.PlanShipment shipment = new Models.PlanShipment(item);
