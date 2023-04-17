@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Registrant.DB;
+using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
@@ -30,6 +31,10 @@ namespace Registrant
             //Подгрузка данных из настроек
             tb_login.Text = Settings.User.Default.login;
             text_verson.Text = Settings.App.Default.AppVersion;
+
+
+
+            RegistrantCoreContext ef = new RegistrantCoreContext();
 
             //Поток наа 1 старт чтобы при старте не тормозилось
             Thread thread = new Thread(CheckForUpdates);

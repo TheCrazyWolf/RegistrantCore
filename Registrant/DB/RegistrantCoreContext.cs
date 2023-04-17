@@ -10,11 +10,13 @@ namespace Registrant.DB
     {
         public RegistrantCoreContext()
         {
+            Database.Migrate();
         }
 
         public RegistrantCoreContext(DbContextOptions<RegistrantCoreContext> options)
             : base(options)
         {
+            Database.Migrate();
         }
 
         public virtual DbSet<Contragent> Contragents { get; set; }
